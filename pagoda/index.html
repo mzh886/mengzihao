@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>应县木塔 · 立木千年 | 可以拆开看的结构互动图谱</title>
+<meta name="description" content="应县木塔（佛宫寺释迦塔）交互式科普网页：拆解塔身构件、逐层浏览明五暗九、剖视双层套筒与暗层斜撑，读懂这座 67.31 米高的千年木构。">
+<meta name="theme-color" content="#ece5d8">
+<meta property="og:type" content="website">
+<meta property="og:title" content="应县木塔 · 立木千年">
+<meta property="og:description" content="拆开一座塔：从台基到塔刹，逐层、逐件、剖视，读懂千年木构。">
+<meta property="og:image" content="../assets/pagoda-preview.webp">
+<meta property="og:image:width" content="1302">
+<meta property="og:image:height" content="790">
+<meta property="og:image:alt" content="应县木塔三维互动页面预览">
+<meta property="og:locale" content="zh_CN">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23943b2e'/%3E%3Cpath d='M17 24h30M20 31h24M23 38h18M27 45h10M32 16v34' fill='none' stroke='%23f4ecdf' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <canvas id="scene" aria-label="应县木塔三维模型，可拖动旋转、滚轮缩放"></canvas>
+  <div class="paper-grain" aria-hidden="true"></div>
+  <div class="sun-disc" aria-hidden="true"></div>
+  <div class="stage-rule stage-rule--left" aria-hidden="true"></div>
+  <div class="stage-rule stage-rule--right" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="应县木塔首页" id="brandHome">
+      <span class="brand-seal">辽</span>
+      <span class="brand-type">
+        <strong>应县木塔</strong>
+        <small>FOGONG TEMPLE · SAKYAMUNI PAGODA</small>
+      </span>
+    </a>
+
+    <nav class="mode-nav" aria-label="浏览模式">
+      <button type="button" class="mode-btn is-active" data-mode="overview"><i>01</i><span>全景</span></button>
+      <button type="button" class="mode-btn" data-mode="explode"><i>02</i><span>拆解</span></button>
+      <button type="button" class="mode-btn" data-mode="floors"><i>03</i><span>逐层</span></button>
+      <button type="button" class="mode-btn" data-mode="section"><i>04</i><span>剖视</span></button>
+    </nav>
+
+    <div class="top-actions">
+      <button type="button" class="top-link" id="openDougong"><span class="top-link-dot"></span>斗拱解剖</button>
+      <button type="button" class="top-link" id="openAbout">关于此塔</button>
+      <a class="top-link" href="../index.html#pagoda" target="_top">个人主页 <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <aside class="rail" id="rail" aria-label="导览">
+    <section class="rail-section is-active" data-rail="overview">
+      <p class="eyebrow"><span></span>山西 · 朔州 · 应县</p>
+      <h1 class="hero-title">立木<br><em>千年</em></h1>
+      <p class="hero-sub">应县木塔 · 佛宫寺释迦塔</p>
+      <p class="hero-copy">世界现存最高、最古老的纯木结构楼阁式塔。不用一颗铁钉，以榫卯与斗拱相扣，在雁北的风与地震中站立了近千年。</p>
+      <div class="hero-stats">
+        <div><b>67.31<small>m</small></b><span>通高</span></div>
+        <div><b>1056</b><span>始建 · 辽</span></div>
+        <div><b>54<small>种</small></b><span>斗拱形制</span></div>
+      </div>
+      <div class="rail-hint">
+        <span class="mouse-glyph" aria-hidden="true"></span>
+        <p>拖动旋转木塔，滚动缩放<br>点击任一构件，看它的来历</p>
+      </div>
+    </section>
+
+    <section class="rail-section" data-rail="explode">
+      <p class="eyebrow"><span></span>EXPLODED VIEW</p>
+      <h2 class="rail-title">把塔<br>拆开看</h2>
+      <p class="rail-copy">一座塔，也是一套精密叠合的构件。拖动分解滑杆，或点选分类，让台基、柱网、斗拱、梁枋与屋顶从塔身中分离。</p>
+      <div class="explode-facts">
+        <div><b>9</b><span>个结构层</span></div>
+        <div><b>10</b><span>类主要构件</span></div>
+        <div><b>无一钉</b><span>榫卯相连</span></div>
+      </div>
+      <p class="rail-note">点选模型中的任意一根柱子、一朵斗拱或一扇隔扇，也能单独查看。</p>
+    </section>
+
+    <section class="rail-section" data-rail="floors">
+      <p class="eyebrow"><span></span>SECTIONAL PROMENADE</p>
+      <h2 class="rail-title">明五<br>暗九</h2>
+      <p class="rail-copy">外观五层，内里九层。四个没有窗的暗层，藏在明层之间，是这座木塔真正的筋骨。</p>
+      <div class="floor-stack" id="floorStack" role="list"></div>
+    </section>
+
+    <section class="rail-section" data-rail="section">
+      <p class="eyebrow"><span></span>STRUCTURAL ANATOMY</p>
+      <h2 class="rail-title">看进<br>塔身</h2>
+      <p class="rail-copy">剖切面会跟随视角转动。选一条结构线索，塔中相应的构件会被点亮。</p>
+      <div class="principle-list" id="principleList"></div>
+    </section>
+  </aside>
+
+  <aside class="inspector" id="inspector" aria-live="polite" aria-label="解说面板">
+    <div class="inspector-loading">
+      <span class="mini-seal">塔</span>
+      <p>正在打开建筑档案</p>
+    </div>
+  </aside>
+
+  <div class="explode-dock" id="explodeDock" aria-hidden="true">
+    <div class="dock-topline">
+      <div class="segmented" role="group" aria-label="拆解方式">
+        <button type="button" data-explode-mode="floors" class="is-active">楼层分解</button>
+        <button type="button" data-explode-mode="parts">构件分解</button>
+      </div>
+      <output id="explodeValue">0%</output>
+    </div>
+    <div class="range-wrap">
+      <span class="range-mark">合</span>
+      <input type="range" id="explodeRange" min="0" max="100" value="0" aria-label="分解程度">
+      <span class="range-mark">散</span>
+    </div>
+    <p class="dock-hint" id="dockHint">拖动滑杆，让九个结构层沿中轴升起</p>
+  </div>
+
+  <div class="view-tools" aria-label="视图工具">
+    <button type="button" class="tool-btn is-on" id="btnRotate" aria-pressed="true">
+      <span class="tool-icon tool-icon--rotate" aria-hidden="true"></span>自动旋转
+    </button>
+    <button type="button" class="tool-btn is-on" id="btnLabels" aria-pressed="true">
+      <span class="tool-icon tool-icon--label" aria-hidden="true"></span>结构标注
+    </button>
+    <button type="button" class="tool-btn" id="btnReset">
+      <span class="tool-icon tool-icon--reset" aria-hidden="true"></span>重置视角
+    </button>
+  </div>
+
+  <div class="scene-labels" id="sceneLabels" aria-hidden="true"></div>
+  <div class="stage-hint mobile-only" aria-hidden="true"><span></span>拖动旋转 · 双指缩放 · 点选构件</div>
+
+  <footer class="footline">
+    <p><span class="foot-mark">国保</span> 第一批全国重点文物保护单位 · 1961</p>
+    <p class="foot-note">科普性艺术复原 · 非测绘数据 · 模型细部有简化</p>
+  </footer>
+
+  <div class="mobile-sheet-bar" id="mobileSheetBar" aria-hidden="true">
+    <span></span>
+  </div>
+
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-seal">辽</div>
+      <div class="loader-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <p>正在营建木塔</p>
+      <small>BUILDING THE PAGODA · 1056</small>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <div class="modal-layer" id="modalLayer" hidden>
+    <div class="modal-scrim" data-close-modal></div>
+
+    <section class="modal modal--dougong" id="dougongModal" role="dialog" aria-modal="true" aria-labelledby="dougongTitle" hidden>
+      <button type="button" class="modal-close" data-close-modal aria-label="关闭">×</button>
+      <header class="modal-head">
+        <p class="eyebrow"><span></span>ONE BRACKET, ONE THOUSAND YEARS</p>
+        <h2 id="dougongTitle">解剖一朵斗拱</h2>
+        <p>应县木塔的斗拱有 <b>54 种</b>形制、<b>480 余朵</b>。它们不是装饰，而是把屋顶重量摊开、把地震力量耗散的“木构弹簧”。</p>
+      </header>
+
+      <div class="dougong-layout">
+        <div class="dougong-figure">
+          <svg viewBox="0 0 620 540" role="img" aria-labelledby="dgSvgTitle" id="dougongSvg">
+            <title id="dgSvgTitle">斗拱构造示意图：栌斗、华拱、下昂、令拱、耍头与散斗</title>
+            <defs>
+              <linearGradient id="woodGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#a96b42"/>
+                <stop offset="1" stop-color="#7d4a2d"/>
+              </linearGradient>
+              <linearGradient id="woodGradLight" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#bf8255"/>
+                <stop offset="1" stop-color="#98613c"/>
+              </linearGradient>
+              <pattern id="woodLines" width="9" height="9" patternUnits="userSpaceOnUse">
+                <path d="M0 2h9M0 7h9" stroke="#5b301d" stroke-opacity=".12" stroke-width=".8"/>
+              </pattern>
+              <marker id="arrowInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0 0 10 5 0 10z" fill="#8f3428"/>
+              </marker>
+            </defs>
+
+            <g class="dg-drawing-lines" stroke="#6e6251" stroke-opacity=".16" fill="none">
+              <path d="M310 36v54M40 470h540"/>
+              <circle cx="310" cy="260" r="214" stroke-dasharray="2 8"/>
+            </g>
+
+            <!-- roof load -->
+            <g id="dg-load" opacity=".9">
+              <path d="M180 82Q310 34 440 82L420 102H200Z" fill="#4d4e43" opacity=".14"/>
+              <path d="M200 102V86M310 68V104M420 102V86" stroke="#8f3428" stroke-width="2" marker-end="url(#arrowInk)"/>
+              <text x="366" y="118" text-anchor="middle" fill="#8f3428" font-size="12" letter-spacing="2">屋顶荷载</text>
+            </g>
+
+            <g id="dgAssembly" class="dg-assembly">
+              <!-- column -->
+              <g id="dg-column" class="dg-part dg-part--column" data-dg="column">
+                <path d="M282 540V352H338V540Z" fill="url(#woodGrad)"/>
+                <path d="M282 540V352H338V540Z" fill="url(#woodLines)"/>
+                <ellipse cx="310" cy="352" rx="28" ry="6" fill="#6f3e26"/>
+              </g>
+
+              <!-- ludou -->
+              <g id="dg-ludou" class="dg-part" data-dg="ludou">
+                <path d="M260 352H360L344 312H276Z" fill="url(#woodGradLight)"/>
+                <path d="M260 352H360L344 312H276Z" fill="url(#woodLines)"/>
+                <rect x="270" y="304" width="80" height="10" rx="2" fill="#7a452b"/>
+              </g>
+
+              <!-- huagong -->
+              <g id="dg-huagong" class="dg-part" data-dg="huagong">
+                <path d="M126 276H414L426 294H212L200 306H138L126 294Z" fill="url(#woodGrad)"/>
+                <path d="M126 276H414L426 294H212L200 306H138L126 294Z" fill="url(#woodLines)"/>
+                <rect x="118" y="267" width="34" height="38" rx="2" fill="#8d5534"/>
+                <rect x="440" y="261" width="38" height="42" rx="2" fill="#8d5534"/>
+              </g>
+
+              <!-- ang -->
+              <g id="dg-ang" class="dg-part" data-dg="ang">
+                <path d="M224 272L394 197L434 213L394 233L418 316L390 326L361 240L224 302Z" fill="#935a36"/>
+                <path d="M224 272L394 197L434 213L394 233L418 316L390 326L361 240L224 302Z" fill="url(#woodLines)"/>
+              </g>
+
+              <!-- linggong -->
+              <g id="dg-linggong" class="dg-part" data-dg="linggong">
+                <path d="M156 208H456L468 226H232L220 236H166L156 226Z" fill="url(#woodGradLight)"/>
+                <path d="M156 208H456L468 226H232L220 236H166L156 226Z" fill="url(#woodLines)"/>
+                <rect x="145" y="196" width="32" height="44" rx="2" fill="#a06640"/>
+                <rect x="470" y="196" width="32" height="44" rx="2" fill="#a06640"/>
+              </g>
+
+              <!-- shuatou -->
+              <g id="dg-shuatou" class="dg-part" data-dg="shuatou">
+                <path d="M230 169H470L480 181L464 191H232L222 181Z" fill="#a56b43"/>
+                <path d="M470 181L500 172L506 181L478 191Z" fill="#8a512f"/>
+              </g>
+
+              <!-- purlin carried by the small blocks -->
+              <g class="dg-purlin" aria-hidden="true">
+                <rect x="106" y="130" width="420" height="19" rx="3" fill="#8b5738"/>
+                <rect x="106" y="130" width="420" height="6" rx="3" fill="#b47b4e" opacity=".65"/>
+                <path d="M106 149h420" stroke="#5f3520" stroke-opacity=".36"/>
+              </g>
+
+              <!-- sandou -->
+              <g id="dg-sandou" class="dg-part" data-dg="sandou">
+                <path d="M134 149h32l-6 20h-20zM208 149h32l-6 20h-20zM296 149h32l-6 20h-20zM384 149h32l-6 20h-20zM456 149h32l-6 20h-20z" fill="#b27a4d"/>
+                <path d="M134 149h32l-6 20h-20zM208 149h32l-6 20h-20zM296 149h32l-6 20h-20zM384 149h32l-6 20h-20zM456 149h32l-6 20h-20z" fill="url(#woodLines)"/>
+              </g>
+            </g>
+
+            <g class="dg-numbers" aria-hidden="true">
+              <path d="M581 151 C560 170 520 171 494 163" fill="none" stroke="#a59782" stroke-width="1" stroke-dasharray="2 3"/>
+              <g class="dg-num" data-dgnum="ludou" transform="translate(232 338)"><circle r="9"/><text dy="3.5">①</text></g>
+              <g class="dg-num" data-dgnum="huagong" transform="translate(96 255)"><circle r="9"/><text dy="3.5">②</text></g>
+              <g class="dg-num" data-dgnum="ang" transform="translate(446 298)"><circle r="9"/><text dy="3.5">③</text></g>
+              <g class="dg-num" data-dgnum="linggong" transform="translate(507 211)"><circle r="9"/><text dy="3.5">④</text></g>
+              <g class="dg-num" data-dgnum="shuatou" transform="translate(545 198)"><circle r="9"/><text dy="3.5">⑤</text></g>
+              <g class="dg-num" data-dgnum="sandou" transform="translate(588 143)"><circle r="9"/><text dy="3.5">⑥</text></g>
+            </g>
+
+            <g id="dgForce" class="dg-force" opacity="0">
+              <path d="M120 410Q240 390 310 320T510 260" fill="none" stroke="#bc5b3c" stroke-width="2" stroke-dasharray="5 7"/>
+              <path d="M510 260l-12 3 8 9z" fill="#bc5b3c"/>
+              <text x="382" y="402" fill="#9c3d2d" font-size="12" letter-spacing="2">力被层层分解</text>
+            </g>
+          </svg>
+
+          <p class="dg-figure-hint">点击图中任一彩色木构件，或使用右侧标签，查看它在受力链上的位置。</p>
+
+          <div class="dg-legend" aria-hidden="true">
+            <span><i class="swatch swatch--wood"></i>构件</span>
+            <span><i class="swatch swatch--force"></i>传力</span>
+            <span><i class="swatch swatch--ink"></i>受力方向</span>
+          </div>
+        </div>
+
+        <div class="dougong-side">
+          <div class="dg-chips" id="dgChips" role="tablist" aria-label="斗拱构件">
+            <button type="button" class="dg-chip is-active" data-dgkey="ludou">① 栌斗</button>
+            <button type="button" class="dg-chip" data-dgkey="huagong">② 华拱</button>
+            <button type="button" class="dg-chip" data-dgkey="ang">③ 下昂</button>
+            <button type="button" class="dg-chip" data-dgkey="linggong">④ 令拱</button>
+            <button type="button" class="dg-chip" data-dgkey="shuatou">⑤ 耍头</button>
+            <button type="button" class="dg-chip" data-dgkey="sandou">⑥ 散斗</button>
+          </div>
+          <div class="dg-copy" id="dgCopy"></div>
+          <div class="dg-meter">
+            <span>屋顶压力</span>
+            <div class="meter-track"><i id="dgLoadBar"></i></div>
+            <span>榫卯转动</span>
+            <div class="meter-track meter-track--warm"><i id="dgMoveBar"></i></div>
+          </div>
+          <button type="button" class="action-btn" id="shakeDougong">施加一次侧向力 <span>→</span></button>
+          <p class="dg-caveat">斗拱示意为单朵剖面。实际木塔各层铺作层叠、出跳与昂面组合更为复杂。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="modal modal--about" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
+      <button type="button" class="modal-close" data-close-modal aria-label="关闭">×</button>
+      <header class="modal-head">
+        <p class="eyebrow"><span></span>THE TOWER IN TIME</p>
+        <h2 id="aboutTitle">一座塔的千年纪事</h2>
+        <p>应县木塔，本名佛宫寺释迦塔。它把辽代的木构技艺、佛教信仰与边地历史，一起留在了山西朔州。</p>
+      </header>
+
+      <div class="about-layout">
+        <div class="about-story">
+          <p class="dropcap">辽清宁二年（1056），木塔在应州佛宫寺内落成。它是世界现存最高、最古老的纯木结构楼阁式塔。这里曾是辽宋边境，建塔既为供奉佛牙舍利，也有登高瞭望之用，民间因此称它“金城戍楼”。</p>
+          <p>塔身平面八角，底层直径约 30 米，外观五层六檐，内部夹着四个暗层，实为九层。内八根、外二十四根柱子组成双层套筒，梁、枋、斜撑与斗拱层层咬合，总重约 7400 吨。它没有用铁钉把木头钉死，而是允许构件在风与地震中轻微错动，再借摩擦把力量卸掉。</p>
+          <p>近千年间，它经历过四十余次地震、雷击与战火，也留下 52 块牌匾、34 尊辽代彩塑和一批辽代秘藏。1933 年，梁思成来到应县测绘，写下：“不见此塔，不知木构的可能性到了什么程度。”</p>
+          <p class="about-current">今天，木塔已出现倾斜和构件变形，不再开放登塔。文物保护者仍在为它寻找更稳妥的修缮方案。</p>
+
+          <div class="about-figures">
+            <div><b>2 600<small>吨</small></b><span>约用木材重量</span></div>
+            <div><b>3 000<small>m³</small></b><span>落叶松木料</span></div>
+            <div><b>34<small>尊</small></b><span>辽代彩塑</span></div>
+            <div><b>52<small>块</small></b><span>历代牌匾</span></div>
+          </div>
+
+          <div class="source-box">
+            <h3>资料与说明</h3>
+            <p>本页为公众科普而作。建筑模型为程序化艺术复原，层高比例、构件数量与细部作了简化，不作为测绘或修缮依据。主要数据参考：</p>
+            <ul>
+              <li><a href="https://wwj.shanxi.gov.cn/wwzy/wwlb/bkydww/qgzdwwbhdw/dypgb/202109/t20210908_1980823.shtml" target="_blank" rel="noopener">山西省文物局《佛宫寺释迦塔（应县木塔）》</a></li>
+              <li><a href="https://www.sxwhzyw.cn/pd540004558.html" target="_blank" rel="noopener">山西文化资源网《佛宫寺释迦塔（应县木塔）》</a></li>
+              <li><a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&amp;classify=0&amp;ar_id=546937" target="_blank" rel="noopener">科普中国《像积木一样的应县木塔，为什么可以屹立千年不倒？》</a></li>
+              <li><a href="https://digitalpaper.stdaily.com/http_www.kjrb.com/kjwzb/html/2024-11/22/content_581054.htm" target="_blank" rel="noopener">科普时报《鬼斧神工的应县木塔》</a></li>
+            </ul>
+            <p class="source-note">不同文献对斗拱种类有 54 种 / 59 种、480 余朵 / 488 朵等不同统计口径，本页采用文物部门公布的 54 种、480 余朵。五层主尊有释迦牟尼与毗卢遮那两种记载，页面以“中央主尊”表述，避免以一说为定论。</p>
+          </div>
+        </div>
+
+        <ol class="timeline">
+          <li><time>1056</time><div><h3>辽清宁二年 · 建塔</h3><p>辽兴宗皇后萧挞里倡建，供奉佛牙舍利。</p></div></li>
+          <li><time>1191–1195</time><div><h3>金明昌年间 · 增修</h3><p>金代对塔身进行大规模增修，形成今日格局。</p></div></li>
+          <li><time>明 · 清</time><div><h3>帝王题匾</h3><p>明成祖题“峻极神工”，明武宗题“天下奇观”。</p></div></li>
+          <li><time>1933</time><div><h3>梁思成考察</h3><p>营造学社对木塔进行测绘，留下珍贵的图纸与照片。</p></div></li>
+          <li><time>1961</time><div><h3>首批国保</h3><p>列入第一批全国重点文物保护单位。</p></div></li>
+          <li><time>1966 · 1974</time><div><h3>辽代秘藏现世</h3><p>佛牙舍利、辽代刻经、佛画等 600 余件文物相继发现。</p></div></li>
+          <li><time>2016</time><div><h3>世界纪录</h3><p>吉尼斯世界纪录认证为世界最高木塔。</p></div></li>
+          <li class="timeline-now"><time>今天</time><div><h3>保护进行时</h3><p>塔身倾斜，暂停登塔；保护与修缮研究仍在持续。</p></div></li>
+        </ol>
+      </div>
+
+      <footer class="about-footer">
+        <p>为应县木塔而作 · 网页中的全部图像均由代码实时绘制</p>
+        <button type="button" class="action-btn action-btn--ink" data-close-modal>回到塔前 <span>→</span></button>
+      </footer>
+    </section>
+  </div>
+
+  <noscript>
+    <div class="noscript">本页需要启用 JavaScript，才能看见木塔的三维结构。</div>
+  </noscript>
+</div>
+
+<script src="three.min.js"></script>
+<script src="data.js"></script>
+<script src="scene.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
