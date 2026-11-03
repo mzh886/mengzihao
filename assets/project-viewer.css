@@ -1,0 +1,273 @@
+/* =========================================================
+   V3 — TWO EQUAL 3D PROJECTS + SHARED VIEWER
+   Loaded after the site's own style.css so it can extend,
+   not replace, the original dark visual system.
+   ========================================================= */
+
+/* ---------- pagoda project: same chassis, warmer accent ---------- */
+
+.pagoda {
+  --lab: #d8b08a;
+  --lab-bright: #f3e0ca;
+  --lab-line: rgba(216, 176, 138, 0.24);
+  --lab-glow: rgba(191, 137, 88, 0.11);
+  background:
+    radial-gradient(1000px 760px at 82% 20%, rgba(196, 141, 92, 0.105), transparent 66%),
+    radial-gradient(800px 600px at 7% 84%, rgba(255, 91, 53, 0.024), transparent 70%),
+    linear-gradient(180deg, var(--ink) 0%, #0b0a07 44%, var(--ink) 100%);
+}
+.pagoda .explainer-feature {
+  background: #0e0d09;
+}
+.pagoda .explainer-feature:hover {
+  border-color: rgba(216, 176, 138, 0.38);
+  background: #121009;
+}
+.pagoda .explainer-feature::before {
+  border-color: rgba(216, 176, 138, 0.26);
+}
+.pagoda .feature-live i,
+.pagoda .series-log-count i {
+  background: var(--lab);
+  box-shadow: 0 0 10px rgba(216, 176, 138, 0.55);
+}
+.pagoda .lab-pulse {
+  background: var(--lab);
+  box-shadow: 0 0 10px rgba(216, 176, 138, 0.55);
+}
+.pagoda .lab-pulse::after {
+  border-color: rgba(216, 176, 138, 0.3);
+}
+.pagoda .series-count {
+  color: var(--lab);
+}
+.pagoda .feature-scan {
+  background: linear-gradient(90deg, transparent, rgba(240, 207, 170, 0.55), transparent);
+}
+.pagoda .feature-visual img {
+  object-position: 50% 42%;
+  filter: saturate(0.86) contrast(1.03) sepia(0.08);
+}
+.pagoda .explainer-feature:hover .feature-visual img {
+  filter: saturate(0.96) contrast(1.04) sepia(0.04);
+}
+.pagoda .series-row:hover {
+  background: rgba(216, 176, 138, 0.035);
+}
+.pagoda .series-row:hover::before {
+  background: var(--lab);
+}
+.pagoda .series-row-arrow {
+  color: rgba(216, 176, 138, 0.65);
+}
+.pagoda .feature-watermark {
+  color: rgba(216, 176, 138, 0.055);
+}
+
+/* ---------- shared full-screen 3D viewer ---------- */
+
+body.project-open {
+  overflow: hidden;
+}
+body.project-open,
+body.project-open.has-custom-cursor {
+  cursor: auto;
+}
+body.project-open .cursor-dot,
+body.project-open .cursor-ring,
+body.project-open .pointer-glow {
+  display: none !important;
+}
+body.project-open.has-custom-cursor a,
+body.project-open.has-custom-cursor button,
+body.project-open.has-custom-cursor [role="button"] {
+  cursor: auto;
+}
+body.project-open.has-custom-cursor .project-viewer-close,
+body.project-open.has-custom-cursor .project-viewer-actions a {
+  cursor: pointer;
+}
+body.project-open .scroll-progress {
+  opacity: 0;
+}
+
+.project-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 16000;
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 2.2vw, 30px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease), visibility 0.45s var(--ease);
+}
+.project-viewer.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.project-viewer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 5, 4, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.project-viewer-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: min(1680px, 100%);
+  height: min(100dvh, 100%);
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(240, 236, 225, 0.18);
+  border-radius: 5px;
+  background: #080a07;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+}
+.project-viewer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex: 0 0 auto;
+  min-height: 70px;
+  padding: 13px clamp(14px, 2vw, 28px);
+  border-bottom: 1px solid var(--line-soft);
+  background:
+    linear-gradient(90deg, rgba(255, 91, 53, 0.06), transparent 28%),
+    #0a0c09;
+}
+.project-viewer-heading {
+  min-width: 0;
+}
+.project-viewer-kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--lab);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.project-viewer-title {
+  overflow: hidden;
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2vw, 24px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-viewer-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+.project-viewer-actions a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.project-viewer-actions a:hover {
+  color: var(--lab-bright);
+}
+.project-viewer-actions a span {
+  color: var(--signal);
+}
+.project-viewer-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  color: var(--paper-soft);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.project-viewer-close span {
+  color: var(--signal);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 0.8;
+}
+.project-viewer-close:hover {
+  color: var(--ink);
+  border-color: var(--paper);
+  background: var(--paper);
+}
+.project-viewer-close:hover span {
+  color: var(--signal-deep);
+}
+.project-viewer-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  background: #000;
+}
+.project-viewer-stage iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+@media (max-width: 900px) {
+  .project-viewer {
+    padding: 0;
+  }
+  .project-viewer-panel {
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+  .project-viewer-bar {
+    min-height: 60px;
+    gap: 12px;
+    padding: 10px 14px;
+  }
+  .project-viewer-title {
+    font-size: 17px;
+  }
+  .project-viewer-actions {
+    gap: 12px;
+    font-size: 7px;
+  }
+  .project-viewer-close {
+    min-height: 32px;
+    padding: 7px 9px;
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 560px) {
+  .project-viewer-actions a {
+    display: none;
+  }
+  .project-viewer-bar {
+    min-height: 56px;
+  }
+  .project-viewer-kicker {
+    font-size: 6px;
+  }
+  .project-viewer-title {
+    max-width: 64vw;
+    font-size: 15px;
+  }
+}
