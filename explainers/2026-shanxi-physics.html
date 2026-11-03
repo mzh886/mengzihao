@@ -1,0 +1,2240 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>复合场中的粒子轨迹 · 3D 题解 01 | 孟子皓</title>
+<meta name="description" content="孟子皓的 3D 题解实验室 · EP.01：2026 高考物理陕晋青宁卷（山西）第 15 题。可旋转 3D 场景、可调电压、三幕讲解。肉眼看见粒子如何穿过小孔、被 Q 弹回并击中 P。">
+<meta name="author" content="孟子皓">
+<meta name="theme-color" content="#04080f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="孟子皓 · 3D 题解实验室">
+<meta property="og:title" content="复合场中的粒子轨迹 · 3D 题解 01">
+<meta property="og:description" content="把最后一道压轴题，放进一个可以旋转的磁场。拖动、调压、播放，亲眼看见两条粒子轨迹如何穿过小孔、被 Q 弹回，再击中 P。">
+<meta property="og:image" content="../assets/explainers/2026-shanxi-physics-scene.jpg">
+<meta property="og:image:width" content="590">
+<meta property="og:image:height" content="568">
+<meta property="og:image:alt" content="复合场中的粒子轨迹 · 3D 题解场景">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="复合场中的粒子轨迹 · 3D 题解 01">
+<meta name="twitter:description" content="可旋转 3D 场景 · 可调电压 · 三幕讲解">
+<meta name="twitter:image" content="../assets/explainers/2026-shanxi-physics-scene.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20x='2'%20y='2'%20width='60'%20height='60'%20rx='14'%20fill='%2307111d'%20stroke='%23164e63'/%3E%3Cpath%20d='M13%2032h38M32%2013v38'%20stroke='%2338bdf8'%20stroke-opacity='.25'/%3E%3Cpath%20d='M32%2018a14%2014%200%200%201%200%2028z'%20fill='none'%20stroke='%2322d3ee'/%3E%3Cpath%20d='M9%2035c7-8%2013-8%2018-3%205%205%2012%206%2027-2'%20fill='none'%20stroke='%23fbbf24'%20stroke-width='2.4'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='3'%20fill='%23f8fafc'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#04080f;
+  --bg-2:#07111d;
+  --panel:rgba(8,18,32,.72);
+  --panel-2:rgba(11,24,41,.72);
+  --line:rgba(148,163,184,.14);
+  --line-soft:rgba(148,163,184,.08);
+  --text:#e8f1fb;
+  --muted:#93a8bd;
+  --faint:#52677d;
+  --cyan:#67e8f9;
+  --teal:#5eead4;
+  --amber:#fbbf24;
+  --red:#fb7185;
+  --serif:"Songti SC","STSong","Noto Serif SC","SimSun",Georgia,serif;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{width:100%;max-width:100%}
+body{
+  margin:0;
+  min-width:320px;
+  background:
+    radial-gradient(1200px 700px at 82% -12%, rgba(34,211,238,.13), transparent 58%),
+    radial-gradient(900px 600px at -10% 30%, rgba(251,191,36,.055), transparent 55%),
+    linear-gradient(180deg,#04080f 0%,#07111d 45%,#04080f 100%);
+  color:var(--text);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background-image:
+    linear-gradient(rgba(148,163,184,.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,.032) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.25) 65%,transparent);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.25) 65%,transparent);
+}
+::selection{background:rgba(34,211,238,.3);color:#fff}
+a{color:inherit}
+button{font:inherit}
+.page{position:relative;z-index:1;min-height:100vh}
+
+/* top bar */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  height:64px;display:flex;align-items:center;gap:26px;
+  padding:0 clamp(16px,3.6vw,42px);
+  border-bottom:1px solid var(--line);
+  background:rgba(4,9,16,.72);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0;flex:0 0 auto}
+.brand-mark{
+  width:34px;height:34px;border-radius:10px;position:relative;flex:0 0 auto;
+  border:1px solid rgba(34,211,238,.3);
+  background:linear-gradient(145deg,rgba(34,211,238,.16),rgba(251,191,36,.05));
+  box-shadow:0 0 26px rgba(34,211,238,.12);
+}
+.brand-mark:before{
+  content:"";position:absolute;inset:8px 4px;border:1px solid rgba(251,191,36,.75);
+  border-radius:50%;transform:rotate(-32deg);border-left-color:transparent;border-bottom-color:transparent;
+}
+.brand-mark:after{
+  content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;
+  background:#f8fafc;transform:translate(-50%,-50%);box-shadow:0 0 10px 2px rgba(103,232,249,.9);
+}
+.brand b{display:block;font-size:12.5px;line-height:1.25;letter-spacing:.01em;white-space:nowrap}
+.brand small{display:block;font:9px/1.4 var(--mono);letter-spacing:.16em;color:var(--faint);text-transform:uppercase;white-space:nowrap}
+.topnav{display:flex;align-items:center;gap:2px;margin-left:auto}
+.topnav a{
+  text-decoration:none;font-size:11.5px;color:var(--muted);padding:7px 10px;border-radius:7px;
+  transition:.16s;white-space:nowrap;
+}
+.topnav a:hover{color:var(--text);background:rgba(148,163,184,.08)}
+.top-actions{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+.top-actions .home-link{color:#a5f3fc;border-color:rgba(103,232,249,.24);background:rgba(8,47,73,.28)}
+.top-actions .home-link:hover{color:#fff;border-color:rgba(103,232,249,.52);background:rgba(8,47,73,.5)}
+.top-actions .home-link svg{width:14px;height:14px;flex:0 0 auto}
+.footer-series{display:block;margin-top:7px;color:var(--faint);font:9px/1.5 var(--mono);letter-spacing:.08em}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid var(--line);border-radius:8px;padding:7px 12px;
+  background:rgba(10,22,38,.58);color:#cbd5e1;font-size:11px;line-height:1.2;
+  cursor:pointer;transition:.16s;white-space:nowrap;text-decoration:none;
+}
+.btn:hover{color:#fff;border-color:rgba(103,232,249,.4);background:rgba(8,47,73,.35)}
+.btn.primary{
+  color:#06151d;border-color:rgba(103,232,249,.7);
+  background:linear-gradient(135deg,#a5f3fc,#5eead4);
+  font-weight:700;
+}
+.btn.primary:hover{background:linear-gradient(135deg,#cffafe,#99f6e4);border-color:#cffafe}
+.btn.ghost{background:rgba(8,18,32,.5)}
+.btn svg{width:13px;height:13px;flex:0 0 auto}
+
+/* mobile hero */
+.mobile-hero{display:none}
+
+/* lab */
+.lab{
+  width:min(1640px,100%);margin:0 auto;
+  display:grid;grid-template-columns:430px minmax(0,1fr);
+  height:calc(100vh - 64px);min-height:700px;
+  border-left:1px solid var(--line);border-right:1px solid var(--line);
+  background:rgba(4,10,18,.26);min-width:0;
+}
+.brief{
+  overflow-y:auto;overscroll-behavior:contain;
+  padding:34px 28px 54px;border-right:1px solid var(--line);
+  scrollbar-width:thin;scrollbar-color:rgba(56,189,248,.26) transparent;
+  min-width:0;
+}
+.brief::-webkit-scrollbar{width:5px}
+.brief::-webkit-scrollbar-thumb{background:rgba(56,189,248,.24);border-radius:99px}
+.eyebrow{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font:10px/1.4 var(--mono);letter-spacing:.08em;color:var(--cyan);
+}
+.eyebrow .year{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:3px 6px;border:1px solid rgba(34,211,238,.28);border-radius:4px;
+  background:rgba(8,47,73,.45);color:#a5f3fc;font-weight:700;letter-spacing:.04em;
+}
+.eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px rgba(251,191,36,.7)}
+h1{
+  margin:18px 0 14px;font-family:var(--serif);font-weight:600;
+  font-size:clamp(36px,3.5vw,49px);line-height:1.06;letter-spacing:-.035em;
+  color:#f8fafc;
+}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(92deg,#f8fafc 0%,#bae6fd 42%,#fde68a 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.lede{margin:0;font-size:13.4px;line-height:1.85;color:var(--muted);max-width:36em}
+.intro-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px;font:10px/1.4 var(--mono);color:var(--faint);letter-spacing:.03em}
+.intro-meta i{width:3px;height:3px;border-radius:50%;background:rgba(148,163,184,.35);display:inline-block}
+.intro-meta b{color:#a5f3fc;font-weight:500}
+
+/* tabs */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:24px 0 16px}
+.tab{
+  appearance:none;border:1px solid var(--line);border-radius:9px;
+  background:rgba(10,22,38,.5);color:var(--muted);
+  padding:9px 8px;text-align:left;cursor:pointer;transition:.16s;
+  display:flex;flex-direction:column;gap:3px;min-width:0;
+}
+.tab b{font:8.5px/1 var(--mono);letter-spacing:.12em;color:var(--faint);font-weight:600}
+.tab span{font-size:11px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab:hover{border-color:rgba(103,232,249,.28);color:#cbd5e1}
+.tab.active{
+  color:#ecfeff;border-color:rgba(34,211,238,.48);
+  background:linear-gradient(145deg,rgba(8,145,178,.25),rgba(251,191,36,.05));
+  box-shadow:0 0 22px rgba(34,211,238,.07) inset;
+}
+.tab.active b{color:var(--cyan)}
+
+/* step content */
+.step-panel{display:none}
+.step-panel.active{display:block;animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.kicker{font:9px/1.4 var(--mono);letter-spacing:.18em;color:var(--amber);text-transform:uppercase;margin-bottom:5px}
+.step-panel h2{margin:0 0 9px;font-size:19px;line-height:1.35;font-weight:650;color:#f8fafc;letter-spacing:-.01em}
+.step-panel p{margin:0 0 8px;font-size:12.2px;line-height:1.78;color:var(--muted)}
+.step-panel p b{color:#e2e8f0;font-weight:600}
+.formula{
+  margin:11px 0 10px;padding:9px 11px;border-left:2px solid #22d3ee;border-radius:0 9px 9px 0;
+  background:linear-gradient(90deg,rgba(8,47,73,.55),rgba(8,20,35,.22));
+  color:#f8fafc;font-family:"Cambria Math","Times New Roman",Georgia,serif;
+  font-size:16px;line-height:1.9;overflow-x:auto;white-space:nowrap;
+}
+.frac{display:inline-flex;flex-direction:column;vertical-align:-.55em;text-align:center;line-height:1.02;margin:0 3px;font-size:.82em}
+.frac>span:first-child{border-bottom:1px solid rgba(226,232,240,.55);padding:0 3px 1px}
+.frac>span:last-child{padding-top:1px}
+.note{
+  margin-top:10px;padding-top:8px;border-top:1px dashed rgba(56,189,248,.14);
+  font-size:11.2px;line-height:1.68;color:#7dd3fc;opacity:.86;
+}
+.note b{color:#bae6fd}
+
+/* cards / controls */
+.card{border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,rgba(11,24,41,.68),rgba(6,14,26,.55));padding:12px 13px;margin-top:12px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.card-head>span{font:9.5px/1.4 var(--mono);letter-spacing:.1em;color:var(--cyan);text-transform:uppercase}
+.card-head .live{display:flex;align-items:center;gap:5px;font:8.5px/1 var(--mono);color:var(--faint)}
+.card-head .live:before{content:"";width:4px;height:4px;border-radius:50%;background:#22d3ee;box-shadow:0 0 7px #22d3ee;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.control-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:11.5px;color:#cbd5e1}
+.control-head b{font:11.5px/1.3 var(--mono);color:#f8fafc;white-space:nowrap;font-weight:500}
+.control-head b small{font-size:9px;color:var(--faint);font-weight:400}
+input[type=range]{accent-color:#22d3ee}
+#voltage{width:100%;height:22px;margin:2px 0 4px;cursor:pointer;background:transparent}
+#voltage::-webkit-slider-runnable-track{height:4px;border-radius:99px;background:linear-gradient(90deg,rgba(34,211,238,.5),rgba(251,191,36,.5),rgba(251,113,133,.42))}
+#voltage::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;margin-top:-5.5px;background:#f8fafc;border:2px solid #22d3ee;box-shadow:0 0 12px rgba(34,211,238,.6);cursor:grab}
+#voltage::-moz-range-track{height:4px;border-radius:99px;background:rgba(56,189,248,.35)}
+#voltage::-moz-range-thumb{width:13px;height:13px;border:2px solid #22d3ee;background:#f8fafc;border-radius:50%}
+.quick{display:flex;gap:5px;margin:3px 0 9px;flex-wrap:wrap}
+.quick button{
+  flex:1;min-width:0;border:1px solid var(--line);border-radius:6px;
+  background:rgba(8,18,32,.58);color:var(--muted);padding:5px 3px;
+  font-size:9.5px;cursor:pointer;transition:.15s;white-space:nowrap;
+}
+.quick button:hover{color:#e2e8f0;border-color:rgba(34,211,238,.4)}
+.quick button.active{color:#a5f3fc;border-color:rgba(34,211,238,.4);background:rgba(8,47,73,.42)}
+
+.band-wrap{margin:6px 0 8px;padding:8px 8px 6px;border-radius:8px;background:rgba(3,10,19,.46);border:1px solid var(--line-soft)}
+.band-labels{display:flex;justify-content:space-between;font:8px/1 var(--mono);font-weight:700;margin-bottom:5px}
+.band{height:7px;border-radius:99px;display:flex;overflow:hidden;position:relative;background:#0f172a}
+.band .z1{background:linear-gradient(90deg,#0891b2,#22d3ee)}
+.band .z2{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.band .z0{background:linear-gradient(90deg,#be123c,#fb7185)}
+.band-marker{position:absolute;top:-3px;width:2px;height:13px;background:#f8fafc;box-shadow:0 0 8px rgba(248,250,252,.9);transform:translateX(-1px);border-radius:2px}
+.band-ticks{position:relative;height:12px;font:8px/1 var(--mono);color:var(--faint);margin-top:3px}
+.band-ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.band-caption{font:8px/1.3 var(--mono);color:var(--faint);text-align:right;margin-top:1px}
+
+.switches{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px}
+.switch{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);cursor:pointer;user-select:none}
+.switch input{position:absolute;opacity:0;width:0;height:0}
+.switch .track{width:24px;height:13px;border-radius:99px;background:rgba(51,65,85,.8);border:1px solid rgba(148,163,184,.2);position:relative;transition:.16s;flex:0 0 auto}
+.switch .track:after{content:"";position:absolute;left:2px;top:1px;width:9px;height:9px;border-radius:50%;background:#94a3b8;transition:.16s}
+.switch input:checked+.track{background:rgba(8,145,178,.6);border-color:rgba(34,211,238,.55)}
+.switch input:checked+.track:after{left:11px;background:#ecfeff;box-shadow:0 0 7px rgba(103,232,249,.8)}
+
+/* readout */
+.read-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:5px 8px;font-size:10.5px;align-items:baseline}
+.read-grid span{color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.read-grid b{color:#e2e8f0;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.read-grid b.warn{color:var(--amber)}
+
+.empty{
+  display:none;border:1px solid rgba(251,113,133,.24);background:rgba(76,5,25,.22);
+  border-radius:10px;padding:10px 11px;margin-top:10px;
+}
+.empty.show{display:block}
+.empty b{display:block;font-size:11px;color:#fda4af;margin-bottom:3px}
+.empty p{margin:0;font-size:10.5px;line-height:1.6;color:#fecdd3;opacity:.72}
+
+/* details */
+details{border:1px solid var(--line);border-radius:11px;background:rgba(7,16,29,.44);margin-top:10px;padding:9px 11px}
+details summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;font-size:10.5px;color:#cbd5e1;font-weight:600}
+details summary::-webkit-details-marker{display:none}
+details summary .hint{font:8.5px/1.4 var(--mono);color:var(--faint);font-weight:400}
+details[open] summary{margin-bottom:7px}
+details p{margin:0 0 6px;font-size:10.8px;line-height:1.7;color:var(--muted)}
+details p:last-child{margin-bottom:0}
+.answer-list{display:flex;flex-direction:column;gap:6px}
+.answer-list .row{display:flex;gap:8px;padding-top:6px;border-top:1px dashed rgba(251,191,36,.12);font-size:10.5px;line-height:1.55;color:#e2e8f0}
+.answer-list .row:first-child{padding-top:0;border-top:0}
+.answer-list .row>b{color:var(--amber);flex:0 0 auto}
+.answer-list .row em{font-style:normal;color:#9fb4c9}
+.answer-list .ranges{display:flex;flex-direction:column;gap:3px;font-size:9.7px;color:#cbd5e1}
+.answer-list .ranges span{display:flex;gap:5px}
+.answer-list .ranges i{font-style:normal;color:var(--faint)}
+.answer-list .fine{font-size:8.7px;line-height:1.5;color:var(--faint);padding-left:22px}
+
+/* viewer */
+.viewer{
+  position:relative;min-width:0;min-height:0;display:flex;flex-direction:column;
+  background:
+    radial-gradient(ellipse at 52% 38%,#0b1d34 0,#06111f 46%,#030912 100%);
+}.viewer:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(2,6,12,.48) 100%);
+}
+.canvas-wrap{flex:1 1 auto;min-height:0;position:relative;overflow:hidden}
+#scene{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.hud{position:absolute;left:14px;top:12px;right:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;pointer-events:none;z-index:2}
+.legend{display:flex;flex-wrap:wrap;gap:5px;max-width:60%}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;font:9.5px/1.2 var(--mono);
+  color:#cbd5e1;background:rgba(3,10,19,.62);border:1px solid var(--line);
+  border-radius:999px;padding:4px 7px;backdrop-filter:blur(6px);white-space:nowrap;
+}
+.chip i{width:13px;height:2px;border-radius:2px;display:inline-block}
+.chip.dim{color:var(--faint);border-style:dashed}
+.chip .cross{font-weight:700;color:#5eead4;font-size:10px;line-height:1}
+.view-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;pointer-events:auto;max-width:46%}
+.view-btn{
+  border:1px solid var(--line);background:rgba(3,10,19,.62);color:var(--muted);
+  border-radius:6px;padding:4px 6px;font:9px/1 var(--mono);cursor:pointer;
+  transition:.15s;backdrop-filter:blur(6px);white-space:nowrap;
+}
+.view-btn:hover{color:#f8fafc;border-color:rgba(34,211,238,.42)}
+.view-btn.on{color:#67e8f9;border-color:rgba(34,211,238,.45);background:rgba(8,47,73,.55)}
+.status{
+  position:absolute;left:14px;bottom:38px;z-index:2;
+  font:10px/1.2 var(--mono);font-weight:600;color:#a5f3fc;
+  background:rgba(3,10,19,.72);border:1px solid rgba(34,211,238,.22);
+  border-radius:6px;padding:5px 8px;backdrop-filter:blur(6px);pointer-events:none;
+}
+.status[data-tone=amber]{color:#fde68a;border-color:rgba(251,191,36,.26)}
+.status[data-tone=red]{color:#fecdd3;border-color:rgba(251,113,133,.3)}
+.status[data-tone=muted]{color:var(--faint);border-color:var(--line)}
+.hint{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);z-index:2;font:9px/1.2 var(--mono);color:var(--faint);pointer-events:none;white-space:nowrap}
+
+.timeline{
+  flex:0 0 62px;display:flex;align-items:center;gap:9px;padding:0 14px;
+  border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(5,13,24,.68),rgba(3,9,18,.94));
+  position:relative;z-index:3;min-width:0;
+}
+.play{
+  width:29px;height:29px;flex:0 0 auto;border-radius:50%;
+  border:1px solid rgba(34,211,238,.4);background:rgba(8,47,73,.5);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.16s;
+}
+.play:hover{background:rgba(8,145,178,.35);box-shadow:0 0 16px rgba(34,211,238,.2)}
+.play .tri{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #ecfeff;margin-left:2px}
+.play .pause{width:8px;height:10px;border-left:3px solid #ecfeff;border-right:3px solid #ecfeff;display:block}
+.stages{display:flex;gap:2px;flex:0 0 auto}
+.stage{
+  border:0;background:transparent;color:var(--faint);font:8.8px/1.2 var(--mono);
+  padding:4px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:.15s;
+}
+.stage:hover{color:#cbd5e1;background:rgba(30,41,59,.5)}
+.stage.active{color:#67e8f9;background:rgba(8,47,73,.75);box-shadow:0 0 0 1px rgba(34,211,238,.2) inset}
+#progress{flex:1;min-width:40px;height:18px;cursor:pointer;background:transparent}
+#progress::-webkit-slider-runnable-track{height:3px;border-radius:99px;background:rgba(56,189,248,.22)}
+#progress::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;margin-top:-4px;background:#e2e8f0;border:2px solid #22d3ee}
+#progress::-moz-range-track{height:3px;border-radius:99px;background:rgba(56,189,248,.22)}
+#progress::-moz-range-thumb{width:10px;height:10px;border:2px solid #22d3ee;background:#e2e8f0;border-radius:50%}
+.pct{font:9px/1 var(--mono);color:var(--faint);width:30px;text-align:right;flex:0 0 auto;font-variant-numeric:tabular-nums}
+
+/* below fold */
+.notes,.exam{width:min(1220px,calc(100% - 40px));margin:0 auto;padding:88px 0 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:22px}
+.section-head .kicker{margin-bottom:6px}
+.section-head h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(27px,3vw,38px);line-height:1.15;letter-spacing:-.03em}
+.section-head p{margin:0;max-width:30em;font-size:11.5px;line-height:1.7;color:var(--muted);text-align:right}
+.note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.note-card{
+  border:1px solid var(--line);border-radius:14px;padding:18px 17px 16px;
+  background:linear-gradient(145deg,rgba(11,24,41,.62),rgba(6,14,26,.42));
+  position:relative;overflow:hidden;
+}
+.note-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--cyan),transparent)}
+.note-card:nth-child(2):before{background:linear-gradient(90deg,var(--amber),transparent)}
+.note-card:nth-child(3):before{background:linear-gradient(90deg,var(--red),var(--amber),transparent)}
+.note-card .num{font:9px/1 var(--mono);letter-spacing:.16em;color:var(--faint);margin-bottom:14px}
+.note-card h3{margin:0 0 7px;font-size:16px;line-height:1.4;color:#f1f5f9;font-weight:650}
+.note-card p{margin:0;font-size:11.2px;line-height:1.75;color:var(--muted)}
+.note-card .mini-formula{
+  margin:10px 0;padding:8px 9px;border-radius:7px;background:rgba(3,10,19,.45);
+  border:1px solid var(--line-soft);font-family:"Cambria Math","Times New Roman",serif;
+  font-size:14px;line-height:1.8;color:#f8fafc;white-space:nowrap;overflow-x:auto;
+}
+
+.exam{padding-bottom:70px}
+.exam-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;align-items:start}
+.exam-card,.answer-box{border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,rgba(11,24,41,.62),rgba(6,14,26,.4));padding:20px 20px 18px}
+.exam-card h3,.answer-box h3{margin:0 0 10px;font:9px/1.4 var(--mono);letter-spacing:.12em;color:var(--cyan);text-transform:uppercase}
+.exam-card p{margin:0 0 10px;font-size:11.5px;line-height:1.8;color:var(--muted)}
+.exam-card p:last-child{margin-bottom:0}
+.givens{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.givens span{font:9px/1.2 var(--mono);color:#9fb4c9;border:1px solid var(--line);border-radius:5px;padding:4px 6px;background:rgba(3,10,19,.35)}
+.result{display:flex;flex-direction:column;gap:8px}
+.result .r{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border-radius:8px;background:rgba(3,10,19,.35);border:1px solid var(--line-soft)}
+.result .r>b{font:10px/1.5 var(--mono);color:var(--amber);flex:0 0 auto}
+.result .r>div{font-size:11.5px;line-height:1.6;color:#e2e8f0}
+.result .r small{display:block;font-size:9.5px;color:var(--faint);margin-top:2px}
+.result .r .formula-line{font-family:"Cambria Math","Times New Roman",serif;font-size:14.5px;color:#f8fafc}
+.share-cta{margin-top:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.share-cta span{font:9.5px/1.4 var(--mono);color:var(--faint)}
+
+footer{border-top:1px solid var(--line);padding:28px clamp(18px,4vw,40px);color:var(--faint);font-size:10px;line-height:1.7}
+.footer-in{width:min(1220px,100%);margin:0 auto;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+.footer-in b{color:#9fb4c9;font-weight:500}
+.footer-links{display:flex;gap:12px;flex-wrap:wrap}
+.footer-links a,.footer-links button{background:none;border:0;padding:0;color:var(--faint);font:inherit;cursor:pointer;text-decoration:none}
+.footer-links a:hover,.footer-links button:hover{color:var(--cyan)}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:26px;z-index:200;transform:translate(-50%,16px);
+  background:rgba(6,16,29,.94);border:1px solid rgba(103,232,249,.28);
+  color:#e2e8f0;border-radius:9px;padding:9px 13px;font-size:11px;line-height:1.4;
+  box-shadow:0 18px 50px rgba(0,0,0,.55);opacity:0;pointer-events:none;
+  transition:.22s;backdrop-filter:blur(10px);max-width:min(90vw,520px);text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* small screens */
+@media (max-width:1120px){
+  .lab{grid-template-columns:390px minmax(0,1fr)}
+  .brief{padding:28px 22px 44px}
+  .section-head p{display:none}
+}
+@media (max-width:900px){
+  .topbar{height:56px;gap:12px;padding:0 15px}
+  .topnav{display:none}
+  .brand-mark{width:29px;height:29px}
+  .brand b{font-size:11.5px}
+  .brand small{font-size:8px;letter-spacing:.1em}
+  .top-actions .btn{padding:6px 9px;font-size:10px}
+  .top-actions .btn .label-full{display:none}
+  .mobile-hero{display:block;width:100%;max-width:720px;margin:0 auto;padding:26px 18px 14px}
+  .mobile-hero .eyebrow{font-size:9px}
+  .mobile-hero h1{font-size:clamp(31px,8vw,42px);margin:12px 0 10px}
+  .mobile-hero .lede{font-size:12.5px;max-width:100%;overflow-wrap:break-word}
+  .mobile-hero .intro-meta{margin-top:12px}
+  .lab{grid-template-columns:minmax(0,1fr);height:auto;min-height:0;border:0;width:100%}
+  .viewer{order:1;height:58vh;min-height:420px;border-bottom:1px solid var(--line);width:100%;max-width:100%}
+  .brief{order:2;overflow:visible;padding:20px 18px 36px;border-right:0;width:100%;max-width:100%}
+  .brief>.intro{display:none}
+  .tabs{position:sticky;top:56px;z-index:20;background:rgba(4,10,18,.92);backdrop-filter:blur(10px);padding:6px 0;margin-top:0}
+  .legend{max-width:62%}
+  .view-actions{max-width:38%}
+  .status{bottom:10px;left:10px}
+  .hint{display:none}
+  .timeline{height:auto;min-height:76px;display:flex;flex-wrap:wrap;align-items:center;gap:7px 8px;padding:8px 11px;overflow:hidden;width:100%;max-width:100%}
+  .stages{order:4;flex:1 0 100%;min-width:0;overflow-x:auto;justify-content:flex-start;padding-bottom:1px;scrollbar-width:none}
+  .stages::-webkit-scrollbar{display:none}
+  #progress{order:2;flex:1 1 120px;min-width:0;max-width:100%;width:auto}
+  .pct{order:3;width:32px}
+  .play{order:1}
+  .notes,.exam{width:calc(100% - 36px);padding-top:64px}
+  .section-head{display:block;margin-bottom:16px}
+  .section-head h2{font-size:28px}
+  .note-grid{grid-template-columns:1fr}
+  .exam-grid{grid-template-columns:1fr}
+  .exam{padding-bottom:52px}
+  .footer-in{display:block;text-align:left}
+  .footer-links{margin-top:10px}
+}
+@media (max-width:560px){
+  .brand small{display:none}
+  .top-actions{gap:5px}
+  .top-actions .btn{padding:6px 8px}
+  .mobile-hero{padding-top:20px}
+  .viewer{height:54vh;min-height:380px}
+  .legend{gap:3px}
+  .chip{font-size:8px;padding:3px 5px}
+  .view-actions{gap:3px;max-width:42%}
+  .view-actions .view-btn:not([data-view="iso"]):not([data-view="front"]){display:none}
+  #autoBtn{display:none}
+  .view-btn{font-size:8px;padding:3px 4px}
+  .stage{font-size:8px;padding:3px}
+  .formula{font-size:14px}
+  .step-panel h2{font-size:17px}
+  .note-card{padding:15px}
+  .exam-card,.answer-box{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="孟子皓 3D 题解实验室 · 回到顶部">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>
+        <b>3D 题解实验室</b>
+        <small>MENG ZIHAO / EXPLAINER 01</small>
+      </span>
+    </a>
+    <nav class="topnav" aria-label="页面导航">
+      <a href="#lab">互动讲解</a>
+      <a href="#notes">三幕笔记</a>
+      <a href="#questions">题目原文</a>
+      <a href="#answers">参考答案</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn ghost home-link" href="../index.html#explainers" aria-label="返回孟子皓个人主页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        <span class="label-full">个人主页</span>
+      </a>
+      <button type="button" class="btn ghost js-share" id="shareBtn" aria-label="分享这个网页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.3 10.8 7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+        <span class="label-full">分享</span>
+      </button>
+      <button type="button" class="btn ghost" id="fullBtn" aria-label="全屏观看">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+        <span class="label-full">全屏</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="mobile-hero" aria-label="课程介绍">
+      <div class="eyebrow"><span class="year">2026</span> 高考物理 · 陕晋青宁卷 · 第 15 题 <i class="dot"></i> 山西</div>
+      <h1>复合场中的<br><em>粒子轨迹</em></h1>
+      <p class="lede">把最后一道压轴题，放进一个可以旋转的磁场里。拖动、调压、播放，亲眼看见两条轨迹如何穿过小孔、被 Q 弹回，再击中 P。</p>
+      <div class="intro-meta"><span><b>3D</b> 可旋转</span><i></i><span><b>U</b> 可调</span><i></i><span><b>3</b> 幕讲解</span></div>
+    </section>
+
+    <section class="lab" id="lab" aria-label="3D 互动讲解">
+      <aside class="brief">
+        <div class="intro">
+          <div class="eyebrow"><span class="year">2026</span> 高考物理 · 陕晋青宁卷 · 第 15 题 <i class="dot"></i> 山西</div>
+          <h1>复合场中的<br><em>粒子轨迹</em></h1>
+          <p class="lede">把最后一道压轴题，放进一个可以旋转的磁场里。拖动、调压、播放，亲眼看见两条轨迹如何穿过小孔、被 Q 弹回，再击中 P。</p>
+          <div class="intro-meta"><span><b>3D</b> 可旋转</span><i></i><span><b>U</b> 可调</span><i></i><span><b>3</b> 幕讲解</span></div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="三幕讲解">
+          <button type="button" class="tab active" data-step="1" role="tab" aria-selected="true"><b>01</b><span>电场过孔</span></button>
+          <button type="button" class="tab" data-step="2" role="tab" aria-selected="false"><b>02</b><span>磁场折返</span></button>
+          <button type="button" class="tab" data-step="3" role="tab" aria-selected="false"><b>03</b><span>电压扫描</span></button>
+        </div>
+
+        <div class="step-panels" id="stepPanels">
+          <article class="step-panel active" data-panel="1">
+            <div class="kicker">第一幕 · 电场</div>
+            <h2>哪些粒子能穿过小孔？</h2>
+            <p>粒子源在 (−L, 0)，正极在上板，电场力向下。粒子要在水平前进 L 的同时回到 y=0，所以到达 O 点时速度必须斜向下。</p>
+            <p>把水平位移和竖直位移联立，得到只与电压有关的角度方程；到达 O 点时，速度方向与 x 轴正向的夹角正弦，恰好就是 sinθ。</p>
+            <div class="formula"><span>sin 2θ = </span><span class="frac"><span>qU</span><span>2mv₀²</span></span><span> = k</span></div>
+            <div class="note">初始电压代入 k=24/25，所以 <b>sinθ=3/5 或 4/5</b>。两条入射轨迹在 O 点分别以这两个角度进入磁场。</div>
+          </article>
+
+          <article class="step-panel" data-panel="2">
+            <div class="kicker">第二幕 · 磁场</div>
+            <h2>磁场怎样把它送回 P？</h2>
+            <p>进入磁场后，速度大小仍为 v₀，回旋半径 R=mv₀/(qB)=L。第一段圆弧从 O 到 E，正好转过 θ，出射速度变为水平。</p>
+            <p>粒子水平撞上 Q，弹性碰撞只把 vx 反向；它沿同一水平线回到 E。第二段圆弧再转过 θ，打在 P 的右侧。</p>
+            <div class="formula"><span>y<sub>P</sub> = 2L(1 − cos θ)</span></div>
+            <div class="note">Q 的距离不影响撞击高度——这是本题最漂亮的对称性。代入两个角度，得到 <b>y=2L/5 或 4L/5</b>。动画中往返两条水平线略作错位，只为看清反弹。</div>
+          </article>
+
+          <article class="step-panel" data-panel="3">
+            <div class="kicker">第三幕 · 扫描</div>
+            <h2>电压如何决定撞击点个数？</h2>
+            <p>电压越大，k 越大，入射角越靠近 45°，两条轨迹越靠拢。但电压太大时，没有粒子能到达 O；电压太小时，陡角轨迹会先撞上上板。</p>
+            <p>临界条件是陡角轨迹的最高点刚好到上板，联立 sin²θ=2k 与 sin2θ=k，得到 k=8/17，即 U=16mv₀²/(17q)。</p>
+            <div class="formula"><span>k = </span><span class="frac"><span>qU</span><span>2mv₀²</span></span><span>，　k<sub>临界</sub> = </span><span class="frac"><span>8</span><span>17</span></span></div>
+            <div class="note">扫描电压时，场景会实时显示：0 个、1 个或 2 个撞击点。临界值 16/17 处按“擦板即吸收”计为 1 个。</div>
+          </article>
+        </div>
+
+        <div class="card controls" aria-label="电压与显示控制">
+          <div class="card-head"><span>控制台 / CONTROLS</span><span class="live">LIVE</span></div>
+          <div class="control-head">
+            <span>电压 U</span>
+            <b><span id="uValue">1.920</span> <small>mv₀²/q</small></b>
+          </div>
+          <input id="voltage" type="range" min="0" max="2.2" step="0.001" value="1.92" aria-label="电压 U，单位 m v0 平方除以 q">
+          <div class="quick" id="quick">
+            <button type="button" data-u="1.92">初始 48/25</button>
+            <button type="button" data-u="0.941176">擦板 16/17</button>
+            <button type="button" data-u="2">极限 2</button>
+          </div>
+          <div class="band-wrap" aria-hidden="true">
+            <div class="band-labels"><span style="color:#67e8f9">1</span><span style="color:#fbbf24">2</span><span style="color:#fb7185">0</span></div>
+            <div class="band">
+              <span class="z1" style="width:42.78%"></span>
+              <span class="z2" style="width:48.13%"></span>
+              <span class="z0" style="width:9.09%"></span>
+              <i class="band-marker" id="bandMarker" style="left:87.27%"></i>
+            </div>
+            <div class="band-ticks"><span style="left:42.78%">16/17</span><span style="left:90.91%">2</span></div>
+            <div class="band-caption">撞击点个数随 U 变化</div>
+          </div>
+          <div class="switches">
+            <label class="switch"><input id="toggleField" type="checkbox" checked><span class="track"></span><span>显示磁场</span></label>
+            <label class="switch"><input id="toggleVectors" type="checkbox" checked><span class="track"></span><span>显示速度矢量</span></label>
+          </div>
+        </div>
+
+        <div class="card readout" aria-label="实时读数">
+          <div class="card-head"><span>实时读数 / READOUT</span><span class="live">LIVE</span></div>
+          <div class="read-grid" id="readout"></div>
+        </div>
+
+        <div class="empty" id="empty">
+          <b>没有粒子能过孔</b>
+          <p id="emptyText">U 超过 2mv₀²/q 后，k&gt;1，方程 sin2θ=k 无解。无论朝哪个方向发射，粒子都会先打到金属板或挡板 P。</p>
+        </div>
+
+        <details class="answers" open>
+          <summary>参考结论 <span class="hint">点击收起</span></summary>
+          <div class="answer-list">
+            <div class="row"><b>(1)</b><span>sinθ = <em>3/5</em> 或 <em>4/5</em></span></div>
+            <div class="row"><b>(2)</b><span>y = <em>2L/5</em> 或 <em>4L/5</em></span></div>
+            <div class="row">
+              <b>(3)</b>
+              <div class="ranges">
+                <span><i>无法打到：</i>U ≥ 2mv₀²/q</span>
+                <span><i>1 个：</i>0&lt;U&lt;16mv₀²/(17q) 或 U=2mv₀²/q</span>
+                <span><i>2 个：</i>16mv₀²/(17q)&lt;U&lt;2mv₀²/q</span>
+              </div>
+            </div>
+            <div class="fine">U=16mv₀²/(17q) 为擦板临界；本页按“擦到即吸收”计为 1 个撞击点。</div>
+          </div>
+        </details>
+
+        <details class="question">
+          <summary>完整题干与已知量 <span class="hint">展开</span></summary>
+          <p>挡板 P 垂直于 x 轴，小孔在 O；两金属板间距 2L，上板为正极，板间电压 U 初始为 48mv₀²/(25q)。粒子源在 (−L,0)，以 v₀ 向平面内各方向发射质量 m、电荷量 q(q&gt;0) 的粒子。y 轴右侧是圆心 O′(0,L)、直径在 y 轴、半径 L 的半圆磁场，B=mv₀/(qL)，方向垂直纸面向里。x&gt;L 处有垂直 x 轴的弹性绝缘挡板 Q。</p>
+          <p>(1) 求可从小孔进入磁场的粒子，在 O 点速度方向与 x 轴正向夹角的正弦值。(2) 求粒子与 Q 碰撞后再次进入磁场，到达 P 上位置的 y 坐标。(3) 求三种电压范围。</p>
+        </details>
+      </aside>
+
+      <section class="viewer" aria-label="三维场景">
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="scene" role="img" aria-label="可旋转的三维物理场景：平行金属板、半圆磁场、粒子轨迹与挡板 P、Q"></canvas>
+          <div class="hud">
+            <div class="legend" id="legend"></div>
+            <div class="view-actions" aria-label="视角控制">
+              <button type="button" class="view-btn" data-view="iso">斜视</button>
+              <button type="button" class="view-btn" data-view="front">正视</button>
+              <button type="button" class="view-btn" data-view="top">俯视</button>
+              <button type="button" class="view-btn" data-view="side">侧视</button>
+              <button type="button" class="view-btn" id="autoBtn">自动旋转</button>
+            </div>
+          </div>
+          <div class="status" id="status" data-tone="amber">2 个撞击点</div>
+          <div class="hint">拖动旋转 · 滚轮缩放 · 双击复位</div>
+        </div>
+        <div class="timeline">
+          <button type="button" class="play" id="playBtn" aria-label="播放粒子运动"><span class="tri"></span></button>
+          <div class="stages" id="stages">
+            <button type="button" class="stage active" data-stage="electric">电场</button>
+            <button type="button" class="stage" data-stage="arc1">磁场Ⅰ</button>
+            <button type="button" class="stage" data-stage="q">Q 往返</button>
+            <button type="button" class="stage" data-stage="arc2">磁场Ⅱ</button>
+            <button type="button" class="stage" data-stage="impact">P 吸收</button>
+          </div>
+          <input id="progress" type="range" min="0" max="1" step="0.001" value="0" aria-label="播放进度">
+          <span class="pct" id="pct">0%</span>
+        </div>
+      </section>
+    </section>
+
+    <section class="notes" id="notes">
+      <div class="section-head">
+        <div>
+          <div class="kicker">THREE ACTS / 三幕笔记</div>
+          <h2>把 3D 里的三幕，写成三张笔记</h2>
+        </div>
+        <p>如果只能记住三件事：过孔条件、两段圆弧的对称性，以及 8/17 这个临界值。</p>
+      </div>
+      <div class="note-grid">
+        <article class="note-card">
+          <div class="num">ACT 01 / 电场</div>
+          <h3>过孔：一个角度方程</h3>
+          <div class="mini-formula">sin 2θ = qU / 2mv₀² = k</div>
+          <p>水平走 L、竖直回到 0，联立后只剩下 k。初始 U 使 k=24/25，于是 sinθ=3/5 或 4/5，对应 36.9° 和 53.1°。</p>
+        </article>
+        <article class="note-card">
+          <div class="num">ACT 02 / 磁场</div>
+          <h3>折返：两段相同的 θ</h3>
+          <div class="mini-formula">R = L，　y<sub>P</sub> = 2L(1 − cosθ)</div>
+          <p>第一段圆弧从 O 到 E 转过 θ，出射速度恰好水平；Q 只反转 vx，所以回程还是同一条水平线。第二段圆弧再转 θ，落在 P 上。</p>
+        </article>
+        <article class="note-card">
+          <div class="num">ACT 03 / 扫描</div>
+          <h3>分类：8/17 与 2</h3>
+          <div class="mini-formula">k<sub>临界</sub> = 8/17，　k<sub>极限</sub> = 1</div>
+          <p>k&lt;8/17 时陡角粒子先撞上板，只剩一个撞击点；8/17&lt;k&lt;1 时两个角度都过孔；k&gt;1 时无解。k=1 时两角合并为 45°。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="exam" id="questions">
+      <div class="section-head">
+        <div>
+          <div class="kicker">THE PROBLEM / 题目与答案</div>
+          <h2>2026 陕晋青宁卷 · 第 15 题</h2>
+        </div>
+        <p>山西 2026 年物理使用陕晋青宁卷；这是全卷最后一题。</p>
+      </div>
+      <div class="exam-grid">
+        <article class="exam-card">
+          <h3>题目原文</h3>
+          <p>如图，垂直于 x 轴的足够大绝缘薄挡板 P 紧贴平行金属板放置，挡板 P 有一小孔在原点 O 处，O 点到垂直于 y 轴的两金属板距离相等。在 xOy 平面位于 (−L,0) 处的粒子源以速率 v₀ 向面内各方向发射质量为 m、电荷量为 q(q&gt;0) 的带电粒子。两金属板（上板为正极）间距为 2L，板间电压 U 初始为 48mv₀²/(25q)。</p>
+          <p>在 xOy 平面 y 轴右侧，圆心 O′ 位于 (0,L)、直径在 y 轴、半径为 L 的半圆区域存在方向垂直于平面向里的匀强磁场，磁感应强度大小为 mv₀/(qL)。在 x&gt;L 处有一垂直于 x 轴的固定弹性绝缘挡板 Q，粒子若碰到 Q 将发生弹性碰撞且电荷量 q 不变。粒子打到金属板或挡板 P 均会被吸收。</p>
+          <p>(1) 求可从小孔进入磁场的粒子，在 O 点射入磁场速度方向与 x 轴正向夹角的正弦值；(2) 求粒子从磁场射出后与 Q 碰撞，再次射入磁场到达 P 上位置的 y 坐标；(3) 求三种电压取值范围。</p>
+          <div class="givens">
+            <span>m</span><span>q &gt; 0</span><span>v₀</span><span>L</span><span>B=mv₀/(qL)</span><span>U₀=48mv₀²/(25q)</span>
+          </div>
+        </article>
+        <aside class="answer-box" id="answers">
+          <h3>参考答案</h3>
+          <div class="result">
+            <div class="r"><b>(1)</b><div><span class="formula-line">sinθ = 3/5 或 4/5</span><small>两条入射角：36.9° / 53.1°</small></div></div>
+            <div class="r"><b>(2)</b><div><span class="formula-line">y = 2L/5 或 4L/5</span><small>Q 的距离不影响撞击高度</small></div></div>
+            <div class="r"><b>(3)</b><div>
+              <span class="formula-line">按撞击点个数分类</span>
+              <small>无法打到：U ≥ 2mv₀²/q</small>
+              <small>1 个：0&lt;U&lt;16mv₀²/(17q) 或 U=2mv₀²/q</small>
+              <small>2 个：16mv₀²/(17q)&lt;U&lt;2mv₀²/q</small>
+            </div></div>
+          </div>
+          <div class="share-cta">
+            <button type="button" class="btn primary js-share">分享给同学</button>
+            <span>或复制浏览器地址</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-in">
+      <div><b>2026 高考物理 · 陕晋青宁卷（山西）第 15 题</b><br>3D 互动讲解 · 拖动旋转 / 滚轮缩放 / 双击复位<span class="footer-series">孟子皓 · 3D 题解实验室 / EP. 01</span></div>
+      <div class="footer-links">
+        <a href="../index.html#explainers">← 返回个人主页</a>
+        <a href="#lab">回到 3D</a>
+        <button type="button" class="js-share">分享此页</button>
+        <span>教学演示 · 原题版权归命题方</span>
+      </div>
+    </div>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const PI = Math.PI;
+const TAU = PI * 2;
+const U_INIT = 48 / 25;
+const U_GRAZE = 16 / 17;
+const U_LIMIT = 2;
+const K_GRAZE = 8 / 17;
+const Q_X = 2.05;
+
+/* ------------------------------------------------------------------ */
+/* Small math helpers.                                                */
+/* ------------------------------------------------------------------ */
+
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const mul = (a, s) => [a[0] * s, a[1] * s, a[2] * s];
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [
+  a[1] * b[2] - a[2] * b[1],
+  a[2] * b[0] - a[0] * b[2],
+  a[0] * b[1] - a[1] * b[0],
+];
+const len = (a) => Math.sqrt(dot(a, a));
+const norm = (a) => {
+  const l = len(a) || 1;
+  return [a[0] / l, a[1] / l, a[2] / l];
+};
+const dist3 = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+const p3 = (x, yDown, z) => [x, -yDown, z];
+
+const COLORS = {
+  cyan: '#67e8f9',
+  teal: '#5eead4',
+  amber: '#fbbf24',
+  amberSoft: '#fcd34d',
+  red: '#fb7185',
+  slate: '#94a3b8',
+  white: '#f8fafc',
+};
+
+/* ------------------------------------------------------------------ */
+/* Physics model.                                                     */
+/* U is measured in units of m v0^2 / q.                              */
+/* ------------------------------------------------------------------ */
+
+function impactY(theta) {
+  return 2 * (1 - Math.cos(theta));
+}
+
+function analyze(u) {
+  const k = u / 2;
+  const eps = 1e-7;
+  const entries = [];
+  let blocked = null;
+  let fan = false;
+
+  if (u <= 1e-7) {
+    return {
+      u,
+      k: 0,
+      kind: 'degenerate',
+      entries,
+      blocked: null,
+      impacts: [],
+      status: 'degenerate',
+      topClearance: null,
+    };
+  }
+
+  if (k > 1 + 1e-9) {
+    fan = true;
+  } else if (k >= 1 - 1e-9) {
+    entries.push({ theta: PI / 4, id: 0, label: 'θ' });
+  } else {
+    const theta1 = 0.5 * Math.asin(clamp(k, 0, 1));
+    const theta2 = PI / 2 - theta1;
+    entries.push({ theta: theta1, id: 0, label: 'θ₁' });
+    if (k > K_GRAZE + 1e-6) {
+      entries.push({ theta: theta2, id: 1, label: 'θ₂' });
+    } else {
+      const top = Math.sin(theta2) ** 2 / (2 * k);
+      blocked = {
+        theta: theta2,
+        id: 'blocked',
+        label: 'θ₂',
+        grazing: Math.abs(k - K_GRAZE) <= 1e-6,
+        clearance: 1 - top,
+      };
+    }
+  }
+
+  const impacts = entries.map((e) => impactY(e.theta));
+  let kind;
+  if (fan) kind = 'none';
+  else if (entries.length >= 2) kind = 'two';
+  else if (blocked && blocked.grazing) kind = 'grazing';
+  else if (entries.length === 1) kind = 'one';
+  else kind = 'none';
+
+  return {
+    u,
+    k,
+    kind,
+    entries,
+    blocked,
+    impacts,
+    status: kind,
+    topClearance: blocked ? blocked.clearance : null,
+    fan,
+  };
+}
+
+function finishPath(points, meta) {
+  const cum = [0];
+  let total = 0;
+  for (let i = 1; i < points.length; i++) {
+    total += dist3(points[i - 1], points[i]);
+    cum.push(total);
+  }
+  const marks = [];
+  let lastStage = null;
+  for (let i = 0; i < points.length; i++) {
+    if (points[i].stage !== lastStage) {
+      marks.push({ stage: points[i].stage, s: total ? cum[i] / total : 0 });
+      lastStage = points[i].stage;
+    }
+  }
+  return { ...meta, points, cum, total, marks };
+}
+
+function buildEntryPath(theta, k, id) {
+  const points = [];
+  const z = 0.1;
+  const tEnd = 1 / Math.cos(theta);
+  const N = 64;
+  for (let i = 0; i <= N; i++) {
+    const t = (tEnd * i) / N;
+    const x = -1 + Math.cos(theta) * t;
+    const y = -Math.sin(theta) * t + 0.5 * k * t * t;
+    points.push({ x, y: i === N ? 0 : Math.min(0, y), z, stage: 'electric' });
+  }
+
+  const C = { x: Math.sin(theta), y: -Math.cos(theta) };
+  const a0 = PI - theta;
+  const a1 = PI / 2;
+  for (let i = 1; i <= 48; i++) {
+    const a = lerp(a0, a1, i / 48);
+    points.push({
+      x: C.x + Math.cos(a),
+      y: C.y + Math.sin(a),
+      z,
+      stage: 'arc1',
+    });
+  }
+
+  const ex = Math.sin(theta);
+  const ey = 1 - Math.cos(theta);
+  // A tiny visual separation makes the outbound and return legs legible
+  // in the orbit view. The physics is still the same horizontal line.
+  const dy = 0.022;
+  const NQ = 28;
+  points.push({ x: ex, y: ey + dy, z, stage: 'toQ' });
+  for (let i = 1; i <= NQ; i++) {
+    points.push({
+      x: lerp(ex, Q_X, i / NQ),
+      y: ey + dy,
+      z,
+      stage: 'toQ',
+    });
+  }
+  points.push({ x: Q_X, y: ey - dy, z, stage: 'back' });
+  for (let i = 1; i <= NQ; i++) {
+    points.push({
+      x: lerp(Q_X, ex, i / NQ),
+      y: ey - dy,
+      z,
+      stage: 'back',
+    });
+  }
+  points.push({ x: ex, y: ey, z, stage: 'back' });
+
+  const C2 = { x: ex, y: 2 - Math.cos(theta) };
+  const b0 = -PI / 2;
+  const b1 = -PI / 2 - theta;
+  for (let i = 1; i <= 48; i++) {
+    const b = lerp(b0, b1, i / 48);
+    points.push({
+      x: C2.x + Math.cos(b),
+      y: C2.y + Math.sin(b),
+      z,
+      stage: 'arc2',
+    });
+  }
+  const py = impactY(theta);
+  points.push({ x: 0, y: py, z, stage: 'impact' });
+
+  return finishPath(points, {
+    theta,
+    k,
+    id,
+    blocked: false,
+    exit: { x: ex, y: ey },
+    impact: { x: 0, y: py },
+    color: id === 0 ? COLORS.cyan : COLORS.amber,
+    label: id === 0 ? 'θ₁' : 'θ₂',
+  });
+}
+
+function buildBlockedPath(theta, k, blocked) {
+  const points = [];
+  const A = 0.5 * k;
+  const B = -Math.sin(theta);
+  const C = 1;
+  const disc = B * B - 4 * A * C;
+  let tHit = Math.sin(theta) / Math.max(k, 1e-9);
+  if (disc >= 0) {
+    tHit = (-B - Math.sqrt(disc)) / (2 * A);
+  }
+  const N = 56;
+  for (let i = 0; i <= N; i++) {
+    const t = (tHit * i) / N;
+    const x = -1 + Math.cos(theta) * t;
+    const y = -Math.sin(theta) * t + 0.5 * k * t * t;
+    points.push({
+      x,
+      y: i === N ? -1 : Math.min(0, y),
+      z: 0.12,
+      stage: 'blocked',
+    });
+  }
+  return finishPath(points, {
+    theta,
+    k,
+    id: 'blocked',
+    blocked: true,
+    grazing: !!blocked.grazing,
+    hit: { x: -1 + Math.cos(theta) * tHit, y: -1 },
+    color: COLORS.red,
+    label: 'θ₂',
+  });
+}
+
+function buildAbsorbedFan(k) {
+  const fans = [];
+  for (let deg = 12; deg <= 78; deg += 11) {
+    const theta = (deg * PI) / 180;
+    const points = [];
+    let t = 0;
+    let hit = null;
+    let hitType = 'plate';
+    for (let i = 0; i <= 70; i++) {
+      t = (i / 70) * (1.8 / Math.max(0.25, Math.cos(theta)));
+      const x = -1 + Math.cos(theta) * t;
+      const y = -Math.sin(theta) * t + 0.5 * k * t * t;
+      if (x >= 0) {
+        hit = { x: 0, y };
+        hitType = 'P';
+        points.push({ x: 0, y, z: 0.08, stage: 'blocked' });
+        break;
+      }
+      if (y <= -1) {
+        const prev = points[points.length - 1] || { x, y: 0 };
+        const f = (-1 - prev.y) / ((y - prev.y) || 1);
+        hit = {
+          x: lerp(prev.x, x, f),
+          y: -1,
+        };
+        points.push({ x: hit.x, y: -1, z: 0.08, stage: 'blocked' });
+        break;
+      }
+      if (y >= 1) {
+        hit = { x, y: 1 };
+        hitType = 'plate';
+        points.push({ x, y: 1, z: 0.08, stage: 'blocked' });
+        break;
+      }
+      points.push({ x, y: Math.min(0, y), z: 0.08, stage: 'blocked' });
+    }
+    if (points.length > 1) {
+      fans.push({
+        points,
+        hit,
+        hitType,
+        color: COLORS.red,
+        theta,
+      });
+    }
+  }
+  return fans;
+}
+
+function samplePath(path, s) {
+  if (!path || !path.points.length) return null;
+  const target = clamp(s, 0, 1) * path.total;
+  let lo = 0;
+  let hi = path.cum.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (path.cum[mid] < target) lo = mid + 1;
+    else hi = mid;
+  }
+  const i = Math.max(1, lo);
+  const a = path.points[i - 1];
+  const b = path.points[i];
+  const span = path.cum[i] - path.cum[i - 1] || 1;
+  const f = clamp((target - path.cum[i - 1]) / span, 0, 1);
+  return {
+    x: lerp(a.x, b.x, f),
+    y: lerp(a.y, b.y, f),
+    z: lerp(a.z, b.z, f),
+    stage: b.stage,
+  };
+}
+
+function buildPaths(model) {
+  const paths = model.entries.map((e) => buildEntryPath(e.theta, model.k, e.id));
+  if (model.blocked) {
+    paths.push(buildBlockedPath(model.blocked.theta, model.k, model.blocked));
+  }
+  return paths;
+}
+
+/* ------------------------------------------------------------------ */
+/* Camera and projection.                                             */
+/* ------------------------------------------------------------------ */
+
+const CAM_ISO = { yaw: 0.58, pitch: 0.3, dist: 7.1, target: [0.28, -0.05, 0] };
+const CAM_FRONT = { yaw: 0.015, pitch: 0.06, dist: 6.4, target: [0.18, -0.05, 0] };
+const CAM_TOP = { yaw: 0.02, pitch: 1.16, dist: 7.0, target: [0.2, -0.1, 0] };
+const CAM_SIDE = { yaw: 1.42, pitch: 0.18, dist: 7.0, target: [0.15, -0.05, 0] };
+
+function makeCamera(cam, w, h) {
+  const cp = Math.cos(cam.pitch);
+  const sp = Math.sin(cam.pitch);
+  const eye = [
+    cam.target[0] + cam.dist * Math.sin(cam.yaw) * cp,
+    cam.target[1] + cam.dist * sp,
+    cam.target[2] + cam.dist * Math.cos(cam.yaw) * cp,
+  ];
+  const forward = norm(sub(cam.target, eye));
+  let right = cross(forward, [0, 1, 0]);
+  if (len(right) < 1e-5) right = [1, 0, 0];
+  right = norm(right);
+  const up = cross(right, forward);
+  const f = Math.min(w, h) * 1.08;
+  const project = (p) => {
+    const rel = sub(p, eye);
+    const depth = dot(rel, forward);
+    if (depth < 0.08) return null;
+    return {
+      x: w / 2 + (dot(rel, right) / depth) * f,
+      y: h / 2 - (dot(rel, up) / depth) * f,
+      d: depth,
+      s: f / depth,
+    };
+  };
+  return { eye, forward, right, up, f, project };
+}
+
+/* ------------------------------------------------------------------ */
+/* Geometry.                                                          */
+/* ------------------------------------------------------------------ */
+
+const LIGHT = norm([-0.4, 0.9, 0.55]);
+
+function rgba(rgb, alpha, shade = 1) {
+  return `rgba(${Math.round(rgb[0] * shade)},${Math.round(
+    rgb[1] * shade,
+  )},${Math.round(rgb[2] * shade)},${alpha})`;
+}
+
+function addFace(geo, verts, base, alpha, stroke, lw) {
+  const n = norm(
+    cross(sub(verts[1], verts[0]), sub(verts[2], verts[0])),
+  );
+  const shade = 0.62 + 0.38 * Math.abs(dot(n, LIGHT));
+  geo.faces.push({ verts, base, alpha, stroke, lw: lw || 1, shade });
+}
+
+function addEdge(geo, a, b, color, lw, dash) {
+  geo.edges.push({ a, b, color, lw: lw || 1, dash: dash || null });
+}
+
+function addLine(geo, points, color, lw, dash, arrow) {
+  geo.lines.push({ points, color, lw: lw || 1, dash: dash || null, arrow: !!arrow });
+}
+
+function addBox(geo, x0, x1, y0, y1, z0, z1, base, alpha, edge) {
+  const v = (x, y, z) => p3(x, y, z);
+  const A = v(x0, y0, z0);
+  const B = v(x1, y0, z0);
+  const C = v(x1, y1, z0);
+  const D = v(x0, y1, z0);
+  const E = v(x0, y0, z1);
+  const F = v(x1, y0, z1);
+  const G = v(x1, y1, z1);
+  const Hh = v(x0, y1, z1);
+  addFace(geo, [E, F, G, Hh], base, alpha, edge, 1.2);
+  addFace(geo, [A, B, C, D], base, alpha * 0.82, edge, 1);
+  addFace(geo, [A, B, F, E], base, alpha * 0.9, edge, 1);
+  addFace(geo, [D, C, G, Hh], base, alpha * 0.9, edge, 1);
+  addFace(geo, [A, D, Hh, E], base, alpha * 0.86, edge, 1);
+  addFace(geo, [B, C, G, F], base, alpha * 0.86, edge, 1);
+  const edges = [
+    [E, F], [F, G], [G, Hh], [Hh, E],
+    [A, B], [B, C], [C, D], [D, A],
+    [A, E], [B, F], [C, G], [D, Hh],
+  ];
+  edges.forEach(([a, b]) => addEdge(geo, a, b, edge, 0.8));
+}
+
+function addArrow3D(geo, from, to, color, lw) {
+  addLine(geo, [from, to], color, lw, null, true);
+}
+
+function buildGeometry() {
+  const geo = { faces: [], edges: [], lines: [], crosses: [] };
+
+  // Floor grid.
+  const fy = 2.72;
+  for (let x = -2.6; x <= 3.65; x += 0.25) {
+    const major = Math.abs(x - Math.round(x)) < 1e-6;
+    addLine(
+      geo,
+      [p3(x, fy, -1.7), p3(x, fy, 1.7)],
+      major ? 'rgba(56,189,248,0.10)' : 'rgba(56,189,248,0.035)',
+      major ? 1 : 0.7,
+    );
+  }
+  for (let z = -1.6; z <= 1.65; z += 0.4) {
+    const major = Math.abs(z - Math.round(z)) < 1e-6;
+    addLine(
+      geo,
+      [p3(-2.6, fy, z), p3(3.65, fy, z)],
+      major ? 'rgba(56,189,248,0.08)' : 'rgba(56,189,248,0.03)',
+      major ? 1 : 0.7,
+    );
+  }
+
+  // Magnetic half cylinder.
+  const arc = [];
+  for (let i = 0; i <= 54; i++) {
+    const a = -PI / 2 + (i / 54) * PI;
+    arc.push({ a, x: Math.cos(a), y: 1 + Math.sin(a) });
+  }
+  const front = arc.map((q) => p3(q.x, q.y, 0.72));
+  const back = arc.map((q) => p3(q.x, q.y, -0.72));
+  addFace(geo, [p3(0, 0, 0.72), ...front, p3(0, 2, 0.72)], [34, 211, 238], 0.055,
+    'rgba(94,234,212,0.35)', 1.1);
+  addFace(geo, [p3(0, 0, -0.72), ...back, p3(0, 2, -0.72)], [34, 211, 238], 0.035,
+    'rgba(94,234,212,0.18)', 0.8);
+  for (let i = 0; i < arc.length - 1; i++) {
+    addFace(
+      geo,
+      [
+        p3(arc[i].x, arc[i].y, 0.72),
+        p3(arc[i + 1].x, arc[i + 1].y, 0.72),
+        p3(arc[i + 1].x, arc[i + 1].y, -0.72),
+        p3(arc[i].x, arc[i].y, -0.72),
+      ],
+      [34, 211, 238],
+      0.06,
+      'rgba(94,234,212,0.10)',
+      0.6,
+    );
+  }
+  addLine(geo, front, 'rgba(94,234,212,0.62)', 1.5);
+  addLine(geo, back, 'rgba(94,234,212,0.25)', 1);
+  addLine(geo, [p3(0, 0, 0.72), p3(0, 2, 0.72)], 'rgba(94,234,212,0.4)', 1.2);
+  addLine(geo, [p3(0, 0, -0.72), p3(0, 2, -0.72)], 'rgba(94,234,212,0.18)', 0.8);
+  for (const q of [arc[0], arc[arc.length - 1]]) {
+    addLine(geo, [p3(q.x, q.y, 0.72), p3(q.x, q.y, -0.72)], 'rgba(94,234,212,0.18)', 0.8);
+  }
+
+  // Field crosses on the front face.
+  for (let x = 0.16; x <= 0.86; x += 0.17) {
+    for (let y = 0.16; y <= 1.86; y += 0.17) {
+      const r2 = x * x + (y - 1) * (y - 1);
+      if (r2 > 0.78 * 0.78) continue;
+      const s = 0.042;
+      geo.crosses.push({
+        a: p3(x - s, y - s, 0.735),
+        b: p3(x + s, y + s, 0.735),
+      });
+      geo.crosses.push({
+        a: p3(x - s, y + s, 0.735),
+        b: p3(x + s, y - s, 0.735),
+      });
+    }
+  }
+
+  // Plates.
+  addBox(geo, -2.08, 0.02, -1.08, -0.96, -0.92, 0.92,
+    [96, 165, 250], 0.46, 'rgba(147,197,253,0.72)');
+  addBox(geo, -2.08, 0.02, 0.96, 1.08, -0.92, 0.92,
+    [96, 165, 250], 0.46, 'rgba(147,197,253,0.72)');
+
+  // P and Q.
+  addBox(geo, -0.045, 0.045, -1.36, 2.3, -0.92, 0.92,
+    [71, 85, 105], 0.38, 'rgba(125,211,252,0.7)');
+  addBox(geo, Q_X - 0.045, Q_X + 0.045, -1.36, 2.38, -0.92, 0.92,
+    [71, 85, 105], 0.34, 'rgba(251,191,36,0.68)');
+
+  // Grid lines on P and Q, gently marking their surfaces.
+  for (let y = -1.2; y < 2.25; y += 0.34) {
+    addLine(geo, [p3(0.05, y, -0.9), p3(0.05, y, 0.9)], 'rgba(125,211,252,0.075)', 0.7);
+  }
+  for (let y = -1.2; y < 2.35; y += 0.34) {
+    addLine(geo, [p3(Q_X + 0.05, y, -0.9), p3(Q_X + 0.05, y, 0.9)],
+      'rgba(251,191,36,0.065)', 0.7);
+  }
+
+  // Electric field arrows.
+  for (const x of [-1.55, -0.95, -0.35]) {
+    for (const z of [-0.36, 0.42]) {
+      addArrow3D(geo, p3(x, -0.72, z), p3(x, 0.72, z),
+        'rgba(125,211,252,0.22)', 1.1);
+    }
+  }
+
+  // Axes.
+  addArrow3D(geo, p3(0, 0, 1.02), p3(3.18, 0, 1.02), 'rgba(148,163,184,0.5)', 1.1);
+  addArrow3D(geo, p3(0, 0, 1.02), p3(0, 2.36, 1.02), 'rgba(148,163,184,0.5)', 1.1);
+  addArrow3D(geo, p3(0, 0, 1.02), p3(0, 0, 1.62), 'rgba(148,163,184,0.34)', 0.9);
+
+  return geo;
+}
+
+/* ------------------------------------------------------------------ */
+/* Canvas rendering.                                                  */
+/* ------------------------------------------------------------------ */
+
+function roundRect(ctx, x, y, w, hh, r) {
+  const rr = Math.min(r, w / 2, hh / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + hh, rr);
+  ctx.arcTo(x + w, y + hh, x, y + hh, rr);
+  ctx.arcTo(x, y + hh, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
+}
+
+function drawBackground(ctx, w, h) {
+  const g = ctx.createRadialGradient(w * 0.52, h * 0.43, 10, w * 0.5, h * 0.5, Math.max(w, h) * 0.8);
+  g.addColorStop(0, '#0b1d34');
+  g.addColorStop(0.52, '#071426');
+  g.addColorStop(1, '#030912');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+  const v = ctx.createRadialGradient(w * 0.5, h * 0.48, Math.min(w, h) * 0.28,
+    w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
+  v.addColorStop(0, 'rgba(3,9,18,0)');
+  v.addColorStop(1, 'rgba(2,6,12,0.72)');
+  ctx.fillStyle = v;
+  ctx.fillRect(0, 0, w, h);
+}
+
+function drawFaces(ctx, cam, geo, showField) {
+  const prepared = [];
+  for (const f of geo.faces) {
+    const magnetic = f.base[0] === 34 && f.base[1] === 211 && f.base[2] === 238;
+    if (magnetic && !showField) continue;
+    const pts = f.verts.map(cam.project);
+    if (pts.some((p) => !p)) continue;
+    const d = pts.reduce((s, p) => s + p.d, 0) / pts.length;
+    prepared.push({ f, pts, d });
+  }
+  prepared.sort((a, b) => b.d - a.d);
+  for (const { f, pts } of prepared) {
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.closePath();
+    ctx.fillStyle = rgba(f.base, f.alpha, f.shade);
+    ctx.fill();
+    if (f.stroke) {
+      ctx.strokeStyle = f.stroke;
+      ctx.lineWidth = f.lw;
+      ctx.stroke();
+    }
+  }
+}
+
+function drawEdges(ctx, cam, geo) {
+  for (const e of geo.edges) {
+    const a = cam.project(e.a);
+    const b = cam.project(e.b);
+    if (!a || !b) continue;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = e.color;
+    ctx.lineWidth = e.lw;
+    if (e.dash) ctx.setLineDash(e.dash);
+    ctx.stroke();
+    if (e.dash) ctx.setLineDash([]);
+  }
+}
+
+function drawLineList(ctx, cam, geo, showField) {
+  for (const item of geo.lines) {
+    const pts = item.points.map(cam.project);
+    if (pts.some((p) => !p)) continue;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.strokeStyle = item.color;
+    ctx.lineWidth = item.lw;
+    if (item.dash) ctx.setLineDash(item.dash);
+    ctx.stroke();
+    if (item.dash) ctx.setLineDash([]);
+    if (item.arrow && pts.length >= 2) {
+      const a = pts[pts.length - 2];
+      const b = pts[pts.length - 1];
+      drawArrowHead(ctx, a, b, item.color, 6);
+    }
+  }
+  if (!showField) return;
+  ctx.strokeStyle = 'rgba(94,234,212,0.42)';
+  ctx.lineWidth = 1;
+  for (const c of geo.crosses) {
+    const a = cam.project(c.a);
+    const b = cam.project(c.b);
+    if (!a || !b) continue;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.stroke();
+  }
+}
+
+function drawArrowHead(ctx, a, b, color, size) {
+  const ang = Math.atan2(b.y - a.y, b.x - a.x);
+  const s = size || 7;
+  ctx.beginPath();
+  ctx.moveTo(b.x, b.y);
+  ctx.lineTo(b.x - s * Math.cos(ang - 0.42), b.y - s * Math.sin(ang - 0.42));
+  ctx.lineTo(b.x - s * Math.cos(ang + 0.42), b.y - s * Math.sin(ang + 0.42));
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawLabel(ctx, cam, point, text, color, opts) {
+  const p = cam.project(point);
+  if (!p) return;
+  const o = opts || {};
+  const size = o.size || 11;
+  const weight = o.weight || 600;
+  ctx.font = `${weight} ${size}px "Microsoft YaHei","PingFang SC","Noto Sans SC",system-ui,sans-serif`;
+  const tw = ctx.measureText(text).width;
+  let x = p.x + (o.dx || 0);
+  let y = p.y + (o.dy || 0);
+  if (o.align === 'right') x -= tw;
+  else if (o.align !== 'left') x -= tw / 2;
+  const padX = 5;
+  const bh = size + 8;
+  x = clamp(x, 6, (o.w || 10000) - tw - padX - 6);
+  y = clamp(y, bh / 2 + 4, (o.h || 10000) - bh / 2 - 4);
+  if (o.leader) {
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(x + tw / 2, y);
+    ctx.strokeStyle = o.leaderColor || 'rgba(148,163,184,0.35)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+  if (o.box !== false) {
+    roundRect(ctx, x - padX, y - bh / 2, tw + padX * 2, bh, 5);
+    ctx.fillStyle = o.bg || 'rgba(4,12,24,0.72)';
+    ctx.fill();
+    if (o.border) {
+      ctx.strokeStyle = o.border;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+  }
+  ctx.fillStyle = color;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, x, y + 0.5);
+}
+
+function pathColor(path) {
+  return path.color || COLORS.cyan;
+}
+
+function drawPolylineProjected(ctx, cam, points, color, width, dash, alpha) {
+  if (points.length < 2) return;
+  const pts = points.map((q) => cam.project(p3(q.x, q.y, q.z)));
+  ctx.beginPath();
+  let started = false;
+  for (const p of pts) {
+    if (!p) {
+      started = false;
+      continue;
+    }
+    if (!started) {
+      ctx.moveTo(p.x, p.y);
+      started = true;
+    } else {
+      ctx.lineTo(p.x, p.y);
+    }
+  }
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.globalAlpha = alpha == null ? 1 : alpha;
+  if (dash) ctx.setLineDash(dash);
+  ctx.stroke();
+  if (dash) ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
+}
+
+function drawPath(ctx, cam, path, progress) {
+  const color = pathColor(path);
+  const isBlocked = path.blocked;
+  const n = path.points.length;
+  if (n < 2) return;
+
+  const segments = [];
+  let start = 0;
+  for (let i = 1; i < n; i++) {
+    if (path.points[i].stage !== path.points[i - 1].stage) {
+      segments.push(path.points.slice(start, i));
+      start = i - 1;
+    }
+  }
+  segments.push(path.points.slice(start));
+
+  // Wide glow pass, split at stage changes so dashed straight sections read.
+  for (const seg of segments) {
+    if (seg.length < 2) continue;
+    const stage = seg[seg.length - 1].stage;
+    const straight = stage === 'toQ' || stage === 'back';
+    drawPolylineProjected(ctx, cam, seg, color, isBlocked ? 5 : 8,
+      isBlocked ? [3, 5] : straight ? [4, 6] : null, 0.1);
+  }
+
+  // Crisp pass.
+  for (const seg of segments) {
+    if (seg.length < 2) continue;
+    const stage = seg[seg.length - 1].stage;
+    const straight = stage === 'toQ' || stage === 'back';
+    const alpha = straight ? 0.42 : 0.96;
+    drawPolylineProjected(ctx, cam, seg, color, isBlocked ? 1.4 : straight ? 1.2 : 2.2,
+      isBlocked ? [3, 5] : straight ? [4, 6] : null, alpha);
+  }
+
+  // Direction arrows along the path.
+  for (const s of [0.14, 0.31, 0.47, 0.63, 0.79, 0.93]) {
+    const a = samplePath(path, Math.max(0, s - 0.008));
+    const b = samplePath(path, Math.min(1, s + 0.008));
+    if (!a || !b) continue;
+    const pa = cam.project(p3(a.x, a.y, a.z));
+    const pb = cam.project(p3(b.x, b.y, b.z));
+    if (pa && pb) drawArrowHead(ctx, pa, pb, color, 5);
+  }
+
+  // Key dots.
+  for (const point of [path.exit, path.impact, path.hit]) {
+    if (!point) continue;
+    const p = cam.project(p3(point.x, point.y, 0.14));
+    if (!p) continue;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 3, 0, TAU);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 7, 0, TAU);
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = 0.35;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function drawParticles(ctx, cam, paths, progress, time) {
+  for (const path of paths) {
+    if (path.blocked) continue;
+    const p = samplePath(path, progress);
+    if (!p) continue;
+    const color = pathColor(path);
+    for (let i = 10; i >= 1; i--) {
+      const s = Math.max(0, progress - i * 0.006);
+      const q = samplePath(path, s);
+      if (!q) continue;
+      const pp = cam.project(p3(q.x, q.y, q.z));
+      if (!pp) continue;
+      const r = 1.5 + (10 - i) * 0.18;
+      ctx.beginPath();
+      ctx.arc(pp.x, pp.y, r, 0, TAU);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.045 * (11 - i);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    const pp = cam.project(p3(p.x, p.y, p.z));
+    if (!pp) continue;
+    const r = clamp(pp.s * 0.055, 3.6, 7);
+    const g = ctx.createRadialGradient(pp.x, pp.y, 0, pp.x, pp.y, r * 4);
+    g.addColorStop(0, 'rgba(255,255,255,0.98)');
+    g.addColorStop(0.18, color);
+    g.addColorStop(0.55, color + '55');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.beginPath();
+    ctx.arc(pp.x, pp.y, r * 4, 0, TAU);
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(pp.x, pp.y, r, 0, TAU);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(pp.x, pp.y, r * 2.2, 0, TAU);
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = 0.5 + 0.25 * Math.sin(time * 5);
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function drawHoleRing(ctx, cam, time) {
+  const ring = (radius, color, width, alpha) => {
+    const pts = [];
+    for (let i = 0; i <= 36; i++) {
+      const a = (i / 36) * TAU;
+      pts.push(p3(0.07, radius * Math.cos(a), radius * Math.sin(a)));
+    }
+    const pp = pts.map(cam.project);
+    if (pp.some((p) => !p)) return;
+    ctx.beginPath();
+    ctx.moveTo(pp[0].x, pp[0].y);
+    for (let i = 1; i < pp.length; i++) ctx.lineTo(pp[i].x, pp[i].y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.globalAlpha = alpha;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  };
+  ring(0.1, 'rgba(103,232,249,0.9)', 1.6, 0.85);
+  ring(0.155 + 0.012 * Math.sin(time * 3), 'rgba(103,232,249,0.28)', 1, 0.6);
+  const c = cam.project(p3(0.07, 0, 0));
+  if (c) {
+    const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, 16);
+    g.addColorStop(0, 'rgba(165,243,252,.28)');
+    g.addColorStop(1, 'rgba(34,211,238,0)');
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 16, 0, TAU);
+    ctx.fillStyle = g;
+    ctx.fill();
+  }
+}
+
+function drawNoEntryMark(ctx, cam, w, h, kind) {
+  if (kind !== 'none') return;
+  const p = cam.project(p3(0, 0, 0.96));
+  if (!p) return;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(251,113,133,0.92)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(p.x - 8, p.y - 8);
+  ctx.lineTo(p.x + 8, p.y + 8);
+  ctx.moveTo(p.x + 8, p.y - 8);
+  ctx.lineTo(p.x - 8, p.y + 8);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 15, 0, TAU);
+  ctx.strokeStyle = 'rgba(251,113,133,0.3)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.restore();
+  drawLabel(ctx, cam, p3(0, 0, 0.97), '无解 · 无粒子过孔', COLORS.red,
+    { dx: 20, dy: -20, size: 10, w, h, leader: true, border: 'rgba(251,113,133,.28)' });
+}
+
+function drawImpactRings(ctx, cam, paths, time) {      for (const path of paths) {
+    if (path.blocked || !path.impact) continue;
+    const color = pathColor(path);
+    const iy = path.impact.y;
+    const r = 0.085 + 0.012 * Math.sin(time * 4 + path.theta * 3);
+    const pts = [];
+    for (let i = 0; i <= 30; i++) {
+      const a = (i / 30) * TAU;
+      pts.push(p3(0.07, iy + r * Math.cos(a), r * Math.sin(a)));
+    }
+    const pp = pts.map(cam.project);
+    if (pp.some((p) => !p)) continue;
+    ctx.beginPath();
+    ctx.moveTo(pp[0].x, pp[0].y);
+    for (let i = 1; i < pp.length; i++) ctx.lineTo(pp[i].x, pp[i].y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.9;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    const c = cam.project(p3(0.07, iy, 0));
+    if (c) {
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, 3.5, 0, TAU);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+  }
+}
+
+function drawStaticLabels(ctx, cam, w, h) {
+  const opts = (dx, dy, size) => ({ dx, dy, size: size || 11, w, h, leader: true });
+  drawLabel(ctx, cam, p3(0, 0, 1.04), 'O', COLORS.white,
+    { dx: -18, dy: 12, size: 13, w, h, leader: true, border: 'rgba(125,211,252,.22)' });
+  drawLabel(ctx, cam, p3(0, 1, 1.04), "O′", COLORS.teal,
+    { dx: -24, dy: 0, size: 11, w, h, leader: true });
+  drawLabel(ctx, cam, p3(Q_X, 1.95, 1.04), 'Q', COLORS.amber,
+    { dx: 18, dy: -2, size: 14, w, h, leader: true, border: 'rgba(251,191,36,.2)' });
+  drawLabel(ctx, cam, p3(Q_X, 0.36, 0.24), 'Q · 反弹', COLORS.amber,
+    { dx: 12, dy: 16, size: 9, w, h, leader: true, border: 'rgba(251,191,36,.16)' });
+  drawLabel(ctx, cam, p3(0, 1.95, 1.04), 'P', COLORS.cyan,
+    { dx: -20, dy: 0, size: 14, w, h, leader: true, border: 'rgba(125,211,252,.2)' });
+  drawLabel(ctx, cam, p3(-1.55, -1, 1.02), '+', 'rgba(191,219,254,.9)',
+    { dx: 0, dy: -15, size: 18, w, h, box: false });
+  drawLabel(ctx, cam, p3(-1.55, 1, 1.02), '−', 'rgba(191,219,254,.9)',
+    { dx: 0, dy: 16, size: 19, w, h, box: false });
+  drawLabel(ctx, cam, p3(-1, 0, 1.02), 'S', COLORS.teal,
+    { dx: -20, dy: -12, size: 11, w, h, leader: true });
+  drawLabel(ctx, cam, p3(0.66, 0.13, 0.86), 'B ⊗', COLORS.teal,
+    { dx: 14, dy: -18, size: 11, w, h, leader: true });
+  drawLabel(ctx, cam, p3(2.96, 0, 1.06), 'x', 'rgba(203,213,225,.8)',
+    { dx: 12, dy: 2, size: 12, w, h, box: false });
+  drawLabel(ctx, cam, p3(0, 2.18, 1.06), 'y', 'rgba(203,213,225,.8)',
+    { dx: 14, dy: 8, size: 12, w, h, box: false });
+  drawLabel(ctx, cam, p3(0, 0, 1.5), 'z', 'rgba(203,213,225,.5)',
+    { dx: 12, dy: -8, size: 11, w, h, box: false });
+  drawLabel(ctx, cam, p3(-0.7, -0.18, 0.48), 'E', 'rgba(125,211,252,.65)',
+    { dx: 0, dy: -12, size: 11, w, h, box: false });
+}
+
+function drawDynamicLabels(ctx, cam, paths, w, h) {
+  let count = 0;
+  for (const path of paths) {
+    if (path.blocked) {
+      if (path.hit) {
+        drawLabel(ctx, cam, p3(path.hit.x, path.hit.y, 0.15),
+          path.grazing ? '临界 · 擦上板' : '撞上板', COLORS.red,
+          { dx: 14, dy: -14, size: 10, w, h, leader: true, border: 'rgba(251,113,133,.3)' });
+      }
+      continue;
+    }
+    if (path.impact) {
+      count++;
+      const y = path.impact.y;
+      drawLabel(ctx, cam, p3(0.02, y, 0.9),
+        `P${path.id + 1} · y=${formatL(y)}`,
+        path.color,
+        { dx: -14, dy: count === 1 ? -10 : 12, size: 10, w, h, align: 'right',
+          leader: true, border: 'rgba(148,163,184,.2)' });
+    }
+    if (path.exit) {
+      drawLabel(ctx, cam, p3(path.exit.x, path.exit.y, 0.15), 'E',
+        path.color, { dx: 12, dy: -12, size: 10, w, h, leader: true });
+    }
+  }
+}
+
+function formatL(value) {
+  return `${value.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')}L`;
+}
+
+function drawScene(ctx, w, h, cfg, cam, geo, time) {
+  drawBackground(ctx, w, h);
+  drawLineList(ctx, cam, geo, cfg.showField);
+  drawFaces(ctx, cam, geo, cfg.showField);
+  drawEdges(ctx, cam, geo);
+
+  const entries = cfg.entryPaths || [];
+  const allPaths = cfg.paths || [];
+  const allFans = cfg.fans || [];
+
+  if (cfg.showVectors) {
+    for (const path of entries) {
+      const p = cam.project(p3(0, 0, 0.16));
+      const q = cam.project(p3(0.45 * Math.cos(path.theta), 0.45 * Math.sin(path.theta), 0.16));
+      if (p && q) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.strokeStyle = path.color;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        drawArrowHead(ctx, p, q, path.color, 6);
+      }
+    }
+    const path0 = entries[0];
+    if (path0) {
+      const e = path0.exit;
+      const a = cam.project(p3(e.x, e.y, 0.16));
+      const b = cam.project(p3(e.x + 0.38, e.y, 0.16));
+      if (a && b) {
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = 'rgba(226,232,240,.7)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+        drawArrowHead(ctx, a, b, 'rgba(226,232,240,.7)', 5);
+      }
+    }
+  }
+
+  for (const fan of allFans) {
+    drawPolylineProjected(ctx, cam, fan.points, COLORS.red, 1.1,
+      [3, 6], 0.5);
+  }
+  drawHoleRing(ctx, cam, time);
+  for (const path of allPaths) {
+    drawPath(ctx, cam, path, cfg.progress);
+  }
+  drawParticles(ctx, cam, entries, cfg.progress, time);
+  drawImpactRings(ctx, cam, entries, time);
+  drawNoEntryMark(ctx, cam, w, h, cfg.model && cfg.model.kind);
+  drawStaticLabels(ctx, cam, w, h);
+  drawDynamicLabels(ctx, cam, allPaths, w, h);
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Standalone page controller. The 3D engine above is plain canvas code. */
+(function () {
+  'use strict';
+
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+  const state = {
+    step: 1,
+    u: U_INIT,
+    playing: false,
+    progress: 0,
+    showField: true,
+    showVectors: true,
+    autoRotate: false,
+  };
+
+  let model = analyze(state.u);
+  let paths = buildPaths(model);
+  let entryPaths = paths.filter((p) => !p.blocked);
+  let fans = model.fan ? buildAbsorbedFan(model.k) : [];
+  let primary = entryPaths[0] || null;
+
+  const canvas = $('#scene');
+  const wrap = $('#canvasWrap');
+  const ctx = canvas.getContext('2d');
+  const geo = buildGeometry();
+  const cam = { ...CAM_ISO, target: CAM_ISO.target.slice() };
+
+  let W = 1;
+  let H = 1;
+  let dpr = 1;
+  let drag = null;
+  let pinchStart = null;
+  const pointers = new Map();
+  let lastUI = 0;
+  let uiFrame = 0;
+  let toastTimer = 0;
+  let userZoomed = false;
+
+  const DEG = 180 / Math.PI;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function degree(theta) {
+    return `${(theta * DEG).toFixed(1)}°`;
+  }
+
+  function signedL(value) {
+    if (!Number.isFinite(value)) return '—';
+    const v = Math.abs(value) < 0.005 ? 0 : value;
+    return `${v.toFixed(2)}L`;
+  }
+
+  function refreshModel(reset) {
+    model = analyze(state.u);
+    paths = buildPaths(model);
+    entryPaths = paths.filter((p) => !p.blocked);
+    fans = model.fan ? buildAbsorbedFan(model.k) : [];
+    primary = entryPaths[0] || null;
+    if (reset) {
+      state.progress = 0;
+      state.playing = false;
+    }
+  }
+
+  function showToast(message, ms) {
+    const toast = $('#toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove('show'), ms || 2800);
+  }
+
+  function statusInfo() {
+    if (model.kind === 'two') return ['2 个撞击点', 'amber'];
+    if (model.kind === 'grazing') return ['临界 · 1 个撞击点', 'amber'];
+    if (model.kind === 'one') return ['1 个撞击点', 'cyan'];
+    if (model.kind === 'none') return ['0 个 · 全部被挡', 'red'];
+    return ['无电场 · 不偏转', 'muted'];
+  }
+
+  function stageIndex() {
+    if (!primary) return -1;
+    const sample = samplePath(primary, state.progress);
+    const stage = sample && sample.stage;
+    if (stage === 'electric') return 0;
+    if (stage === 'arc1') return 1;
+    if (stage === 'toQ' || stage === 'back') return 2;
+    if (stage === 'arc2') return 3;
+    if (stage === 'impact') return 4;
+    return -1;
+  }
+
+  function renderPlayback() {
+    const progress = $('#progress');
+    progress.value = String(state.progress);
+    $('#pct').textContent = `${Math.round(state.progress * 100)}%`;
+    const active = stageIndex();
+    $$('#stages .stage').forEach((button, index) => {
+      button.classList.toggle('active', index === active);
+    });
+    const playBtn = $('#playBtn');
+    playBtn.innerHTML = state.playing ? '<span class="pause"></span>' : '<span class="tri"></span>';
+    playBtn.setAttribute('aria-label', state.playing ? '暂停粒子运动' : '播放粒子运动');
+  }
+
+  function renderReadout() {
+    const angles = model.entries.map((entry) => degree(entry.theta)).join(' / ') || '—';
+    const impacts = model.impacts.map((y) => formatL(y)).join(' / ') || '—';
+    const rows = [
+      ['k = qU / 2mv₀²', model.k.toFixed(3), ''],
+      ['入射角', angles, ''],
+      ['进入磁场', `${model.entries.length} 个`, ''],
+      ['撞击点', impacts, ''],
+    ];
+    if (model.blocked) {
+      const clearance = model.blocked.clearance;
+      rows.push(['上板余量', signedL(clearance), clearance < 0.08 ? 'warn' : '']);
+    }
+    $('#readout').innerHTML = rows.map(([label, value, cls]) =>
+      `<span>${label}</span><b class="${cls}">${value}</b>`).join('');
+  }
+
+  function renderUI() {
+    $('#uValue').textContent = state.u.toFixed(3);
+    $('#voltage').value = String(state.u);
+    $('#bandMarker').style.left = `${clamp((state.u / 2.2) * 100, 0, 100)}%`;
+
+    $$('#quick button').forEach((button) => {
+      button.classList.toggle('active', Math.abs(Number(button.dataset.u) - state.u) < 0.0008);
+    });
+    $$('.tab').forEach((button) => {
+      const active = Number(button.dataset.step) === state.step;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    $$('.step-panel').forEach((panel) => {
+      panel.classList.toggle('active', Number(panel.dataset.panel) === state.step);
+    });
+
+    const info = statusInfo();
+    const status = $('#status');
+    status.textContent = info[0];
+    status.dataset.tone = info[1];
+
+    if (!entryPaths.length) {
+      $('#legend').innerHTML = '<span class="chip dim">无过孔粒子</span><span class="chip"><b class="cross">⊗</b>B 向里</span>';
+    } else {
+      $('#legend').innerHTML = entryPaths.map((path) =>
+        `<span class="chip"><i style="background:${path.color}"></i>${path.label} sinθ=${Math.sin(path.theta).toFixed(3)}</span>`).join('')
+        + '<span class="chip"><b class="cross">⊗</b>B 向里</span>';
+    }
+
+    const empty = $('#empty');
+    empty.classList.toggle('show', model.kind === 'none');
+    if (model.kind === 'none') {
+      $('#emptyText').innerHTML = 'U 超过 2mv₀²/q 后，k&gt;1，方程 sin2θ=k 无解。无论朝哪个方向发射，粒子都会先打到金属板或挡板 P。';
+    }
+
+    renderReadout();
+    renderPlayback();
+    $('#toggleField').checked = state.showField;
+    $('#toggleVectors').checked = state.showVectors;
+    const auto = $('#autoBtn');
+    auto.classList.toggle('on', state.autoRotate);
+    auto.textContent = state.autoRotate ? '停止旋转' : '自动旋转';
+  }
+
+  function scheduleUI() {
+    if (uiFrame) return;
+    uiFrame = window.requestAnimationFrame(() => {
+      uiFrame = 0;
+      renderUI();
+    });
+  }
+
+  function setU(value) {
+    state.u = clamp(Number(value) || 0, 0, 2.2);
+    state.progress = 0;
+    state.playing = false;
+    refreshModel(false);
+    scheduleUI();
+  }
+
+  function setStep(step) {
+    if (step === state.step) return;
+    state.step = step;
+    state.progress = 0;
+    state.playing = false;
+    renderUI();
+  }
+
+  function togglePlay() {
+    if (!entryPaths.length) {
+      showToast(model.kind === 'degenerate' ? '当前没有电场，粒子不偏转。' : '当前电压下没有粒子能进入磁场。');
+      return;
+    }
+    if (state.progress >= 0.999) state.progress = 0;
+    state.playing = !state.playing;
+    renderUI();
+  }
+
+  function jumpTo(stageName) {
+    if (!primary) {
+      showToast('当前没有粒子能进入磁场。');
+      return;
+    }
+    const stageMap = {
+      electric: ['electric'],
+      arc1: ['arc1'],
+      q: ['toQ'],
+      arc2: ['arc2'],
+      impact: ['impact'],
+    };
+    const allowed = stageMap[stageName] || [];
+    const mark = primary.marks.find((item) => allowed.includes(item.stage));
+    if (!mark) return;
+    state.progress = Math.min(0.995, mark.s + 0.004);
+    state.playing = false;
+    renderUI();
+  }
+
+  function setView(name) {
+    const presets = { iso: CAM_ISO, front: CAM_FRONT, top: CAM_TOP, side: CAM_SIDE };
+    const preset = presets[name];
+    if (!preset) return;
+    userZoomed = true;
+    cam.yaw = preset.yaw;
+    cam.pitch = preset.pitch;
+    cam.dist = preset.dist;
+    cam.target = preset.target.slice();
+  }
+
+  function resetCamera() {
+    setView('iso');
+  }
+
+  function resize() {
+    const rect = wrap.getBoundingClientRect();
+    W = Math.max(1, rect.width);
+    H = Math.max(1, rect.height);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = `${W}px`;
+    canvas.style.height = `${H}px`;
+    if (!userZoomed) cam.dist = CAM_ISO.dist;
+  }
+
+  function drawFrame(now) {
+    const dt = Math.min(0.055, Math.max(0, (now - drawFrame.last) / 1000));
+    drawFrame.last = now;
+
+    if (state.playing) {
+      state.progress += dt / 18;
+      if (state.progress > 1) state.progress = 0;
+    }
+    if (state.autoRotate && !drag && !pinchStart) {
+      cam.yaw += dt * 0.14;
+    }
+
+    if (now - lastUI > 100) {
+      lastUI = now;
+      renderPlayback();
+    }
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const camera = makeCamera(cam, W, H);
+    drawScene(
+      ctx, W, H,
+      {
+        model,
+        paths,
+        fans,
+        step: state.step,
+        showField: state.showField,
+        showVectors: state.showVectors,
+        entryPaths,
+        progress: state.progress,
+      },
+      camera, geo, now / 1000,
+    );
+    window.requestAnimationFrame(drawFrame);
+  }
+  drawFrame.last = performance.now();
+
+  function sharePage() {
+    const url = window.location.href;
+    if (window.location.protocol === 'file:') {
+      showToast('这是本地网页文件。上传到网站后，分享按钮会复制可直接打开的网址。', 4200);
+      return;
+    }
+    const payload = {
+      title: document.title,
+      text: '2026 山西物理压轴题 · 3D 互动讲解',
+      url,
+    };
+    if (navigator.share) {
+      try {
+        const result = navigator.share(payload);
+        if (result && result.catch) {
+          result.catch((error) => {
+            if (error && error.name === 'AbortError') return;
+            copyLinkFallback(url);
+          });
+        }
+        return;
+      } catch (_) {
+        copyLinkFallback(url);
+        return;
+      }
+    }
+    copyLinkFallback(url);
+  }
+
+  function copyLinkFallback(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('链接已复制，发给同学即可打开。');
+      }).catch(() => {
+        window.prompt('复制这个链接：', url);
+      });
+    } else {
+      window.prompt('复制这个链接：', url);
+    }
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      const request = document.documentElement.requestFullscreen;
+      if (!request) {
+        showToast('当前浏览器不支持全屏，可以横屏使用。');
+        return;
+      }
+      request.call(document.documentElement).catch(() => {
+        showToast('全屏被浏览器拦截了，可以直接横屏观看。');
+      });
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+
+  function renderFullscreenLabel() {
+    const label = $('#fullBtn .label-full');
+    if (label) label.textContent = document.fullscreenElement ? '退出' : '全屏';
+  }
+
+  // Controls.
+  $('#voltage').addEventListener('input', (event) => setU(event.target.value));
+  $$('#quick button').forEach((button) => {
+    button.addEventListener('click', () => setU(button.dataset.u));
+  });
+  $$('.tab').forEach((button) => {
+    button.addEventListener('click', () => setStep(Number(button.dataset.step)));
+  });
+  $('#toggleField').addEventListener('change', (event) => {
+    state.showField = event.target.checked;
+    renderUI();
+  });
+  $('#toggleVectors').addEventListener('change', (event) => {
+    state.showVectors = event.target.checked;
+    renderUI();
+  });
+  $('#playBtn').addEventListener('click', togglePlay);
+  $('#progress').addEventListener('input', (event) => {
+    state.progress = clamp(Number(event.target.value) || 0, 0, 1);
+    state.playing = false;
+    renderUI();
+  });
+  $$('#stages .stage').forEach((button) => {
+    button.addEventListener('click', () => jumpTo(button.dataset.stage));
+  });
+  $$('[data-view]').forEach((button) => {
+    button.addEventListener('click', () => setView(button.dataset.view));
+  });
+  $('#autoBtn').addEventListener('click', () => {
+    state.autoRotate = !state.autoRotate;
+    renderUI();
+  });
+  $$('.js-share').forEach((button) => button.addEventListener('click', sharePage));
+  $('#fullBtn').addEventListener('click', toggleFullscreen);
+  document.addEventListener('fullscreenchange', renderFullscreenLabel);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.code !== 'Space') return;
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'BUTTON' || tag === 'TEXTAREA' || tag === 'A') return;
+    event.preventDefault();
+    togglePlay();
+  });
+
+  // Canvas interaction: orbit, pinch, wheel, reset.
+  canvas.addEventListener('pointerdown', (event) => {
+    if (event.button != null && event.button !== 0) return;
+    userZoomed = true;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    try { canvas.setPointerCapture(event.pointerId); } catch (_) {}
+    if (pointers.size === 2) {
+      const values = Array.from(pointers.values());
+      pinchStart = {
+        distance: Math.hypot(values[0].x - values[1].x, values[0].y - values[1].y) || 1,
+        cameraDistance: cam.dist,
+      };
+      drag = null;
+    } else {
+      drag = { x: event.clientX, y: event.clientY, yaw: cam.yaw, pitch: cam.pitch };
+      pinchStart = null;
+    }
+    canvas.style.cursor = 'grabbing';
+  });
+
+  canvas.addEventListener('pointermove', (event) => {
+    if (!pointers.has(event.pointerId)) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (pointers.size >= 2 && pinchStart) {
+      const values = Array.from(pointers.values());
+      const current = Math.hypot(values[0].x - values[1].x, values[0].y - values[1].y) || 1;
+      cam.dist = clamp(pinchStart.cameraDistance * (pinchStart.distance / current), 4.2, 12);
+      return;
+    }
+    if (drag) {
+      cam.yaw = drag.yaw - (event.clientX - drag.x) * 0.006;
+      cam.pitch = clamp(drag.pitch + (event.clientY - drag.y) * 0.005, -0.15, 1.28);
+    }
+  });
+
+  function endPointer(event) {
+    pointers.delete(event.pointerId);
+    if (pointers.size < 2) pinchStart = null;
+    if (pointers.size === 0) {
+      drag = null;
+      canvas.style.cursor = 'grab';
+    }
+    try { canvas.releasePointerCapture(event.pointerId); } catch (_) {}
+  }
+  canvas.addEventListener('pointerup', endPointer);
+  canvas.addEventListener('pointercancel', endPointer);
+
+  canvas.addEventListener('wheel', (event) => {
+    event.preventDefault();
+    userZoomed = true;
+    cam.dist = clamp(cam.dist + event.deltaY * 0.0012, 4.2, 12);
+  }, { passive: false });
+
+  canvas.addEventListener('dblclick', resetCamera);
+
+  // Resize and animation.
+  resize();
+  if (window.ResizeObserver) {
+    const observer = new ResizeObserver(resize);
+    observer.observe(wrap);
+  } else {
+    window.addEventListener('resize', resize);
+  }
+  window.addEventListener('resize', resize);
+
+  if (reduceMotion) {
+    state.autoRotate = false;
+  }
+
+  refreshModel(false);
+  renderUI();
+  resize();
+  window.requestAnimationFrame(drawFrame);
+})();
+</script>
+</body>
+</html>
