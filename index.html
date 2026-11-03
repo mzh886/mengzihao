@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="no-js">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f1ede3">
+  <meta name="theme-color" content="#090a08">
   <meta name="author" content="孟子皓">
-  <meta name="description" content="孟子皓，20 岁，天津大学电气自动化与信息工程学院大一学生。单片机、人工智能、三维建模、独立游戏、影像与道教文化。包含 2026 高考物理 3D 题解系列与应县木塔交互档案。">
+  <meta name="description" content="孟子皓，天津大学电气自动化与信息工程学院大一学生。用代码、焊台与镜头拆解世界，也在神话与道教文化里寻找另一种答案。个人主页、应县木塔 3D 木构档案与 3D 题解实验室。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mzh886.github.io/mengzihao/">
   <meta property="og:title" content="孟子皓 · 造物与问道">
-  <meta property="og:description" content="在 0 与 1 之间，造物，也问道。个人作品、3D 题解系列与应县木塔交互档案。">
-  <meta property="og:image" content="https://mzh886.github.io/mengzihao/assets/og-cover.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="628">
-  <meta property="og:image:alt" content="孟子皓个人主页：在 0 与 1 之间，造物，也问道。">
+  <meta property="og:description" content="在 0 与 1 之间，造物，也问道。天津大学电气自动化与信息工程学院大一学生孟子皓的个人坐标、应县木塔 3D 木构档案与 3D 题解实验室。">
   <meta property="og:locale" content="zh_CN">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="孟子皓 · 造物与问道">
   <meta name="twitter:description" content="在 0 与 1 之间，造物，也问道。">
-  <meta name="twitter:image" content="https://mzh886.github.io/mengzihao/assets/og-cover.jpg">
-  <link rel="canonical" href="https://mzh886.github.io/mengzihao/">
   <title>孟子皓 · 造物与问道</title>
-  <script>document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');</script>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23a33a2a'/%3E%3Crect x='4' y='4' width='56' height='56' fill='none' stroke='%23f5efe2' stroke-opacity='.55'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='serif' font-size='28' fill='%23f5efe2'%3E孟%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23090a08'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' fill='%23ff5b35' font-family='serif'%3E孟%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/fonts.css">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/project-viewer.css">
 </head>
-<body>
+<body class="is-loading">
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-grid"></div>
+    <div class="loader-top">
+      <span>MENG ZIHAO</span>
+      <span>PERSONAL INDEX / 2026</span>
+    </div>
+    <div class="loader-center">
+      <span class="loader-mark">孟</span>
+      <div class="loader-copy">
+        <span class="loader-cn">正在建立信号连接</span>
+        <span class="loader-en">INITIALIZING CURIOSITY</span>
+      </div>
+    </div>
+    <div class="loader-bottom">
+      <span>LOADING EXPERIENCE</span>
+      <span class="loader-count" id="loaderCount">000</span>
+    </div>
+    <div class="loader-track"><span id="loaderBar"></span></div>
+  </div>
+
+  <div class="pointer-glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"><span>↗</span></div>
   <a class="skip-link" href="#main">跳到主要内容</a>
+
   <div class="scroll-progress" aria-hidden="true"><span id="progressBar"></span></div>
 
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="孟子皓个人主页，回到顶部">
-        <span class="brand-seal">孟</span>
-        <span class="brand-type">
-          <strong>MENG ZIHAO</strong>
-          <small>造物 · 问道</small>
-        </span>
+      <a href="#top" class="brand" aria-label="孟子皓个人主页，回到顶部">
+        <span class="brand-mark">孟</span>
+        <span class="brand-type">MENG ZIHAO<small>造物 · 问道</small></span>
       </a>
 
-      <nav class="desktop-nav" aria-label="主要导航">
-        <a class="nav-link" href="#origin" data-nav="origin"><i>01</i><span>原点</span></a>
-        <a class="nav-link" href="#signals" data-nav="signals"><i>02</i><span>志趣</span></a>
-        <a class="nav-link" href="#dao" data-nav="dao"><i>03</i><span>道器</span></a>
-        <a class="nav-link" href="#pagoda" data-nav="pagoda"><i>04</i><span>木塔</span></a>
-        <a class="nav-link" href="#explainers" data-nav="explainers"><i>05</i><span>题解</span></a>
-        <a class="nav-link" href="#contact" data-nav="contact"><i>06</i><span>电波</span></a>
+      <nav class="desktop-nav" aria-label="主导航">
+        <a href="#origin" class="nav-link" data-nav="origin"><span>01</span>原点</a>
+        <a href="#signals" class="nav-link" data-nav="signals"><span>02</span>志趣</a>
+        <a href="#dao" class="nav-link" data-nav="dao"><span>03</span>道器</a>
+        <a href="#pagoda" class="nav-link" data-nav="pagoda"><span>04</span>木塔</a>
+        <a href="#explainers" class="nav-link" data-nav="explainers"><span>05</span>题解</a>
+        <a href="#contact" class="nav-link" data-nav="contact"><span>06</span>电波</a>
       </nav>
 
       <div class="header-tools">
-        <span class="header-live"><i></i>TIANJIN / 2026</span>
-        <span class="header-clock" id="headerClock">--:--</span>
+        <div class="header-clock" aria-label="天津当前时间">
+          <span class="live-dot"></span>
+          <span id="clock">--:--:--</span>
+          <em>TIANJIN</em>
+        </div>
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileMenu">
           <span></span><span></span>
         </button>
@@ -60,421 +79,1055 @@
   </header>
 
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <div class="mobile-menu-head">
-      <span class="brand-seal">孟</span>
-      <button class="mobile-menu-close" type="button" data-menu-close aria-label="关闭菜单">关闭 <span>×</span></button>
-    </div>
-    <nav class="mobile-menu-nav" aria-label="移动端导航">
-      <a href="#origin"><i>01</i><strong>原点</strong><em>ORIGIN</em></a>
-      <a href="#signals"><i>02</i><strong>志趣</strong><em>SIGNALS</em></a>
-      <a href="#dao"><i>03</i><strong>道器</strong><em>BETWEEN</em></a>
-      <a href="#pagoda"><i>04</i><strong>木塔</strong><em>PAGODA</em></a>
-      <a href="#explainers"><i>05</i><strong>题解</strong><em>EXPLAINERS</em></a>
-      <a href="#contact"><i>06</i><strong>电波</strong><em>TRANSMISSION</em></a>
-    </nav>
-    <div class="mobile-menu-foot">
-      <p>在 0 与 1 之间，<br>造物，也问道。</p>
-      <span>39.0851° N / 117.1994° E<br>TIANJIN, CN</span>
+    <div class="mobile-menu-inner">
+      <span class="mobile-menu-label">INDEX / 目录</span>
+      <nav aria-label="移动端导航">
+        <a href="#origin"><span>01</span><strong>原点</strong><em>ORIGIN</em></a>
+        <a href="#signals"><span>02</span><strong>志趣</strong><em>SIGNALS</em></a>
+        <a href="#dao"><span>03</span><strong>道器</strong><em>BETWEEN</em></a>
+        <a href="#pagoda"><span>04</span><strong>木塔</strong><em>PAGODA</em></a>
+        <a href="#explainers"><span>05</span><strong>题解</strong><em>EXPLAINERS</em></a>
+        <a href="#contact"><span>06</span><strong>电波</strong><em>TRANSMISSION</em></a>
+      </nav>
+      <div class="mobile-menu-foot">
+        <span>TJU · EAIE / 20</span>
+        <span>保持好奇，继续造物。</span>
+      </div>
     </div>
   </div>
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="heroTitle">
-      <div class="hero-watermark" aria-hidden="true">道</div>
-      <div class="hero-inner page">
+      <canvas id="field" aria-hidden="true"></canvas>
+      <div class="hero-ambient" aria-hidden="true">
+        <span class="hero-aura"></span>
+        <span class="hero-cross cross-1">+</span>
+        <span class="hero-cross cross-2">+</span>
+        <span class="hero-cross cross-3">+</span>
+        <span class="hero-grid"></span>
+      </div>
+
+      <div class="hero-inner page-pad">
         <div class="hero-copy">
-          <p class="eyebrow hero-eyebrow"><span>PORTFOLIO / 2026</span><i></i><span>天津大学 · 电气自动化与信息工程学院</span></p>
-          <h1 class="hero-title" id="heroTitle">
-            <span class="hero-line"><span>在 <i>0</i> 与 <i>1</i></span></span>
-            <span class="hero-line"><span>之间，</span></span>
-            <span class="hero-line"><span>造物，</span></span>
-            <span class="hero-line"><span><em>也问道。</em></span></span>
-          </h1>
-          <p class="hero-lede">我是<strong>孟子皓</strong>，20 岁，天津大学电气自动化与信息工程学院大一学生。一个会为一块开发板熬夜，也会为一束光停下来的标准理工男。用代码、焊台和镜头拆解世界，也在神话与道教文化里，寻找另一种答案。</p>
-          <div class="hero-actions">
-            <a class="btn btn-ink" href="#signals">
-              <span>浏览八种坐标</span>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8"/></svg>
-            </a>
-            <a class="text-link" href="#pagoda"><span>打开木塔档案</span><i>↘</i></a>
+          <div class="hero-kicker" data-hero="1">
+            <span class="kicker-tag">PORTFOLIO / 2026</span>
+            <span class="kicker-line"></span>
+            <span class="kicker-text">天津大学 · 电气自动化与信息工程学院 · 大一</span>
           </div>
-          <dl class="hero-stats">
-            <div><dt>AGE / 年龄</dt><dd>20<small>岁</small></dd></div>
-            <div><dt>SIGNALS / 坐标</dt><dd>08<small>个</small></dd></div>
-            <div><dt>STATUS / 状态</dt><dd class="stat-infinity">∞<small>未完成</small></dd></div>
+
+          <h1 class="hero-title" id="heroTitle">
+            <span class="title-line"><span class="title-inner">在 <i>0</i> 与 <i>1</i> 之间，</span></span>
+            <span class="title-line"><span class="title-inner">造物，<em>也问道。</em></span></span>
+          </h1>
+
+          <p class="hero-lede" data-hero="2">
+            我是<strong>孟子皓</strong>，20 岁，一个会为一块开发板熬夜，也会为一束光停下来的<span class="no-wrap">标准理工男</span>。<span class="no-wrap">用代码</span>、焊台和镜头拆解世界，也在神话与道教文化里，寻找另一种答案。
+          </p>
+
+          <div class="hero-actions" data-hero="3">
+            <a class="btn btn-solid magnetic" href="#signals">
+              <span>调取我的坐标</span>
+              <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 12.8 12.8 3.2M5 3.2h7.8V11"/></svg>
+            </a>
+            <button class="btn btn-ghost magnetic" id="randomInterest" type="button">
+              <kbd>R</kbd>
+              <span>随机打开一个兴趣</span>
+            </button>
+          </div>
+
+          <dl class="hero-stats" data-hero="4">
+            <div>
+              <dt>AGE / 年龄</dt>
+              <dd><span class="counter" data-target="20">00</span><small>岁</small></dd>
+            </div>
+            <div>
+              <dt>SIGNALS / 坐标</dt>
+              <dd><span class="counter" data-target="8">00</span><small>个</small></dd>
+            </div>
+            <div>
+              <dt>IDEAS / 想法</dt>
+              <dd><span class="infinity">∞</span><small>未完成</small></dd>
+            </div>
           </dl>
         </div>
 
-        <div class="hero-art" data-hero-art>
-          <div class="disc-wrap" id="discWrap">
-            <span class="disc-label disc-label--tl">造物 <small>BUILD</small></span>
-            <span class="disc-label disc-label--tr">感知 <small>PERCEIVE</small></span>
-            <span class="disc-label disc-label--bl">问道 <small>ASK</small></span>
-            <span class="disc-label disc-label--br">留白 <small>SPACE</small></span>
-            <svg class="taiji" viewBox="0 0 600 600" aria-hidden="true">
-              <g class="taiji-orbit">
-                <circle cx="300" cy="300" r="282"></circle>
-                <circle cx="300" cy="300" r="260" class="dash"></circle>
-                <g class="taiji-ticks">
-                  <path d="M300 10v16M300 574v16M10 300h16M574 300h16"></path>
-                  <path d="M86 86l12 12M502 502l12 12M514 86l-12 12M98 502l-12 12"></path>
-                  <path d="M300 26v7M300 567v7M26 300h7M567 300h7"></path>
-                </g>
-                <g class="taiji-trigrams">
-                  <g transform="translate(300 46)"><path d="M-14 0h28M-14 6h28M-14 12h28"/></g>
-                  <g transform="translate(516 208) rotate(60)"><path d="M-14 0h28M-14 6h12M2 6h12M-14 12h28"/></g>
-                  <g transform="translate(516 392) rotate(120)"><path d="M-14 0h28M-14 6h28M-14 12h12M2 12h12"/></g>
-                  <g transform="translate(300 554)"><path d="M-14 0h28M-14 6h12M2 6h12M-14 12h12M2 12h12"/></g>
-                  <g transform="translate(84 392) rotate(-120)"><path d="M-14 0h12M2 0h12M-14 6h28M-14 12h12M2 12h12"/></g>
-                  <g transform="translate(84 208) rotate(-60)"><path d="M-14 0h12M2 0h12M-14 6h12M2 6h12M-14 12h28"/></g>
-                </g>
-              </g>
-              <g class="taiji-disc">
-                <circle cx="300" cy="300" r="178"></circle>
-                <path class="taiji-dark" d="M300 122a178 178 0 0 1 0 356 89 89 0 0 1 0-178 89 89 0 0 0 0-178Z"></path>
-                <path class="taiji-accent" d="M300 122a178 178 0 0 1 146 293"></path>
-                <circle cx="300" cy="211" r="8" class="taiji-dot taiji-dot--paper"></circle>
-                <circle cx="300" cy="389" r="8" class="taiji-dot taiji-dot--ink"></circle>
-              </g>
-              <circle cx="300" cy="300" r="197" class="taiji-hairline"></circle>
-            </svg>
-            <button class="disc-core" id="discCore" type="button" aria-label="点击切换身份关键词">
-              <span class="disc-core-mark">孟</span>
-              <span class="disc-core-plus" aria-hidden="true">+</span>
-            </button>
-            <div class="disc-caption">
-              <span id="identityState">01 / 03 · 造物者</span>
-              <p id="identityNote">把想象，变成可以运行的东西。</p>
+        <div class="hero-visual" data-hero="5">
+          <div class="artifact-wrap">
+            <div class="artifact" id="artifact" aria-label="互动星盘，可拖动旋转；点击中心切换身份关键词">
+              <span class="artifact-corner ac-tl" aria-hidden="true">+</span>
+              <span class="artifact-corner ac-tr" aria-hidden="true">+</span>
+              <span class="artifact-corner ac-bl" aria-hidden="true">+</span>
+              <span class="artifact-corner ac-br" aria-hidden="true">+</span>
+
+              <div class="artifact-stage" id="artifactStage">
+                <svg class="artifact-svg" id="artifactSvg" viewBox="0 0 640 640" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="haloGrad">
+                      <stop offset="0" stop-color="#ff5b35" stop-opacity=".11"></stop>
+                      <stop offset=".5" stop-color="#ff5b35" stop-opacity=".035"></stop>
+                      <stop offset="1" stop-color="#ff5b35" stop-opacity="0"></stop>
+                    </radialGradient>
+                    <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#f0ece1" stop-opacity=".7"></stop>
+                      <stop offset=".55" stop-color="#f0ece1" stop-opacity=".05"></stop>
+                      <stop offset="1" stop-color="#ff5b35" stop-opacity=".8"></stop>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="320" cy="320" r="300" fill="url(#haloGrad)"></circle>
+                  <circle class="orbit-base" cx="320" cy="320" r="275"></circle>
+                  <circle class="orbit-faint" cx="320" cy="320" r="246"></circle>
+                  <circle class="orbit-dash" cx="320" cy="320" r="219"></circle>
+                  <path class="orbit-arc" d="M320 45a275 275 0 0 1 194.4 80.6"></path>
+                  <path class="orbit-arc orbit-arc-2" d="M45 320a275 275 0 0 0 80.6 194.4"></path>
+                  <g class="orbit-satellite-ring">
+                    <circle cx="320" cy="45" r="3.2" fill="#ff5b35"></circle>
+                    <circle cx="508" cy="448" r="2.2" fill="#f0ece1" opacity=".7"></circle>
+                  </g>
+                  <g class="orbit-crosses">
+                    <path d="M320 18v18M320 604v18M18 320h18M604 320h18"></path>
+                  </g>
+                  <g class="orbit-data">
+                    <text x="320" y="614" text-anchor="middle">39.0851° N · 117.1994° E</text>
+                    <text x="320" y="632" text-anchor="middle">BUILD / ASK / WANDER</text>
+                  </g>
+                </svg>
+
+                <div class="artifact-ticks" aria-hidden="true"></div>
+                <span class="orbit-satellite orbit-satellite-a" aria-hidden="true"></span>
+                <span class="orbit-satellite orbit-satellite-b" aria-hidden="true"></span>
+
+                <div class="artifact-labels" aria-hidden="true">
+                  <span class="art-label art-label-1">人工智能<small>AI / 02</small></span>
+                  <span class="art-label art-label-2">三维建模<small>3D / 03</small></span>
+                  <span class="art-label art-label-3">神话研究<small>MYTH / 07</small></span>
+                  <span class="art-label art-label-4">独立游戏<small>GAME / 04</small></span>
+                </div>
+
+                <button class="artifact-core" id="coreBtn" type="button" aria-label="点击切换身份关键词">
+                  <span class="core-ripple" id="coreRipple" aria-hidden="true"></span>
+                  <span class="core-kicker">MZ / 20</span>
+                  <span class="core-glyph" id="coreGlyph">孟</span>
+                  <span class="core-label" id="coreLabel">造物者</span>
+                  <span class="core-en" id="coreEn">BUILDER</span>
+                </button>
+              </div>
+
+              <div class="artifact-bottom">
+                <span class="drag-hint"><i>↔</i><span class="drag-mouse">DRAG TO ROTATE</span><span class="drag-touch">TAP THE CORE</span></span>
+                <span class="core-state" id="coreState">01 / 03 · 造物者</span>
+              </div>
             </div>
+            <p class="artifact-note" id="artifactNote" aria-live="polite">把想象，变成可以运行的东西。</p>
           </div>
         </div>
       </div>
 
-      <div class="hero-foot page">
-        <a class="scroll-cue" href="#origin"><span class="scroll-cue-line"></span><span>向下探索 / SCROLL</span></a>
-        <span class="hero-motto">工程师的好奇 <i>×</i> 诗人的耐心</span>
-        <span class="hero-coords">39.0851° N / 117.1994° E <em>TJ, CN</em></span>
+      <div class="hero-bottom page-pad" data-hero="6">
+        <a class="scroll-cue" href="#origin" aria-label="向下滚动到原点">
+          <span class="scroll-ring"><i></i></span>
+          <span>向下探索</span>
+        </a>
+        <p class="hero-motto">工程师的好奇 <i>×</i> 诗人的耐心</p>
+        <div class="hero-coords">
+          <span>39.0851° N / 117.1994° E</span>
+          <em>TIANJIN, CN</em>
+        </div>
       </div>
     </section>
 
-    <div class="index-band" aria-label="兴趣索引">
-      <div class="index-band-inner page">
-        <span>EMBEDDED SYSTEMS</span><i></i><span>ARTIFICIAL INTELLIGENCE</span><i></i><span>3D MODELLING</span><i></i><span>INDIE GAME</span><i></i><span>FILM EDITING</span><i></i><span>PHOTOGRAPHY</span><i></i><span>MYTHOLOGY</span><i></i><span>TAOIST CULTURE</span>
+    <div class="signal-strip" aria-hidden="true">
+      <div class="strip-track">
+        <div class="strip-group">
+          <span>单片机<small>EMBEDDED</small></span><i>+</i>
+          <span class="strip-outline">人工智能<small>AI</small></span><i>+</i>
+          <span>三维建模<small>3D</small></span><i>+</i>
+          <span class="strip-outline">独立游戏<small>INDIE GAME</small></span><i>+</i>
+          <span>视频剪辑<small>FILM</small></span><i>+</i>
+          <span class="strip-outline">摄影<small>PHOTO</small></span><i>+</i>
+          <span>神话研究<small>MYTH</small></span><i>+</i>
+          <span class="strip-outline">道教文化<small>TAOISM</small></span><i>+</i>
+        </div>
+        <div class="strip-group">
+          <span>单片机<small>EMBEDDED</small></span><i>+</i>
+          <span class="strip-outline">人工智能<small>AI</small></span><i>+</i>
+          <span>三维建模<small>3D</small></span><i>+</i>
+          <span class="strip-outline">独立游戏<small>INDIE GAME</small></span><i>+</i>
+          <span>视频剪辑<small>FILM</small></span><i>+</i>
+          <span class="strip-outline">摄影<small>PHOTO</small></span><i>+</i>
+          <span>神话研究<small>MYTH</small></span><i>+</i>
+          <span class="strip-outline">道教文化<small>TAOISM</small></span><i>+</i>
+        </div>
       </div>
     </div>
 
     <section class="section origin" id="origin" aria-labelledby="originTitle">
-      <div class="section-shell page">
-        <header class="section-head" data-reveal>
+      <span class="ghost-word ghost-origin" aria-hidden="true">ORIGIN</span>
+      <div class="section-shell page-pad">
+        <div class="section-marker reveal">
           <span class="section-num">01</span>
-          <span class="section-name">原点 <em>ORIGIN</em></span>
-          <span class="section-line"></span>
-          <span class="section-side">THE PERSON BEHIND THE SIGNALS</span>
-        </header>
+          <span class="section-label">原点 / ORIGIN</span>
+          <span class="section-rule"></span>
+          <span class="section-side">SCROLL / 001</span>
+        </div>
 
         <div class="origin-grid">
           <div class="origin-main">
-            <div class="vertical-quote" data-reveal><span>致虚极，<br>守静笃。</span><small>《道德经》</small></div>
+            <h2 class="display-heading reveal" id="originTitle">
+              标准理工男，<br><em>不标准</em>的好奇心。
+            </h2>
+
             <div class="origin-copy">
-              <h2 class="section-title" id="originTitle" data-reveal>标准理工男，<br><em>不标准</em>的好奇心。</h2>
-              <p class="lead" data-reveal>我今年 20 岁，在天津大学电气自动化与信息工程学院读大一。喜欢把东西拆开，研究它为什么能工作；更享受把它重新装回去时，让它多出一点原来说明书里没有的功能。</p>
-              <p data-reveal>单片机、人工智能、三维建模和独立游戏，是我和「造物」相处的四种方式；摄影、剪辑、神话与道教文化，则是我理解世界、安放想象的方式。理性和浪漫并不冲突——它们只是同一套系统里，两条互相校准的信号。</p>
-              <div class="principles">
-                <article data-reveal><span>01</span><div><h3>先拆开 <em>DECONSTRUCT</em></h3><p>看到一个东西，先想知道它怎么运转。</p></div></article>
-                <article data-reveal><span>02</span><div><h3>再动手 <em>MAKE</em></h3><p>让想法通电，变成能看见、能触摸的结果。</p></div></article>
-                <article data-reveal><span>03</span><div><h3>留一点白 <em>LEAVE SPACE</em></h3><p>给未知留位置，答案才有继续生长的可能。</p></div></article>
-              </div>
+              <p class="lead reveal" style="--delay:.06s">
+                我今年 20 岁，在天津大学电气自动化与信息工程学院读大一。喜欢把东西拆开，研究它为什么能工作；更享受把它重新装回去时，让它多出一点原来说明书里没有的功能。
+              </p>
+              <p class="reveal" style="--delay:.12s">
+                单片机、人工智能、三维建模和独立游戏，是我和「造物」相处的四种方式；摄影、剪辑、神话与道教文化，则是我理解世界、安放想象的方式。理性和浪漫并不冲突——它们只是同一套系统里，两条互相校准的信号。
+              </p>
+            </div>
+
+            <div class="principles">
+              <article class="principle reveal" style="--delay:.04s">
+                <span class="principle-num">01</span>
+                <div class="principle-body">
+                  <h3>先拆开 <em>DECONSTRUCT</em></h3>
+                  <p>看到一个东西，先想知道它怎么运转。</p>
+                </div>
+                <span class="principle-icon" aria-hidden="true">+</span>
+              </article>
+              <article class="principle reveal" style="--delay:.1s">
+                <span class="principle-num">02</span>
+                <div class="principle-body">
+                  <h3>再动手 <em>MAKE</em></h3>
+                  <p>让想法通电，变成能看见、能触摸的结果。</p>
+                </div>
+                <span class="principle-icon" aria-hidden="true">+</span>
+              </article>
+              <article class="principle reveal" style="--delay:.16s">
+                <span class="principle-num">03</span>
+                <div class="principle-body">
+                  <h3>留一点白 <em>LEAVE SPACE</em></h3>
+                  <p>给未知留位置，答案才有继续生长的可能。</p>
+                </div>
+                <span class="principle-icon" aria-hidden="true">+</span>
+              </article>
             </div>
           </div>
 
-          <aside class="identity-column" data-reveal aria-label="孟子皓身份卡">
+          <aside class="origin-aside reveal" style="--delay:.08s" aria-label="孟子皓身份卡">
             <div class="id-card" id="idCard" data-tilt>
-              <div class="id-card-top"><span>IDENTITY / 001</span><span><i></i>ACTIVE</span></div>
-              <div class="id-card-main">
-                <span class="id-glyph">孟</span>
-                <div><h3>孟子皓</h3><p>MENG ZIHAO</p></div>
+              <span class="id-shine" aria-hidden="true"></span>
+              <div class="id-top">
+                <span>IDENTITY / 001</span>
+                <span class="id-status"><i></i>ACTIVE</span>
+              </div>
+
+              <div class="id-main">
+                <span class="id-avatar">孟</span>
+                <div class="id-name">
+                  <h3>孟子皓</h3>
+                  <p>MENG ZIHAO</p>
+                </div>
                 <span class="id-age">20</span>
               </div>
-              <div class="id-card-rule"></div>
+
+              <div class="id-line"></div>
+
               <dl class="id-data">
                 <div><dt>学校 / SCHOOL</dt><dd>天津大学</dd></div>
                 <div><dt>学院 / FACULTY</dt><dd>电气自动化与信息工程学院</dd></div>
                 <div><dt>阶段 / YEAR</dt><dd>本科一年级</dd></div>
                 <div><dt>坐标 / BASE</dt><dd>天津 · TIANJIN</dd></div>
               </dl>
-              <div class="id-tags"><span>标准理工男</span><span>造物中</span><span>好奇心过载</span></div>
-              <div class="id-card-bottom"><span class="id-barcode" aria-hidden="true"></span><span>MZ / 2026</span></div>
+
+              <div class="id-tags">
+                <span>标准理工男</span>
+                <span>造物中</span>
+                <span>好奇心过载</span>
+              </div>
+
+              <div class="id-bottom">
+                <div class="id-barcode" aria-hidden="true"></div>
+                <div class="id-sign">
+                  <span>SIGNAL</span>
+                  <svg viewBox="0 0 84 22" aria-hidden="true">
+                    <path d="M1 11h8l4-8 5 16 5-12 4 7 5-11 4 16 5-8h9l4-5 3 11 4-6h13"></path>
+                  </svg>
+                </div>
+              </div>
             </div>
-            <p class="identity-note"><span>+</span> 比起给自己贴标签，我更想保持一种状态：好奇，动手，然后继续追问。</p>
-            <div class="identity-quote"><span>“</span>工程师的好奇，<br>诗人的耐心。<small>PERSONAL NOTES / 2026</small></div>
+            <p class="aside-note"><span>+</span> 比起给自己贴标签，我更想保持一种状态：好奇，动手，然后继续追问。</p>
           </aside>
         </div>
       </div>
     </section>
 
     <section class="section signals" id="signals" aria-labelledby="signalsTitle">
-      <div class="section-shell page">
-        <header class="section-head" data-reveal>
+      <span class="ghost-word ghost-signals" aria-hidden="true">SIGNALS</span>
+      <div class="section-shell page-pad">
+        <div class="section-marker reveal">
           <span class="section-num">02</span>
-          <span class="section-name">志趣 <em>SIGNALS</em></span>
-          <span class="section-line"></span>
-          <span class="section-side">EIGHT WAYS OF LOOKING</span>
-        </header>
+          <span class="section-label">志趣 / SIGNALS</span>
+          <span class="section-rule"></span>
+          <span class="section-side">EIGHT FREQUENCIES</span>
+        </div>
 
-        <div class="section-intro">
-          <h2 class="section-title" id="signalsTitle" data-reveal>八种与世界<br><em>对话</em>的方式。</h2>
-          <div class="section-intro-copy" data-reveal>
-            <p>从硬件到神话，这些坐标共同构成了我。它们不是并列的技能清单，而是八种看世界的焦距——点开任意一个，看看它在我这里意味着什么。</p>
-            <button class="text-button" id="randomInterest" type="button"><span class="text-button-dot"></span>随机抽一个坐标 <kbd>R</kbd><i>↗</i></button>
+        <div class="signals-head">
+          <h2 class="display-heading reveal" id="signalsTitle">
+            八种与世界<br><em>对话</em>的方式。
+          </h2>
+          <div class="signals-intro">
+            <p class="reveal" style="--delay:.08s">
+              从硬件到神话，这些坐标共同构成了我。它们不是并列的技能清单，而是八种看世界的焦距——点开任意一个，看看它在我这里意味着什么。
+            </p>
+            <button class="text-action reveal" id="randomInterest2" type="button" style="--delay:.14s">
+              <span class="text-action-dot"></span>
+              <span>随机抽一个坐标</span>
+              <kbd>R</kbd>
+              <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 12.8 12.8 3.2M5 3.2h7.8V11"/></svg>
+            </button>
           </div>
         </div>
 
-        <div class="signal-layout">
-          <aside class="signal-preview" id="signalPreview" aria-live="polite">
-            <div class="preview-top"><span id="previewIndex">01 / 08</span><span id="previewCategory">MAKE · 造物</span></div>
-            <div class="preview-glyph" id="previewGlyph" aria-hidden="true">芯</div>
-            <div class="preview-title"><h3 id="previewTitle">单片机</h3><p id="previewEn">Embedded Systems</p></div>
-            <p class="preview-desc" id="previewDesc">喜欢看代码穿过芯片，变成灯、声音和动作。单片机大概是最接近「造物」的入口：一行代码下去，现实世界真的会回应你。</p>
-            <div class="preview-foot"><span>CLICK TO EXPAND</span><span id="previewNum">01</span></div>
-          </aside>
-
-          <div class="signal-browser">
-            <div class="filter-bar" role="group" aria-label="按类别筛选兴趣">
-              <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>08</span></button>
-              <button class="filter" type="button" data-filter="make" aria-pressed="false">造物 <span>04</span></button>
-              <button class="filter" type="button" data-filter="see" aria-pressed="false">感知 <span>02</span></button>
-              <button class="filter" type="button" data-filter="ask" aria-pressed="false">问道 <span>02</span></button>
-              <span class="filter-hint">SELECT A FREQUENCY</span>
-            </div>
-            <div class="signal-list" id="signalList">
-              <button class="signal-row" type="button" data-key="mcu" data-category="make" aria-haspopup="dialog"><span class="signal-number">01</span><span class="signal-name">单片机<small>EMBEDDED SYSTEMS</small></span><span class="signal-cat">造物</span><span class="signal-tagline">让一行代码，长出手脚。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="ai" data-category="make" aria-haspopup="dialog"><span class="signal-number">02</span><span class="signal-name">人工智能<small>ARTIFICIAL INTELLIGENCE</small></span><span class="signal-cat">造物</span><span class="signal-tagline">想知道机器如何学会理解。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="threed" data-category="make" aria-haspopup="dialog"><span class="signal-number">03</span><span class="signal-name">三维建模<small>3D MODELLING</small></span><span class="signal-cat">造物</span><span class="signal-tagline">在不存在的地方，搭建世界。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="game" data-category="make" aria-haspopup="dialog"><span class="signal-number">04</span><span class="signal-name">独立游戏<small>INDIE GAME DEVELOPMENT</small></span><span class="signal-cat">造物</span><span class="signal-tagline">把规则、叙事和浪漫，装进一个宇宙。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="video" data-category="see" aria-haspopup="dialog"><span class="signal-number">05</span><span class="signal-name">视频剪辑<small>VIDEO EDITING</small></span><span class="signal-cat">感知</span><span class="signal-tagline">给素材重新排列时间。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="photo" data-category="see" aria-haspopup="dialog"><span class="signal-number">06</span><span class="signal-name">摄影<small>PHOTOGRAPHY</small></span><span class="signal-cat">感知</span><span class="signal-tagline">收集那些容易错过的光。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="myth" data-category="ask" aria-haspopup="dialog"><span class="signal-number">07</span><span class="signal-name">神话研究<small>MYTHOLOGY STUDIES</small></span><span class="signal-cat">问道</span><span class="signal-tagline">在古老故事里，寻找今天的回声。</span><span class="signal-arrow">↗</span></button>
-              <button class="signal-row" type="button" data-key="tao" data-category="ask" aria-haspopup="dialog"><span class="signal-number">08</span><span class="signal-name">道教文化<small>TAOIST CULTURE</small></span><span class="signal-cat">问道</span><span class="signal-tagline">换一种尺度，重新看世界。</span><span class="signal-arrow">↗</span></button>
-            </div>
-            <p class="signal-browser-note"><span>✳</span> 八个坐标，不是八种人设；它们只是我看世界的八种焦距。</p>
+        <div class="filter-bar reveal" style="--delay:.06s" role="group" aria-label="按类别筛选兴趣">
+          <div class="filter-options">
+            <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>08</span></button>
+            <button class="filter-btn" type="button" data-filter="make" aria-pressed="false"><i class="filter-dot dot-make"></i>造物 <span>04</span></button>
+            <button class="filter-btn" type="button" data-filter="see" aria-pressed="false"><i class="filter-dot dot-see"></i>感知 <span>02</span></button>
+            <button class="filter-btn" type="button" data-filter="ask" aria-pressed="false"><i class="filter-dot dot-ask"></i>问道 <span>02</span></button>
           </div>
+          <span class="filter-hint">SELECT A FREQUENCY</span>
         </div>
+
+        <div class="interest-grid" id="interestGrid">
+          <button class="interest-card card-wide" type="button" data-key="mcu" data-category="make" data-cursor="open" style="--accent:#ff5b35" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">01 / 08</span><span class="card-cat">MAKE · 造物</span></span>
+            <span class="card-body">
+              <span class="card-en">EMBEDDED SYSTEMS</span>
+              <span class="card-title">单片机</span>
+              <span class="card-summary">让一行代码，长出手脚。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 520 170" fill="none">
+                <g class="art-grid" stroke="currentColor" stroke-opacity=".12">
+                  <path d="M0 42h520M0 85h520M0 128h520M86 0v170M173 0v170M260 0v170M347 0v170M434 0v170"/>
+                </g>
+                <g class="mcu-traces" stroke="var(--accent)" stroke-width="1.1">
+                  <path class="trace-pulse trace-a" d="M210 58H146V28H86"/>
+                  <path class="trace-pulse trace-b" d="M310 58h64V28h70"/>
+                  <path class="trace-pulse trace-c" d="M210 112H122V144H56"/>
+                  <path class="trace-pulse trace-d" d="M310 112h62v32h90"/>
+                </g>
+                <g stroke="currentColor" stroke-width="1.15">
+                  <rect x="210" y="38" width="100" height="94" rx="5"/>
+                  <rect x="231" y="59" width="58" height="52" rx="2"/>
+                  <path d="M210 55h-43V34H99M210 75h-71v21H66M210 95h-51v23H98M210 115h-91v17H82M310 55h43V34h68M310 75h71v21h57M310 95h51v23h43M310 115h91v17h31"/>
+                  <path d="M248 38V16M272 38V16M248 132v22M272 132v22"/>
+                </g>
+                <g fill="currentColor">
+                  <circle cx="99" cy="34" r="2.5"/><circle cx="66" cy="96" r="2.5"/>
+                  <circle cx="98" cy="138" r="2.5"/><circle cx="421" cy="34" r="2.5"/>
+                  <circle cx="438" cy="96" r="2.5"/><circle cx="432" cy="138" r="2.5"/>
+                </g>
+                <circle class="mcu-led" cx="260" cy="85" r="5" fill="var(--accent)"/>
+                <text x="260" y="160" text-anchor="middle" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">MZ-01 / SIGNAL READY</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card" type="button" data-key="ai" data-category="make" data-cursor="open" style="--accent:#ff5b35" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">02 / 08</span><span class="card-cat">MAKE · 造物</span></span>
+            <span class="card-body">
+              <span class="card-en">ARTIFICIAL INTELLIGENCE</span>
+              <span class="card-title">人工智能</span>
+              <span class="card-summary">想知道机器如何学会理解。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 420 160" fill="none">
+                <g class="ai-links" stroke="currentColor" stroke-opacity=".28">
+                  <path d="M74 82 143 44 216 78 284 35 346 75"/>
+                  <path d="M74 82 142 122 216 78 291 124 346 75"/>
+                  <path d="M143 44v78M284 35v89M216 78v58M216 78V18"/>
+                </g>
+                <g fill="currentColor">
+                  <circle cx="74" cy="82" r="3.5"/><circle cx="143" cy="44" r="2.5"/>
+                  <circle cx="142" cy="122" r="2.5"/><circle cx="216" cy="78" r="4"/>
+                  <circle cx="216" cy="18" r="2"/><circle cx="284" cy="35" r="2.5"/>
+                  <circle cx="291" cy="124" r="2.5"/><circle cx="346" cy="75" r="3.5"/>
+                </g>
+                <circle class="ai-orbit" cx="216" cy="78" r="41" stroke="var(--accent)" stroke-opacity=".65" stroke-dasharray="2 7"/>
+                <circle cx="216" cy="78" r="8" fill="var(--accent)"/>
+                <circle cx="284" cy="35" r="5" fill="var(--accent)" fill-opacity=".75"/>
+                <text x="216" y="151" text-anchor="middle" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">LEARNING / WEIGHTS / WONDER</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card" type="button" data-key="threed" data-category="make" data-cursor="open" style="--accent:#ff5b35" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">03 / 08</span><span class="card-cat">MAKE · 造物</span></span>
+            <span class="card-body">
+              <span class="card-en">3D MODELLING</span>
+              <span class="card-title">三维建模</span>
+              <span class="card-summary">在不存在的地方，搭建世界。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 400 160" fill="none">
+                <g class="art-grid" stroke="currentColor" stroke-opacity=".1">
+                  <path d="M0 40h400M0 80h400M0 120h400M80 0v160M160 0v160M240 0v160M320 0v160"/>
+                </g>
+                <g class="cube-lines" stroke="currentColor" stroke-width="1.2">
+                  <path d="m200 24 64 36-64 36-64-36 64-36Z"/>
+                  <path d="m136 60 64 36v48l-64-36V60ZM264 60l-64 36v48l64-36V60Z"/>
+                  <path d="M200 96v48" stroke-opacity=".3"/>
+                </g>
+                <path class="cube-scan" d="m136 60 64 36 64-36" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="3 6"/>
+                <g fill="var(--accent)">
+                  <circle cx="200" cy="24" r="3"/><circle cx="136" cy="60" r="2.5"/>
+                  <circle cx="264" cy="60" r="2.5"/>
+                </g>
+                <g fill="currentColor">
+                  <circle cx="200" cy="96" r="2"/><circle cx="200" cy="144" r="2"/>
+                  <circle cx="136" cy="108" r="2"/><circle cx="264" cy="108" r="2"/>
+                </g>
+                <text x="200" y="158" text-anchor="middle" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">VERTICES / LIGHT / ATMOSPHERE</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card" type="button" data-key="game" data-category="make" data-cursor="open" style="--accent:#ff5b35" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">04 / 08</span><span class="card-cat">MAKE · 造物</span></span>
+            <span class="card-body">
+              <span class="card-en">INDIE GAME DEVELOPMENT</span>
+              <span class="card-title">独立游戏</span>
+              <span class="card-summary">把规则、叙事和浪漫，装进一个宇宙。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 440 160" fill="none">
+                <g stroke="currentColor" stroke-opacity=".12">
+                  <path d="M0 122h440M220 122 160 160M220 122l60 38M220 122 100 160M220 122l120 38"/>
+                </g>
+                <path d="m0 112 58-54 34 40 48-74 62 86" stroke="currentColor" stroke-opacity=".32" stroke-width="1.2"/>
+                <circle class="game-sun" cx="338" cy="58" r="26" fill="var(--accent)" fill-opacity=".16" stroke="var(--accent)" stroke-width="1"/>
+                <path d="M42 122h70v-9H58v-8H42v17ZM150 113h54v-9h-54v9ZM265 131h60v-9h-60v9ZM330 104h42v-9h-42v9Z" fill="currentColor" fill-opacity=".25"/>
+                <g class="pixel-player" fill="var(--accent)">
+                  <rect x="119" y="96" width="5" height="5"/>
+                  <rect x="124" y="96" width="5" height="5"/>
+                  <rect x="121" y="101" width="8" height="6"/>
+                  <rect x="118" y="107" width="4" height="6"/>
+                  <rect x="128" y="107" width="4" height="6"/>
+                </g>
+                <g stroke="currentColor" stroke-opacity=".5">
+                  <path d="M77 40h-20v20M361 90h18v18M392 37h18v18"/>
+                </g>
+                <g fill="currentColor">
+                  <circle cx="87" cy="31" r="1.5"/><circle cx="184" cy="22" r="1.5"/>
+                  <circle cx="394" cy="84" r="1.5"/><circle cx="300" cy="33" r="1.5"/>
+                </g>
+                <text x="220" y="152" text-anchor="middle" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">WORLD 01 / PRESS START</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card card-wide" type="button" data-key="video" data-category="see" data-cursor="open" style="--accent:#e8dfcb" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">05 / 08</span><span class="card-cat">SEE · 感知</span></span>
+            <span class="card-body">
+              <span class="card-en">VIDEO EDITING</span>
+              <span class="card-title">视频剪辑</span>
+              <span class="card-summary">给素材重新排列时间。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 560 170" fill="none">
+                <g class="video-ruler" stroke="currentColor" stroke-opacity=".23">
+                  <path d="M36 24v12M80 20v16M124 24v12M168 20v16M212 24v12M256 20v16M300 24v12M344 20v16M388 24v12M432 20v16M476 24v12M520 20v16"/>
+                </g>
+                <g class="video-clips">
+                  <rect x="36" y="47" width="118" height="23" rx="2" fill="currentColor" fill-opacity=".12"/>
+                  <rect x="162" y="47" width="76" height="23" rx="2" fill="var(--accent)" fill-opacity=".75"/>
+                  <rect x="246" y="47" width="132" height="23" rx="2" fill="currentColor" fill-opacity=".17"/>
+                  <rect x="386" y="47" width="138" height="23" rx="2" fill="currentColor" fill-opacity=".1"/>
+                  <rect x="36" y="78" width="70" height="16" rx="2" fill="currentColor" fill-opacity=".1"/>
+                  <rect x="114" y="78" width="150" height="16" rx="2" fill="currentColor" fill-opacity=".2"/>
+                  <rect x="272" y="78" width="82" height="16" rx="2" fill="var(--accent)" fill-opacity=".35"/>
+                  <rect x="362" y="78" width="162" height="16" rx="2" fill="currentColor" fill-opacity=".12"/>
+                  <rect x="36" y="102" width="174" height="16" rx="2" fill="currentColor" fill-opacity=".09"/>
+                  <rect x="218" y="102" width="96" height="16" rx="2" fill="currentColor" fill-opacity=".22"/>
+                  <rect x="322" y="102" width="202" height="16" rx="2" fill="currentColor" fill-opacity=".07"/>
+                </g>
+                <path class="video-wave" d="M36 140h18l7-16 10 29 9-22 9 12 8-21 10 28 8-13 8 14 8-9 8 7 8-18 9 24 9-16 9 11 8-6 8 7 9-12 8 8h200" stroke="var(--accent)" stroke-opacity=".55"/>
+                <g class="video-playhead">
+                  <path d="M338 14v118" stroke="var(--accent)"/>
+                  <path d="m332 14 6-8 6 8" fill="var(--accent)"/>
+                </g>
+                <text x="36" y="162" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">SEQUENCE_03 / 00:20:26</text>
+                <text x="524" y="162" text-anchor="end" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">24 FPS</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card" type="button" data-key="photo" data-category="see" data-cursor="open" style="--accent:#e8dfcb" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">06 / 08</span><span class="card-cat">SEE · 感知</span></span>
+            <span class="card-body">
+              <span class="card-en">PHOTOGRAPHY</span>
+              <span class="card-title">摄影</span>
+              <span class="card-summary">收集那些容易错过的光。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 400 160" fill="none">
+                <g class="aperture" stroke="currentColor" stroke-width="1.15">
+                  <circle cx="200" cy="78" r="50"/>
+                  <path d="M200 28 239 46 218 78Z" fill="currentColor" fill-opacity=".08"/>
+                  <path d="M243 53 236 97 207 78Z" fill="currentColor" fill-opacity=".08"/>
+                  <path d="M231 102 194 110 207 78Z" fill="currentColor" fill-opacity=".08"/>
+                  <path d="M200 128 161 110 182 78Z" fill="currentColor" fill-opacity=".08"/>
+                  <path d="M157 103 164 59 193 78Z" fill="currentColor" fill-opacity=".08"/>
+                  <path d="M169 54 206 46 193 78Z" fill="currentColor" fill-opacity=".08"/>
+                  <circle cx="200" cy="78" r="66" stroke-opacity=".24" stroke-dasharray="1 6"/>
+                </g>
+                <g class="focus-frame" stroke="currentColor" stroke-opacity=".5">
+                  <path d="M106 48V34h14M294 34h14v14M308 112v14h-14M120 126h-14v-14"/>
+                </g>
+                <circle class="photo-dot" cx="258" cy="55" r="4" fill="var(--accent)"/>
+                <text x="36" y="40" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">F / 1.8</text>
+                <text x="364" y="40" text-anchor="end" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">50 MM</text>
+                <text x="200" y="154" text-anchor="middle" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">ISO 200 / 1-125 / LIGHT</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card card-wide" type="button" data-key="myth" data-category="ask" data-cursor="open" style="--accent:#bccbae" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">07 / 08</span><span class="card-cat">ASK · 问道</span></span>
+            <span class="card-body">
+              <span class="card-en">MYTHOLOGY STUDIES</span>
+              <span class="card-title">神话研究</span>
+              <span class="card-summary">在古老故事里，寻找今天的回声。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 520 160" fill="none">
+                <text x="404" y="112" text-anchor="middle" fill="currentColor" fill-opacity=".08" font-family="serif" font-size="86">山海</text>
+                <path d="M0 132h520M22 132l54-55 35 33 44-69 62 91M302 132l43-42 27 22 35-51 49 71" stroke="currentColor" stroke-opacity=".24"/>
+                <g class="myth-stars" fill="currentColor">
+                  <circle cx="76" cy="42" r="1.6"/><circle cx="135" cy="73" r="1.2"/>
+                  <circle cx="202" cy="31" r="2"/><circle cx="276" cy="56" r="1.4"/>
+                  <circle cx="333" cy="24" r="1.2"/><circle cx="392" cy="62" r="1.7"/>
+                  <circle cx="460" cy="36" r="1.2"/>
+                </g>
+                <g class="myth-lines" stroke="var(--accent)" stroke-opacity=".5" stroke-dasharray="2 5">
+                  <path d="m76 42 59 31 67-42 74 25 57-32 59 38 68-26"/>
+                  <path d="m202 31 12-18 15 21"/>
+                </g>
+                <circle class="myth-star" cx="202" cy="31" r="4.5" fill="var(--accent)"/>
+                <path d="M118 114c18-17 34-17 52 0M348 114c16-16 31-16 47 0" stroke="currentColor" stroke-opacity=".25"/>
+                <text x="22" y="154" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">ARCHETYPE / ORAL HISTORY / STARS</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+
+          <button class="interest-card" type="button" data-key="tao" data-category="ask" data-cursor="open" style="--accent:#bccbae" aria-haspopup="dialog">
+            <span class="card-top"><span class="card-id">08 / 08</span><span class="card-cat">ASK · 问道</span></span>
+            <span class="card-body">
+              <span class="card-en">TAOIST CULTURE</span>
+              <span class="card-title">道教文化</span>
+              <span class="card-summary">换一种尺度，重新看世界。</span>
+            </span>
+            <span class="card-art" aria-hidden="true">
+              <svg viewBox="0 0 380 160" fill="none">
+                <g class="tao-orbit" stroke="currentColor" stroke-opacity=".26" stroke-dasharray="2 6">
+                  <circle cx="190" cy="78" r="72"/>
+                  <circle cx="190" cy="78" r="52"/>
+                  <path d="M190 6v14M190 136v14M118 78h14M248 78h14"/>
+                </g>
+                <g class="taiji" stroke="currentColor" stroke-width="1.2">
+                  <circle cx="190" cy="78" r="34"/>
+                  <path d="M190 44a17 17 0 0 1 0 34 17 17 0 0 0 0 34 34 34 0 0 1 0-68Z" fill="currentColor" fill-opacity=".24"/>
+                  <circle cx="190" cy="61" r="2.4" fill="currentColor" fill-opacity=".55"/>
+                  <circle cx="190" cy="95" r="2.4" fill="var(--accent)"/>
+                </g>
+                <g class="trigram-marks" stroke="var(--accent)" stroke-opacity=".6">
+                  <path d="M92 78h18M88 70h26M88 78h26M88 86h26"/>
+                  <path d="M270 70h26M270 78h26M270 86h26M278 78h10" stroke-dasharray="10 4"/>
+                </g>
+                <text x="190" y="152" text-anchor="middle" fill="currentColor" fill-opacity=".44" font-family="monospace" font-size="8">NOT AN ANSWER / A WAY OF SEEING</text>
+              </svg>
+            </span>
+            <span class="card-foot"><span>展开坐标</span><span class="card-open">↗</span></span>
+          </button>
+        </div>
+
+        <p class="grid-note reveal">
+          <span class="grid-note-mark">✳</span>
+          八个坐标，不是八种人设；它们只是我看世界的八种焦距。
+          <span class="grid-note-end">TJU · EAIE / 20</span>
+        </p>
       </div>
     </section>
 
     <section class="section dao" id="dao" aria-labelledby="daoTitle">
-      <div class="section-shell page">
-        <header class="section-head" data-reveal>
+      <span class="ghost-word ghost-dao" aria-hidden="true">BETWEEN</span>
+      <div class="section-shell page-pad">
+        <div class="section-marker reveal">
           <span class="section-num">03</span>
-          <span class="section-name">道器 <em>BETWEEN</em></span>
-          <span class="section-line"></span>
+          <span class="section-label">道器 / BETWEEN</span>
+          <span class="section-rule"></span>
           <span class="section-side">SILICON &amp; SPIRIT</span>
-        </header>
+        </div>
 
-        <div class="dao-intro">
-          <h2 class="section-title" id="daoTitle" data-reveal>以硅造器，<br>以道<em>观心</em>。</h2>
-          <div class="dao-intro-copy" data-reveal>
-            <p>写代码时，世界可以被拆解；读神话时，世界又恢复成一片留白。工程训练我把问题变成模块，道教文化提醒我：在拆解之后，还要为不可穷尽的部分留一点位置。</p>
-            <blockquote>形而上者谓之道，<br>形而下者谓之器。<cite>《周易 · 系辞上》</cite></blockquote>
+        <div class="dao-head">
+          <h2 class="display-heading reveal" id="daoTitle">
+            以硅造器，<br>以道<em>观心</em>。
+          </h2>
+          <div class="dao-head-copy">
+            <p class="reveal" style="--delay:.06s">
+              写代码时，世界是可被拆解的；读神话时，世界又恢复成一片留白。这两种视角，在我这里不是对立，而是彼此的补光。
+            </p>
+            <p class="reveal" style="--delay:.12s">
+              工程训练我把问题变成模块，寻找因果与边界；道教文化和神话让我看到尺度、变化与不可穷尽。器，是手中的方法；道，是心里的尺度。
+            </p>
           </div>
         </div>
 
-        <div class="dao-layout">
-          <div class="bagua-panel" data-reveal>
-            <div class="bagua" id="bagua" aria-label="八卦互动罗盘">
-              <svg class="bagua-guides" viewBox="0 0 600 600" aria-hidden="true">
-                <circle cx="300" cy="300" r="284"></circle>
-                <circle cx="300" cy="300" r="250" class="bagua-guide-soft"></circle>
-                <circle cx="300" cy="300" r="212" class="bagua-guide-dash"></circle>
-                <circle cx="300" cy="300" r="142" class="bagua-guide-soft"></circle>
-                <path d="M300 16v22M300 562v22M16 300h22M562 300h22"></path>
-              </svg>
-              <span class="bagua-orbit" aria-hidden="true"></span>
-              <div class="bagua-ring" id="baguaRing" role="group" aria-label="选择卦象"></div>
-              <div class="bagua-center" aria-live="polite">
-                <span class="bagua-center-kicker">SELECTED / 卦象</span>
-                <span class="bagua-center-icon" id="daoCenterIcon" aria-hidden="true"></span>
-                <strong id="daoCenterName">乾</strong>
-                <small id="daoCenterEn">QIAN / 创造</small>
-              </div>
-              <span class="bagua-cross bagua-cross--tl" aria-hidden="true">+</span>
-              <span class="bagua-cross bagua-cross--br" aria-hidden="true">+</span>
+        <div class="dao-stage">
+          <div class="dao-copy reveal">
+            <span class="dao-quote-mark">“</span>
+            <blockquote>形而上者谓之道，<br>形而下者谓之器。</blockquote>
+            <cite>《周易 · 系辞上》</cite>
+            <div class="dao-code">
+              <span>// A SMALL PRAYER FOR BUILDERS</span>
+              <p>while (curious) {<br>&nbsp;&nbsp;build();<br>&nbsp;&nbsp;question();<br>}</p>
             </div>
+            <p class="dao-copy-note">点击右侧八卦中的任意一卦，看看古老的目光如何照进今天的工程问题。</p>
+          </div>
+
+          <div class="bagua-column reveal" style="--delay:.08s">
+            <div class="bagua" id="bagua" aria-label="八卦互动罗盘">
+              <span class="bagua-glow" aria-hidden="true"></span>
+              <svg class="bagua-svg" viewBox="0 0 600 600" aria-hidden="true">
+                <circle cx="300" cy="300" r="284" stroke="currentColor" stroke-opacity=".17"/>
+                <circle cx="300" cy="300" r="255" stroke="currentColor" stroke-opacity=".07"/>
+                <circle cx="300" cy="300" r="213" stroke="currentColor" stroke-opacity=".18" stroke-dasharray="1 8"/>
+                <circle cx="300" cy="300" r="143" stroke="currentColor" stroke-opacity=".16"/>
+                <circle cx="300" cy="300" r="121" stroke="currentColor" stroke-opacity=".07"/>
+                <path d="M300 16v26M300 558v26M16 300h26M558 300h26" stroke="currentColor" stroke-opacity=".35"/>
+                <path d="M95 95 114 114M486 486 505 505M505 95 486 114M114 486 95 505" stroke="currentColor" stroke-opacity=".25"/>
+              </svg>
+              <div class="bagua-rotor" aria-hidden="true">
+                <span class="bagua-tickring"></span>
+                <span class="bagua-sweep"></span>
+              </div>
+              <div class="bagua-marker" id="baguaMarker" aria-hidden="true">
+                <span class="marker-line"></span>
+                <span class="marker-dot"></span>
+              </div>
+
+              <button class="trigram is-active" type="button" data-key="qian" data-angle="0" style="--angle:0deg" aria-pressed="true"><span>☰</span><em>乾</em></button>
+              <button class="trigram" type="button" data-key="dui" data-angle="45" style="--angle:45deg" aria-pressed="false"><span>☱</span><em>兑</em></button>
+              <button class="trigram" type="button" data-key="li" data-angle="90" style="--angle:90deg" aria-pressed="false"><span>☲</span><em>离</em></button>
+              <button class="trigram" type="button" data-key="zhen" data-angle="135" style="--angle:135deg" aria-pressed="false"><span>☳</span><em>震</em></button>
+              <button class="trigram" type="button" data-key="xun" data-angle="180" style="--angle:180deg" aria-pressed="false"><span>☴</span><em>巽</em></button>
+              <button class="trigram" type="button" data-key="kan" data-angle="225" style="--angle:225deg" aria-pressed="false"><span>☵</span><em>坎</em></button>
+              <button class="trigram" type="button" data-key="gen" data-angle="270" style="--angle:270deg" aria-pressed="false"><span>☶</span><em>艮</em></button>
+              <button class="trigram" type="button" data-key="kun" data-angle="315" style="--angle:315deg" aria-pressed="false"><span>☷</span><em>坤</em></button>
+
+              <div class="bagua-center" aria-live="polite">
+                <span class="bagua-center-kicker">SELECTED</span>
+                <strong id="baguaGlyph">☰</strong>
+                <span class="bagua-center-name" id="baguaName">乾</span>
+                <span class="bagua-center-en" id="baguaEn">QIAN</span>
+              </div>
+              <span class="bagua-note note-top">乾</span>
+              <span class="bagua-note note-bottom">坤</span>
+            </div>
+
             <div class="bagua-controls">
-              <button class="round-button" id="daoPrev" type="button" aria-label="上一个卦象">←</button>
-              <span>CLICK A TRIGRAM / 点击卦象</span>
-              <button class="round-button" id="daoNext" type="button" aria-label="下一个卦象">→</button>
+              <button class="round-btn" id="daoPrev" type="button" aria-label="上一个卦象"><span>←</span></button>
+              <span class="bagua-controls-hint">CLICK A TRIGRAM / 点击卦象</span>
+              <button class="round-btn" id="daoNext" type="button" aria-label="下一个卦象"><span>→</span></button>
             </div>
           </div>
 
-          <article class="dao-reader" data-reveal aria-live="polite">
-            <div class="dao-reader-top"><span>卦象 / TRIGRAM</span><span id="daoIndex">01 / 08</span></div>
-            <div class="dao-reader-head"><span class="dao-icon-large" id="daoIconLarge" aria-hidden="true"></span><div><h3 id="daoName">乾</h3><p id="daoEn">QIAN · 创造</p></div></div>
-            <p class="dao-desc" id="daoDesc">从无到有，先把东西做出来。世界也许不会因为一个想法改变，但会被一个真正跑起来的原型轻轻推动。</p>
-            <div class="dao-map"><span>器之对应 / IN CODE</span><p id="daoTech">游戏原型 · 硬件立项 · 从 0 到 1</p></div>
-            <div class="dao-progress"><span>01 — 08</span><i><b id="daoProgress"></b></i><span>VIEW / 08</span></div>
+          <article class="dao-reading reveal" style="--delay:.14s" aria-live="polite">
+            <div class="reading-top">
+              <span>卦象 / TRIGRAM</span>
+              <span id="daoIndex">01 / 08</span>
+            </div>
+            <div class="reading-main">
+              <span class="reading-symbol" id="daoSymbol">☰</span>
+              <div class="reading-title">
+                <h3 id="daoName">乾</h3>
+                <p id="daoEn">QIAN · 创造</p>
+              </div>
+            </div>
+            <p class="reading-desc" id="daoDesc">从无到有，先把东西做出来。世界不会因为一个想法改变，但会被一个原型轻轻推动。</p>
+            <div class="reading-map">
+              <span>器之对应 / IN CODE</span>
+              <p id="daoTech">游戏原型 · 硬件立项 · 从 0 到 1</p>
+            </div>
+            <div class="reading-foot">
+              <span>VIEW / 08</span>
+              <div class="reading-progress"><i id="daoProgress"></i></div>
+              <span id="daoPart">01 — 08</span>
+            </div>
           </article>
         </div>
-        <p class="dao-note" data-reveal>— 这里没有占卜，只借八种古老的目光，重新看一次手里的问题。</p>
+
+        <p class="dao-footnote reveal">— 这里没有占卜，只借八种古老的目光，重新看一次手里的问题。</p>
       </div>
     </section>
 
-    <section class="section chapter--dark pagoda" id="pagoda" aria-labelledby="pagodaTitle">
-      <div class="section-shell page">
-        <header class="section-head section-head--light" data-reveal>
+    <section class="section explainers pagoda" id="pagoda" aria-labelledby="pagodaTitle">
+      <span class="ghost-word ghost-lab" aria-hidden="true">1056</span>
+      <div class="section-shell page-pad">
+        <div class="section-marker reveal">
           <span class="section-num">04</span>
-          <span class="section-name">木构档案 <em>PAGODA</em></span>
-          <span class="section-line"></span>
-          <span class="section-side">YINGXIAN / 1056</span>
-        </header>
-
-        <div class="chapter-intro">
-          <h2 class="section-title" id="pagodaTitle" data-reveal>把一座塔，<br><em>拆开看。</em></h2>
-          <div class="chapter-intro-copy" data-reveal>
-            <p>应县木塔，本名佛宫寺释迦塔。辽清宁二年（1056）建于山西应州，通高 67.31 米，外观五层、内里九层，没有一颗铁钉。我用程序化建模和交互叙事，把它的台基、柱网、斗拱、暗层与塔刹重新搭了一遍。</p>
-            <p class="chapter-note"><span>独立项目 / INDEPENDENT STUDY</span> 从建筑史到受力逻辑，这是一份可以旋转、分解、剖视的木构档案。</p>
-          </div>
+          <span class="section-label">木构档案 / PAGODA</span>
+          <span class="section-rule"></span>
+          <span class="section-side">3D ARCHITECTURE</span>
         </div>
 
-        <div class="pagoda-facts" data-reveal>
-          <div><b>67.31<small>m</small></b><span>通高</span></div>
-          <div><b>1056</b><span>辽 · 始建</span></div>
-          <div><b>54<small>种</small></b><span>斗拱形制</span></div>
-          <div><b>09<small>层</small></b><span>明五暗九</span></div>
-        </div>
-
-        <div class="exhibit exhibit--pagoda" data-exhibit data-src="pagoda/index.html" data-title="应县木塔 · 立木千年 — 3D 木构档案" data-reveal>
-          <div class="exhibit-bar">
-            <span class="exhibit-id"><i></i>YX / 1056 <em>应县木塔 · 佛宫寺释迦塔</em></span>
-            <div class="exhibit-actions">
-              <a href="pagoda/index.html" target="_blank" rel="noopener">独立打开 <span>↗</span></a>
-              <button type="button" data-fullscreen>全屏 <span>⤢</span></button>
+        <div class="explainers-head">
+          <h2 class="display-heading reveal" id="pagodaTitle">
+            把一座塔，<br><em>拆开看</em>。
+          </h2>
+          <div class="explainers-intro">
+            <p class="reveal" style="--delay:.06s">
+              应县木塔，本名佛宫寺释迦塔。辽清宁二年（1056）建于山西应州，通高 67.31 米，外观五层、内里九层，没有一颗铁钉。把台基、柱网、斗拱、暗层与塔刹重新搭进一个可以旋转、分解、剖视的空间。
+            </p>
+            <div class="series-stamp reveal" style="--delay:.12s">
+              <span class="lab-pulse" aria-hidden="true"></span>
+              <span>INDEPENDENT STUDY / 独立研究</span>
+              <span class="series-count"><b>01</b> / 01</span>
             </div>
           </div>
-          <div class="exhibit-stage">
-            <button class="exhibit-poster" type="button" data-exhibit-start aria-label="进入应县木塔 3D 互动档案">
-              <img src="assets/pagoda-preview.webp" alt="应县木塔三维互动档案预览：木塔模型与结构信息面板" width="1302" height="790">
-              <span class="exhibit-shade" aria-hidden="true"></span>
-              <span class="exhibit-enter"><span class="play-disc">↗</span><b>进入 3D 木塔</b><small>拖动旋转 / 滚轮缩放 / 分层拆解</small></span>
-              <span class="exhibit-caption">LIVE MODEL / YX-1056</span>
-            </button>
-            <button class="exhibit-exit" type="button" data-exhibit-close hidden>收起 <span>×</span></button>
+        </div>
+
+        <a class="explainer-feature pagoda-feature reveal" id="pagodaFeature" href="pagoda/index.html" aria-labelledby="pagodaFeatureTitle" data-cursor="open" data-project="pagoda" data-project-title="应县木塔 · 立木千年" data-project-kicker="3D ARCHIVE / YX · 1056">
+          <div class="feature-visual">
+            <img src="assets/pagoda-feature.webp" alt="应县木塔 3D 木构档案：立木千年" width="640" height="720">
+            <span class="feature-scan" aria-hidden="true"></span>
+            <span class="feature-topline">
+              <span class="feature-live"><i></i>LIVE 3D</span>
+              <span>ARCHIVE 01</span>
+            </span>
+            <span class="feature-corner fc-tl" aria-hidden="true">+</span>
+            <span class="feature-corner fc-tr" aria-hidden="true">+</span>
+            <span class="feature-corner fc-bl" aria-hidden="true">+</span>
+            <span class="feature-corner fc-br" aria-hidden="true">+</span>
+            <span class="feature-caption">
+              <span>MODEL / YX-1056</span>
+              <span>DRAG · EXPLODE · SECTION</span>
+            </span>
           </div>
-          <div class="exhibit-foot"><span>程序化艺术复原 · 非测绘数据</span><span>资料与说明见页内「关于此塔」</span></div>
+          <div class="feature-body">
+            <span class="feature-watermark" aria-hidden="true">塔</span>
+            <span class="feature-meta">辽 · 清宁二年（1056） / 山西 · 应县</span>
+            <h3 class="feature-title" id="pagodaFeatureTitle"><span>立木</span><br><em>千年</em></h3>
+            <span class="feature-summary"><span>外观五层，内里九层。没有一颗铁钉，靠榫卯与斗拱叠合。</span><span>拆开台基、柱网、斗拱与暗层，看一座木塔如何在风与地震中站立近千年。</span></span>
+            <span class="feature-specs">
+              <span><i>通高</i><b>67.31 m</b></span>
+              <span><i>始建</i><b>1056</b></span>
+              <span><i>斗拱</i><b>54 种</b></span>
+            </span>
+            <span class="feature-tags">
+              <span>逐层拆解</span>
+              <span>双层套筒</span>
+              <span>剖视结构</span>
+            </span>
+            <span class="feature-bottom">
+              <span class="feature-launch">
+                <span>进入 3D 木塔</span>
+                <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 12.8 12.8 3.2M5 3.2h7.8V11"/></svg>
+              </span>
+              <span class="feature-note">拖拽旋转 / 逐层 / 剖视</span>
+            </span>
+          </div>
+        </a>
+
+        <div class="series-log reveal">
+          <div class="series-log-head">
+            <span>ARCHIVE LOG / 木构档案</span>
+            <span class="series-log-count"><i></i><b>01</b> ONLINE / 可浏览</span>
+          </div>
+          <div class="series-rows">
+            <a class="series-row" href="pagoda/index.html">
+              <span class="series-row-index">01</span>
+              <span class="series-row-main">
+                <span class="series-row-kicker">辽 · 1056 · 山西应县 / 佛宫寺释迦塔</span>
+                <span class="series-row-title">立木千年 · 3D 木构档案</span>
+              </span>
+              <span class="series-row-tags">67.31 m / 明五暗九 / 54 种斗拱</span>
+              <span class="series-row-status"><i></i>LIVE</span>
+              <span class="series-row-arrow">↗</span>
+            </a>
+          </div>
+          <div class="series-next">
+            <span class="series-next-index">NOTE</span>
+            <div class="series-next-copy">
+              <span class="series-next-kicker">程序化艺术复原 / NOT A SURVEY</span>
+              <h3>拆开一座塔，也是一次对时间的凝视。</h3>
+              <p>模型比例、构件数量与细部作了简化；资料与说明见页内「关于此塔」。</p>
+            </div>
+            <span class="series-next-mark" aria-hidden="true">+</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section chapter--dark explainers" id="explainers" aria-labelledby="explainersTitle">
-      <div class="section-shell page">
-        <header class="section-head section-head--light" data-reveal>
+    <section class="section explainers" id="explainers" aria-labelledby="explainersTitle">
+      <span class="ghost-word ghost-lab" aria-hidden="true">LAB</span>
+      <div class="section-shell page-pad">
+        <div class="section-marker reveal">
           <span class="section-num">05</span>
-          <span class="section-name">题解实验室 <em>EXPLAINERS</em></span>
-          <span class="section-line"></span>
-          <span class="section-side">3D LESSON SERIES / 2026—</span>
-        </header>
-
-        <div class="chapter-intro">
-          <h2 class="section-title" id="explainersTitle" data-reveal>把纸上的题，<br><em>放进三维世界。</em></h2>
-          <div class="chapter-intro-copy" data-reveal>
-            <p>有些物理过程，写满公式也很难真正「看见」。于是我把高考压轴题做成可以旋转、调参和播放的三维讲解——让抽象条件变成空间里的轨迹。</p>
-            <div class="series-status"><span class="live-pulse" aria-hidden="true"></span><span>ONGOING SERIES / 持续更新</span><b data-series-count>01</b><em>/ ∞</em></div>
-          </div>
+          <span class="section-label">题解实验室 / EXPLAINERS</span>
+          <span class="section-rule"></span>
+          <span class="section-side">3D LESSON SERIES</span>
         </div>
 
-        <div class="exhibit exhibit--lesson" data-exhibit data-src="explainers/2026-shanxi-physics.html" data-title="复合场中的粒子轨迹 · 3D 题解 EP.01" data-reveal>
-          <div class="exhibit-bar">
-            <span class="exhibit-id"><i></i><span id="viewerEpisode">EP. 01</span> <em id="viewerExam">2026 · 高考物理 · 陕晋青宁卷（山西）第 15 题</em></span>
-            <div class="exhibit-actions">
-              <a href="explainers/2026-shanxi-physics.html" target="_blank" rel="noopener" id="viewerOpen">独立打开 <span>↗</span></a>
-              <button type="button" data-fullscreen>全屏 <span>⤢</span></button>
+        <div class="explainers-head">
+          <h2 class="display-heading reveal" id="explainersTitle">
+            把纸上的题，<br><em>放进三维世界</em>。
+          </h2>
+          <div class="explainers-intro">
+            <p class="reveal" style="--delay:.06s">
+              有些物理过程，写满公式也很难真正「看见」。于是我把高考压轴题做成可以旋转、调参和播放的三维讲解——让抽象条件变成空间里的轨迹。
+            </p>
+            <div class="series-stamp reveal" style="--delay:.12s">
+              <span class="lab-pulse" aria-hidden="true"></span>
+              <span>ONGOING SERIES / 持续更新</span>
+              <span class="series-count"><b data-series-count>01</b> / ∞</span>
             </div>
           </div>
-          <div class="exhibit-stage">
-            <button class="exhibit-poster" type="button" data-exhibit-start aria-label="进入复合场中的粒子轨迹 3D 讲解">
-              <img id="viewerPoster" src="assets/explainers/2026-shanxi-physics-preview.webp" alt="复合场中的粒子轨迹 3D 讲解页面预览" width="1302" height="790">
-              <span class="exhibit-shade" aria-hidden="true"></span>
-              <span class="exhibit-enter"><span class="play-disc">↗</span><b>进入交互讲解</b><small id="viewerHint">拖动视角 / 调节电压 / 看见轨迹</small></span>
-              <span class="exhibit-caption" id="viewerCaption">LIVE LESSON / EP. 01</span>
-            </button>
-            <button class="exhibit-exit" type="button" data-exhibit-close hidden>收起 <span>×</span></button>
-          </div>
-          <div class="exhibit-foot"><span id="viewerFootTitle">复合场中的粒子轨迹</span><span id="viewerFootTags">3D 可旋转 / 电压实时可调 / 三幕拆解</span></div>
         </div>
 
-        <div class="series-board" data-reveal>
-          <div class="series-board-head"><span>SERIES LOG / 系列进度</span><span><i></i><b data-series-count>01</b> PUBLISHED / 已上线</span></div>
-          <div class="series-list" id="seriesList"></div>
-          <div class="series-next"><span class="series-next-index">NEXT</span><div><span>持续收录中 / IN PROGRESS</span><h3>下一道题，正在寻找它的第三个维度。</h3><p>每一道值得被看见的题，都会拥有一个属于自己的 3D 空间。</p></div><span class="series-next-mark">+</span></div>
+        <a class="explainer-feature reveal" id="featuredExplainer" href="explainers/2026-shanxi-physics.html" aria-labelledby="featureTitle" data-cursor="open" data-project="lesson" data-project-title="复合场中的粒子轨迹 · 3D 题解" data-project-kicker="3D LESSON / EP. 01">
+          <div class="feature-visual">
+            <img id="featureImage" src="assets/explainers/2026-shanxi-physics-scene.webp" alt="复合场中的粒子轨迹 3D 场景" width="590" height="568">
+            <span class="feature-scan" aria-hidden="true"></span>
+            <span class="feature-topline">
+              <span class="feature-live"><i></i>LIVE 3D</span>
+              <span id="featureEpisode">EP. 01</span>
+            </span>
+            <span class="feature-corner fc-tl" aria-hidden="true">+</span>
+            <span class="feature-corner fc-tr" aria-hidden="true">+</span>
+            <span class="feature-corner fc-bl" aria-hidden="true">+</span>
+            <span class="feature-corner fc-br" aria-hidden="true">+</span>
+            <span class="feature-caption">
+              <span>SIMULATION / 001</span>
+              <span>DRAG · SCALE · TUNE</span>
+            </span>
+          </div>
+          <div class="feature-body">
+            <span class="feature-watermark" id="featureWatermark" aria-hidden="true">01</span>
+            <span class="feature-meta" id="featureMeta">2026 高考物理 · 陕晋青宁卷（山西）第 15 题</span>
+            <h3 class="feature-title" id="featureTitle"><span>复合场中的</span><br><em>粒子轨迹</em></h3>
+            <span class="feature-summary" id="featureSummary"><span>粒子穿过小孔，在磁场中折返，被 Q 弹回，再击中 P。</span><span>拖动视角、调节电压，看见两条轨迹如何随 U 改变。</span></span>
+            <span class="feature-specs" id="featureSpecs">
+              <span><i>设问</i><b>03</b></span>
+              <span><i>轨迹</i><b>02</b></span>
+              <span><i>临界值</i><b>8/17</b></span>
+            </span>
+            <span class="feature-tags" id="featureTags">
+              <span>3D 可旋转</span>
+              <span>电压实时可调</span>
+              <span>三幕拆解</span>
+            </span>
+            <span class="feature-bottom">
+              <span class="feature-launch">
+                <span>进入 3D 讲解</span>
+                <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 12.8 12.8 3.2M5 3.2h7.8V11"/></svg>
+              </span>
+              <span class="feature-note">拖动旋转 / 滚轮缩放 / 调节 U</span>
+            </span>
+          </div>
+        </a>
+
+        <div class="series-log reveal">
+          <div class="series-log-head">
+            <span>SERIES LOG / 系列进度</span>
+            <span class="series-log-count"><i></i><b data-series-count>01</b> PUBLISHED / 已上线</span>
+          </div>
+          <div class="series-rows" id="seriesRows">
+            <a class="series-row" href="explainers/2026-shanxi-physics.html">
+              <span class="series-row-index">01</span>
+              <span class="series-row-main">
+                <span class="series-row-kicker">2026 · 高考物理 · 陕晋青宁卷（山西）第 15 题</span>
+                <span class="series-row-title">复合场中的粒子轨迹</span>
+              </span>
+              <span class="series-row-tags">3D 可旋转 / 电压实时可调</span>
+              <span class="series-row-status"><i></i>LIVE</span>
+              <span class="series-row-arrow">↗</span>
+            </a>
+          </div>
+          <div class="series-next">
+            <span class="series-next-index">NEXT</span>
+            <div class="series-next-copy">
+              <span class="series-next-kicker">持续收录中 / IN PROGRESS</span>
+              <h3>下一道题，正在寻找它的第三个维度。</h3>
+              <p>每一道值得被看见的题，都会拥有一个属于自己的 3D 空间。</p>
+            </div>
+            <span class="series-next-mark" aria-hidden="true">+</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="contact" id="contact" aria-labelledby="contactTitle">
-      <div class="section-shell page">
-        <header class="section-head" data-reveal>
+      <div class="contact-rings" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="section-shell page-pad">
+        <div class="section-marker reveal">
           <span class="section-num">06</span>
-          <span class="section-name">电波 <em>TRANSMISSION</em></span>
-          <span class="section-line"></span>
+          <span class="section-label">电波 / TRANSMISSION</span>
+          <span class="section-rule"></span>
           <span class="section-side">END IS A START</span>
-        </header>
+        </div>
 
         <div class="contact-main">
-          <h2 class="section-title" id="contactTitle" data-reveal>保持好奇，<br><em>继续造物。</em></h2>
-          <div class="contact-copy" data-reveal>
-            <p>这是一个还在加载中的人。接下来，我想把单片机做进真实的物件里，把 AI 变成好用的工具，把脑海里的世界做成可以玩的游戏；也想继续用镜头和文字，记录那些值得被记住的光。</p>
-            <p>如果你想聊硬件、AI、游戏、影像，或者神话与道教文化，欢迎找到我。我们总会在某个有趣的地方相遇。</p>
-            <div class="contact-actions">
-              <button class="btn btn-ink" id="copyIdentity" type="button"><span>复制身份卡</span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"></rect><path d="M3 10V3h7"></path></svg></button>
-              <button class="text-button" id="sharePage" type="button"><span>分享此页</span><i>↗</i></button>
+          <div class="contact-heading">
+            <span class="contact-kicker reveal">SIGNAL IS OPEN · 2026</span>
+            <h2 class="display-heading reveal" id="contactTitle" style="--delay:.06s">
+              保持好奇，<br><em>继续造物。</em>
+            </h2>
+          </div>
+
+          <div class="contact-tail">
+            <p class="reveal" style="--delay:.08s">
+              这是一个还在加载中的人。接下来，我想把单片机做进真实的物件里，把 AI 变成好用的工具，把脑海里的世界做成可以玩的游戏；也想继续用镜头和文字，记录那些值得被记住的光。
+            </p>
+            <p class="reveal" style="--delay:.12s">
+              如果你想聊硬件、AI、游戏、影像，或者神话与道教文化，欢迎找到我。我们总会在某个有趣的地方相遇。
+            </p>
+            <div class="contact-actions reveal" style="--delay:.16s">
+              <button class="btn btn-solid magnetic" id="copyIdentity" type="button">
+                <span>复制身份卡</span>
+                <svg class="copy-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 10V3h7"/></svg>
+              </button>
+              <button class="btn btn-ghost magnetic" id="sharePage" type="button">
+                <span>分享此页</span>
+                <svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 12.8 12.8 3.2M5 3.2h7.8V11"/></svg>
+              </button>
             </div>
             <p class="contact-feedback" id="contactFeedback" aria-live="polite"></p>
           </div>
         </div>
 
-        <div class="contact-seal" data-reveal aria-hidden="true">
-          <div class="seal-ring"><span>孟</span></div>
-          <p>MENG ZIHAO · 2026<br>BUILT WITH CURIOSITY</p>
-          <span class="seal-dao">道</span>
-        </div>
-
-        <footer class="site-footer">
-          <div class="footer-top">
-            <a class="footer-brand" href="#top"><span class="brand-seal">孟</span><p>以好奇心为燃料，<br>以工程为方法。</p></a>
-            <nav class="footer-nav" aria-label="页脚导航">
-              <a href="#origin">原点 <span>ORIGIN</span></a><a href="#signals">志趣 <span>SIGNALS</span></a><a href="#dao">道器 <span>BETWEEN</span></a><a href="#pagoda">木塔 <span>PAGODA</span></a><a href="#explainers">题解 <span>EXPLAINERS</span></a><a href="#contact">电波 <span>CONTACT</span></a>
-            </nav>
-            <div class="footer-status"><span class="live-dot"></span><p>天津 · TIANJIN<br><span id="footerClock">--:--:--</span> CST</p></div>
+        <div class="contact-bottom reveal">
+          <div class="signal-seal" id="signalSeal" aria-hidden="true">
+            <span class="seal-ring seal-ring-1"></span>
+            <span class="seal-ring seal-ring-2"></span>
+            <span class="seal-core">孟</span>
+            <span class="seal-caption">MZ / 20</span>
           </div>
-          <div class="footer-bottom"><span>© 2026 孟子皓 · MENG ZIHAO</span><span>道生一，一生二，二生三，三生万物。</span><a href="#top">回到顶部 ↑</a></div>
-        </footer>
+          <div class="contact-meta">
+            <span>TJU · EAIE / FRESHMAN</span>
+            <span>20 YEARS OLD / TIANJIN, CN</span>
+            <span>BUILT WITH CURIOSITY</span>
+          </div>
+        </div>
       </div>
+
+      <footer class="site-footer">
+        <div class="footer-top page-pad">
+          <a href="#top" class="footer-brand" aria-label="回到顶部">
+            <span>孟</span>
+            <p>以好奇心为燃料，<br>以工程为方法。</p>
+          </a>
+          <nav class="footer-nav" aria-label="页脚导航">
+            <a href="#origin">原点 <span>ORIGIN</span></a>
+            <a href="#signals">志趣 <span>SIGNALS</span></a>
+            <a href="#dao">道器 <span>BETWEEN</span></a>
+            <a href="#pagoda">木塔 <span>PAGODA</span></a>
+            <a href="#explainers">题解 <span>EXPLAINERS</span></a>
+            <a href="#contact">电波 <span>CONTACT</span></a>
+            <a href="#top">序章 <span>TOP</span></a>
+          </nav>
+          <div class="footer-status">
+            <span class="live-dot"></span>
+            <p>天津 · TIANJIN<br><span id="footerClock">--:--:--</span> CST</p>
+          </div>
+        </div>
+        <div class="footer-bottom page-pad">
+          <span>© 2026 孟子皓 · MENG ZIHAO</span>
+          <span>用 HTML / CSS / JS 手工搭建 <i>✳</i></span>
+          <a href="#top" class="back-top">回到顶部 <span>↑</span></a>
+        </div>
+      </footer>
     </section>
   </main>
 
   <div class="modal" id="interestModal" aria-hidden="true">
-    <div class="modal-scrim" data-close-modal></div>
-    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" type="button" data-close-modal aria-label="关闭详情">关闭 <span>×</span></button>
-      <div class="modal-visual"><span id="modalIndex">01 / 08</span><span class="modal-glyph" id="modalGlyph">芯</span><span id="modalCategory">MAKE · 造物</span></div>
-      <div class="modal-body">
-        <p class="eyebrow" id="modalEyebrow">SIGNAL / 01</p>
-        <h2 id="modalTitle">单片机 <em id="modalEn">Embedded Systems</em></h2>
-        <p class="modal-desc" id="modalDesc"></p>
-        <div class="modal-grid"><div><h3>为什么被它吸引</h3><p id="modalWhy"></p></div><div><h3>接下来想做什么</h3><p id="modalNext"></p></div></div>
-        <div class="modal-tags" id="modalTags"></div>
-        <div class="modal-links" id="modalLinks"></div>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+      <button class="modal-close" id="modalClose" type="button" aria-label="关闭详情">
+        <span>CLOSE</span><kbd>ESC</kbd>
+      </button>
+      <div class="modal-visual" id="modalVisual">
+        <span class="modal-visual-index" id="modalIndex">01 / 08</span>
+        <span class="modal-visual-glyph" id="modalGlyph">芯</span>
+        <div class="modal-art" id="modalArt"></div>
+        <span class="modal-visual-mark">MZ · SIGNAL</span>
       </div>
-    </section>
+      <div class="modal-content">
+        <div class="modal-meta">
+          <span id="modalCategory">MAKE · 造物</span>
+          <span>COORDINATE / <b id="modalNumber">01</b></span>
+        </div>
+        <h2 id="modalTitle">单片机 <em>Embedded Systems</em></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-grid">
+          <div>
+            <span class="modal-label">吸引力 / WHY</span>
+            <p id="modalWhy"></p>
+          </div>
+          <div>
+            <span class="modal-label">正在靠近 / NEXT</span>
+            <p id="modalNext"></p>
+          </div>
+        </div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-links">
+          <span class="modal-label">相邻坐标 / NEXT SIGNAL</span>
+          <div id="modalLinks"></div>
+        </div>
+        <p class="modal-hint"><span>提示</span> 点击相邻坐标，可以继续探索。</p>
+      </div>
+    </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="project-viewer" id="projectViewer" aria-hidden="true">
+    <div class="project-viewer-backdrop" data-project-close></div>
+    <div class="project-viewer-panel" role="dialog" aria-modal="true" aria-labelledby="projectViewerTitle">
+      <header class="project-viewer-bar">
+        <div class="project-viewer-heading">
+          <span class="project-viewer-kicker" id="projectViewerKicker">3D ARCHIVE / LIVE</span>
+          <h2 class="project-viewer-title" id="projectViewerTitle">3D 项目</h2>
+        </div>
+        <div class="project-viewer-actions">
+          <a id="projectViewerOpen" href="pagoda/index.html" target="_blank" rel="noopener">独立打开 <span>↗</span></a>
+          <button class="project-viewer-close" type="button" data-project-close>关闭 <span>×</span></button>
+        </div>
+      </header>
+      <div class="project-viewer-stage">
+        <iframe id="projectViewerFrame" title="3D 项目交互展台" allow="fullscreen; autoplay" allowfullscreen loading="eager"></iframe>
+      </div>
+    </div>
+  </div>
 
   <noscript>
-    <div class="noscript">这个页面需要 JavaScript 才能打开互动八卦、兴趣详情和 3D 展厅。</div>
+    <style>
+      .loader { display: none !important; }
+      body.is-loading { overflow: auto !important; }
+      [data-hero], .reveal, .title-inner { opacity: 1 !important; transform: none !important; }
+      .site-header { opacity: 1 !important; transform: none !important; }
+      .scroll-progress { display: none; }
+    </style>
   </noscript>
 
   <script src="assets/explainers-data.js"></script>
   <script src="assets/main.js"></script>
+  <script src="assets/project-viewer.js"></script>
 </body>
 </html>
