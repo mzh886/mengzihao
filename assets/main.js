@@ -542,10 +542,136 @@
   }
 
   /* ---------------------------------------------------------
+     explainer series
+     --------------------------------------------------------- */
+
+  function initExplainers() {
+    const series = Array.isArray(window.EXPLAINER_SERIES) ? window.EXPLAINER_SERIES : [];
+    const published = series.filter(
+      (item) => item && item.href && item.status !== "soon"
+    );
+    if (!published.length) return;
+
+    const featured = published.find((item) => item.featured) || published[0];
+    const count = String(published.length).padStart(2, "0");
+    $$("[data-series-count]").forEach((element) => {
+      element.textContent = count;
+    });
+
+    const text = (element, value) => {
+      if (element && value !== undefined && value !== null) element.textContent = value;
+    };
+    const makeSpan = (className, value) => {
+      const span = document.createElement("span");
+      span.className = className;
+      if (value !== undefined && value !== null) span.textContent = value;
+      return span;
+    };
+
+    const feature = $("#featuredExplainer");
+    if (feature) {
+      feature.href = featured.href;
+      if (featured.title) feature.setAttribute("aria-label", `${featured.title} · 3D 讲解`);
+
+      text($("#featureEpisode"), `EP. ${String(featured.episode || "01").padStart(2, "0")}`);
+      text($("#featureMeta"), [featured.year, featured.exam].filter(Boolean).join(" "));
+      text($("#featureWatermark"), featured.episode || "01");
+
+      const title = $("#featureTitle");
+      if (title) {
+        title.innerHTML = "";
+        const titleLines =
+          Array.isArray(featured.titleLines) && featured.titleLines.length
+            ? featured.titleLines
+            : [featured.title || "3D 题解"];
+        titleLines.forEach((line, index) => {
+          if (index > 0) title.appendChild(document.createElement("br"));
+          const part = document.createElement(index === 0 ? "span" : "em");
+          part.textContent = line;
+          title.appendChild(part);
+        });
+      }
+
+      const summary = $("#featureSummary");
+      if (summary) {
+        summary.innerHTML = "";
+        const summaryLines =
+          Array.isArray(featured.summaryLines) && featured.summaryLines.length
+            ? featured.summaryLines
+            : [featured.summary || ""];
+        summaryLines.forEach((line) => {
+          const part = document.createElement("span");
+          part.textContent = line;
+          summary.appendChild(part);
+        });
+      }
+
+      const image = $("#featureImage");
+      if (image && featured.image) {
+        image.src = featured.image;
+        image.alt = `${featured.title || "3D 题解"} 场景`;
+      }
+
+      const specs = $("#featureSpecs");
+      if (specs) {
+        specs.innerHTML = "";
+        (featured.specs || []).forEach((spec) => {
+          const item = document.createElement("span");
+          const label = document.createElement("i");
+          label.textContent = spec.label || "";
+          const value = document.createElement("b");
+          value.textContent = spec.value || "";
+          item.replaceChildren(label, value);
+          specs.appendChild(item);
+        });
+      }
+
+      const tags = $("#featureTags");
+      if (tags) {
+        tags.innerHTML = "";
+        (featured.tags || []).forEach((tag) => tags.appendChild(makeSpan("", tag)));
+      }
+    }
+
+    const rows = $("#seriesRows");
+    if (rows) {
+      rows.innerHTML = "";
+      published.forEach((item) => {
+        const row = document.createElement("a");
+        row.className = "series-row";
+        if (item === featured) row.classList.add("is-active");
+        row.href = item.href;
+
+        row.appendChild(makeSpan("series-row-index", item.episode || ""));
+        const main = makeSpan("series-row-main");
+        main.appendChild(
+          makeSpan(
+            "series-row-kicker",
+            [item.year, item.exam].filter(Boolean).join(" · ")
+          )
+        );
+        main.appendChild(makeSpan("series-row-title", item.title || "3D 题解"));
+        row.appendChild(main);
+        row.appendChild(
+          makeSpan("series-row-tags", (item.tags || []).slice(0, 2).join(" / "))
+        );
+
+        const status = makeSpan("series-row-status");
+        status.appendChild(document.createElement("i"));
+        status.appendChild(document.createTextNode(item.status === "soon" ? "SOON" : "LIVE"));
+        row.appendChild(status);
+        row.appendChild(makeSpan("series-row-arrow", "↗"));
+        rows.appendChild(row);
+      });
+    }
+  }
+
+  /* ---------------------------------------------------------
      main page startup
      --------------------------------------------------------- */
 
   function startPage() {
+    initExplainers();
     initReveals();
     initCardEntrance();
     initNavObserver();
