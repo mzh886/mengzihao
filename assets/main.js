@@ -1,5 +1,5 @@
 /* =========================================================
-   MENG ZIHAO — interaction layer
+   QIANLI KUAIZAI FENG — interaction layer
    ========================================================= */
 
 (() => {
@@ -1016,7 +1016,7 @@
 
   const coreStates = [
     {
-      glyph: "孟",
+      glyph: "风",
       label: "造物者",
       en: "BUILDER",
       state: "01 / 03 · 造物者",
@@ -1572,7 +1572,7 @@
   }
 
   const identityText = [
-    "孟子皓 · MENG ZIHAO",
+    "千里快哉风 · QIANLI KUAIZAI FENG",
     "天津大学 · 电气自动化与信息工程学院 · 大一",
     "20 岁 · 天津",
     "单片机 / 人工智能 / 三维建模 / 独立游戏 / 视频剪辑 / 摄影 / 神话研究 / 道教文化",
@@ -1612,7 +1612,7 @@
   if (shareButton) {
     shareButton.addEventListener("click", async () => {
       const shareData = {
-        title: "孟子皓 · 造物与问道",
+        title: "千里快哉风 · 造物与问道",
         text: "在 0 与 1 之间，造物，也问道。",
         url: window.location.href,
       };

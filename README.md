@@ -1,6 +1,8 @@
-# 孟子皓 · 造物与问道
+# 千里快哉风 · 造物与问道
 
-一个关于孟子皓的单页个人主页。原生 HTML / CSS / JavaScript，无框架、无构建步骤、无外部依赖，也可以完全离线打开。
+![页面预览](preview.jpg)
+
+一个关于千里快哉风的单页个人主页。原生 HTML / CSS / JavaScript，无框架、无构建步骤、无外部依赖，也可以完全离线打开。
 
 ## 打开方式
 
@@ -40,7 +42,7 @@ assets/pagoda-feature.webp           首页木塔项目卡片图
 assets/pagoda-preview.webp           木塔 3D 页面分享图
 explainers/2026-shanxi-physics.html  首期 3D 题解的完整页面
 pagoda/                              应县木塔 3D 木构档案（独立页面）
-preview.jpg                          旧版页面预览图
+preview.jpg                          页面预览图
 FONT-LICENSE.txt                     Noto CJK 字体授权（SIL Open Font License 1.1）
 ```
 
